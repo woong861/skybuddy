@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>짝 배정서 — 서연고전 연애부</title>
-<meta property="og:title" content="서연고전 연애부 · 짝 배정서">
+<title>짝 배정서 — 스카이버디</title>
+<meta property="og:title" content="스카이버디 · 짝 배정서">
 <meta property="og:description" content="옆 학교 사람과 짝이 됐어요.">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
@@ -212,7 +212,7 @@ button{font-family:inherit;cursor:pointer;border:0}
 
       <div class="card" id="card">
         <div class="ch">
-          <div class="org">서연고전 연애부 · 제1회</div>
+          <div class="org">스카이버디 · 제1기</div>
           <h1>짝 배정서</h1>
           <div class="sub">아래 두 사람이 한 팀이 되었습니다</div>
           <div class="divi" id="divi">학교팅 · 1 : 1</div>
@@ -250,7 +250,7 @@ button{font-family:inherit;cursor:pointer;border:0}
 
         <div class="sign">
           <div class="d" id="issued"></div>
-          <div class="by">서연고전 연애부 운영진</div>
+          <div class="by">스카이버디 운영진</div>
           <div class="no" id="serial"></div>
         </div>
       </div>
@@ -291,7 +291,7 @@ button{font-family:inherit;cursor:pointer;border:0}
       </div>
     </div>
 
-    <div class="foot">서연고전 연애부는 연세대 · 고려대 · 서울대와<br>아무 관련이 없는 학생 자체 기획 이벤트입니다.</div>
+    <div class="foot">스카이버디는 연세대 · 고려대 · 서울대와<br>아무 관련이 없는 학생 자체 기획 이벤트입니다.</div>
   </div>
 
   <div class="bad" id="bad" style="display:none">
@@ -397,7 +397,7 @@ $('shareBtn').onclick = async () => {
   const b = await shot();
   const f = new File([b], 'seoyeongo-match.png', { type:'image/png' });
   if (navigator.canShare && navigator.canShare({ files:[f] })) {
-    try { await navigator.share({ files:[f], title:'서연고전 연애부 짝 배정서' }); return; } catch(e){}
+    try { await navigator.share({ files:[f], title:'스카이버디 짝 배정서' }); return; } catch(e){}
   }
   const a = document.createElement('a'); a.href = URL.createObjectURL(b); a.download = 'seoyeongo-match.png'; a.click();
   alert('이미지를 저장했어요. 스토리에 올려주세요!');
