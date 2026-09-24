@@ -177,6 +177,24 @@
 
   /* 한마디 전에는 매칭 버튼을 2차로 */
   .btn.soft2{background:transparent;border:1.5px solid rgba(255,255,255,.3);color:#fff;box-shadow:none}
+  /* 2파전 */
+  .crest.two{gap:10px}
+  .crest.two .c{padding:16px 6px 14px}
+  .crest.two .c svg{width:54px;height:54px}
+  .vs{padding:6px 0 2px}
+  .vsrow{display:flex;align-items:center;gap:6px}
+  .vscol{flex:1;text-align:center}
+  .vscol svg{width:50px;height:50px;display:block;margin:0 auto}
+  .vscol .nm2{font-size:13.5px;font-weight:800;margin-top:7px;letter-spacing:-.025em}
+  .vscol .nm2 small{display:block;font-size:10px;color:#B9A6B4;font-weight:800;margin-top:3px}
+  .vscol .ct2{font-size:30px;font-weight:800;letter-spacing:-.045em;margin-top:8px;color:var(--sc)}
+  .vsmid{flex:none;width:42px;text-align:center}
+  .vsmid b{font-size:14px;font-weight:800;color:#C4A5AF;letter-spacing:.04em}
+  .vsmid span{display:block;font-size:9.5px;color:#9A8593;font-weight:800;margin-top:4px}
+  .vsbar{display:flex;height:12px;border-radius:99px;overflow:hidden;margin-top:16px;background:rgba(255,255,255,.1)}
+  .vsbar i{display:block;height:100%;width:50%;transition:width .9s cubic-bezier(.22,1,.36,1)}
+  .vsgap{text-align:center;font-size:11.5px;color:#B9A6B4;font-weight:700;margin-top:12px}
+  .vsgap b{color:#fff}
   .hcta{margin-top:22px;position:relative}
 
   .sec{padding:34px 22px 0}
@@ -443,8 +461,7 @@
       <span class="dd" id="dday">시즌 마감</span>
     </div>
 
-    <div class="crest">
-      <div class="c" data-k="s"><svg><use href="#sts"/></svg><b>서울대</b><span>관악</span></div>
+    <div class="crest two">
       <div class="c" data-k="k"><svg><use href="#stk"/></svg><b>고려대</b><span>안암</span></div>
       <div class="c" data-k="y"><svg><use href="#sty"/></svg><b>연세대</b><span>신촌</span></div>
     </div>
@@ -473,8 +490,8 @@
     </div>
 
     <div class="board">
-      <div class="bt"><b>어느 학교가 제일 시끄러울까</b><span class="live"><i></i>LIVE</span></div>
-      <div id="board"></div>
+      <div class="bt"><b>실시간 응원 대결</b><span class="live"><i></i>LIVE</span></div>
+      <div class="vs" id="board"></div>
       <div class="bfoot">지금까지 남은 한마디 <b id="totalCouple">0</b>개</div>
     </div>
 
@@ -553,8 +570,6 @@ async function api(action, payload){
 })();
 
 const SCHOOL = {
-  s:{nm:'서울', full:'서울대', camp:'관악', sym:'#sts', c:'var(--snu-lt)',
-     g:'linear-gradient(90deg,#24457F,#5B84C8)', a1:'#3A6099', a2:'#7FA5D8'},
   k:{nm:'고려', full:'고려대', camp:'안암', sym:'#stk', c:'var(--kor-lt)',
      g:'linear-gradient(90deg,#D02840,#FF7E93)', a1:'#D02840', a2:'#FF8FA3'},
   y:{nm:'연세', full:'연세대', camp:'신촌', sym:'#sty', c:'var(--yon-lt)',
@@ -578,25 +593,38 @@ function applyTheme(k){
 document.querySelectorAll('.crest .c').forEach(c=>c.onclick=()=>applyTheme(c.dataset.k));
 
 function cheerCounts(){
-  const c = { y:0, k:0, s:0 };
+  const c = { y:0, k:0 };
   Object.keys(CHEERS || {}).forEach(ev=>(CHEERS[ev]||[]).forEach(x=>{ if (c[x.k] !== undefined) c[x.k]++; }));
   return c;
 }
 function renderBoard(){
   const st = cheerCounts();
-  const arr = ['k','y','s'].map(k=>Object.assign({key:k, v:st[k]}, SCHOOL[k])).sort((a,b)=>b.v-a.v);
-  const max = Math.max(1, arr[0].v);
-  $('board').innerHTML = arr.map((x,i)=>
-    '<div class="row'+(i===0?' lead':'')+(x.key===MYKEY?' mine':'')+'" data-k="'+x.key+'">'+
-      '<span class="rk">'+(i+1)+'</span>'+
-      '<svg><use href="'+x.sym+'"/></svg>'+
-      '<span class="nm">'+x.nm+(x.key===MYKEY?'<small>우리 학교</small>':'')+'</span>'+
-      '<span class="bar"><i data-w="'+Math.round(x.v/max*100)+'"></i></span>'+
-      '<span class="ct">'+x.v+'</span></div>').join('');
-  $('totalCouple').textContent = arr.reduce((a,b)=>a+b.v,0);
-  if ($('leadName')) $('leadName').textContent = arr[0].full;
-  LAST = {nm:arr[arr.length-1].nm, camp:arr[arr.length-1].camp};
-  requestAnimationFrame(()=>document.querySelectorAll('#board .bar i').forEach(i=>i.style.width=i.dataset.w+'%'));
+  const K = Object.assign({ v: st.k }, SCHOOL.k);
+  const Y = Object.assign({ v: st.y }, SCHOOL.y);
+  const tot = K.v + Y.v;
+  const kp = tot ? K.v / tot * 100 : 50;
+
+  $('board').innerHTML =
+    '<div class="vsrow">' +
+      '<div class="vscol' + (K.v >= Y.v ? ' win' : '') + '" style="--sc:' + K.c + '">' +
+        '<svg><use href="' + K.sym + '"/></svg>' +
+        '<div class="nm2">고려대<small>' + (MYKEY === 'k' ? '우리 학교' : '안암') + '</small></div>' +
+        '<div class="ct2">' + K.v + '</div></div>' +
+      '<div class="vsmid"><b>VS</b><span>한마디</span></div>' +
+      '<div class="vscol' + (Y.v >= K.v ? ' win' : '') + '" style="--sc:' + Y.c + '">' +
+        '<svg><use href="' + Y.sym + '"/></svg>' +
+        '<div class="nm2">연세대<small>' + (MYKEY === 'y' ? '우리 학교' : '신촌') + '</small></div>' +
+        '<div class="ct2">' + Y.v + '</div></div>' +
+    '</div>' +
+    '<div class="vsbar"><i data-w="' + kp + '" style="background:linear-gradient(90deg,#D02840,#FF7E93)"></i>' +
+    '<i data-w="' + (100 - kp) + '" style="background:linear-gradient(90deg,#8FB0FF,#2E5BD8)"></i></div>' +
+    '<div class="vsgap">' + (K.v === Y.v
+      ? '지금 <b>동점</b>이에요'
+      : '<b>' + (K.v > Y.v ? '고려대' : '연세대') + '</b>가 ' + Math.abs(K.v - Y.v) + '개 앞서는 중') + '</div>';
+
+  $('totalCouple').textContent = tot;
+  LAST = (K.v <= Y.v) ? { nm:'고려', camp:'안암' } : { nm:'연세', camp:'신촌' };
+  requestAnimationFrame(()=>document.querySelectorAll('#board .vsbar i').forEach(i=>i.style.width = i.dataset.w + '%'));
 }
 
 function loadBoard(){ renderBoard(); }
@@ -606,19 +634,17 @@ function loadBoard(){ renderBoard(); }
 // 학교마다 부르는 이름이 다릅니다 (고려=고연전, 연세=연고전)
 const EV_LABEL = {
   goyeon:    { k:'고연전', y:'연고전', _:'고연전 · 연고전' },
-  daedong:   { _:'관악 대동제' },
   akaraka:   { _:'아카라카' },
   ipselenti: { _:'입실렌티' },
 };
 // 히어로에 띄울 행사 — 서울대는 고연전과 무관하므로 대동제
-const HERO_EV   = { k:'goyeon', y:'goyeon', s:'daedong' };
-const HERO_NOUN = { goyeon:{ k:'고연전', y:'연고전', _:'고연전' }, daedong:{ _:'대동제' },
+const HERO_EV   = { k:'goyeon', y:'goyeon' };
+const HERO_NOUN = { goyeon:{ k:'고연전', y:'연고전', _:'고연전' },
                     akaraka:{ _:'아카라카' }, ipselenti:{ _:'입실렌티' } };
 function evName(id, k){ const m = EV_LABEL[id] || {}; return m[k] || m._ || id; }
 
 const EVENTS = [
   { id:'goyeon', nm:'고연전 / 연고전', who:'연세 × 고려', ic:'🏟', date:'2026-10-02', tint:'#FFF0F3' },
-  { id:'daedong', nm:'관악 대동제',   who:'서울대',      ic:'🎪', date:'2026-10-14', tint:'#EEF3FD' },
   { id:'akaraka', nm:'아카라카',       who:'연세대',      ic:'🎤', date:'2026-10-23', tint:'#EDF2FF' },
   { id:'ipselenti', nm:'입실렌티',     who:'고려대',      ic:'🔥', date:'2026-10-30', tint:'#FFF0F3' },
 ];
@@ -654,7 +680,6 @@ const MOCK_CHEERS = {
     {k:'y',t:'과잠 꺼내놨음',ts:Date.now()-1000*60*60*11},
     {k:'k',t:'야구는 진짜 양보 못함',ts:Date.now()-1000*60*60*14},
     {k:'y',t:'동기들 다 약속 있어서 혼자 갈 뻔했다',ts:Date.now()-1000*60*60*17},
-    {k:'s',t:'서울대인데 구경 가도 되나요',ts:Date.now()-1000*60*60*20},
     {k:'k',t:'작년에 울었는데 올해는 안 운다',ts:Date.now()-1000*60*60*26},
     {k:'y',t:'아카라카 때보다 더 떨림',ts:Date.now()-1000*60*60*31},
     {k:'k',t:'신촌 쪽 안 가고 안암에서 볼 사람',ts:Date.now()-1000*60*60*38},
@@ -662,24 +687,12 @@ const MOCK_CHEERS = {
     {k:'k',t:'응원단 보러 가는 거 맞음',ts:Date.now()-1000*60*60*52},
     {k:'y',t:'이번엔 진짜 다르다니까',ts:Date.now()-1000*60*60*60}
   ],
-  daedong:[
-    {k:'s',t:'대동제 라인업 언제 나오냐',ts:Date.now()-1000*60*60*4},
-    {k:'s',t:'1학년인데 처음이라 뭐 하는지 모름',ts:Date.now()-1000*60*60*7},
-    {k:'s',t:'작년에 못 가서 올해는 무조건 간다',ts:Date.now()-1000*60*60*12},
-    {k:'s',t:'같이 갈 사람 없어서 눈팅만 하는 중',ts:Date.now()-1000*60*60*16},
-    {k:'s',t:'관악 축제 은근 잘함',ts:Date.now()-1000*60*60*23},
-    {k:'k',t:'고대생인데 놀러 가도 되나요',ts:Date.now()-1000*60*60*29},
-    {k:'s',t:'이번엔 끝까지 남아있을 거임',ts:Date.now()-1000*60*60*35},
-    {k:'y',t:'관악 가본 적 없는데 궁금하다',ts:Date.now()-1000*60*60*41},
-    {k:'s',t:'날씨만 좋으면 됨',ts:Date.now()-1000*60*60*48}
-  ],
   akaraka:[
     {k:'y',t:'티켓팅 성공했다',ts:Date.now()-1000*60*60*8},
     {k:'y',t:'올해 라인업 기대 중',ts:Date.now()-1000*60*60*15},
     {k:'y',t:'작년 그 무대 아직도 생각남',ts:Date.now()-1000*60*60*22},
     {k:'k',t:'고대생도 갈 수 있나요 궁금',ts:Date.now()-1000*60*60*33},
     {k:'y',t:'신촌 다 터지겠다',ts:Date.now()-1000*60*60*46},
-    {k:'s',t:'아카라카 한 번은 가보고 싶음',ts:Date.now()-1000*60*60*55}
   ],
   ipselenti:[
     {k:'k',t:'입실렌티가 진짜 축제지',ts:Date.now()-1000*60*60*10},
@@ -687,7 +700,6 @@ const MOCK_CHEERS = {
     {k:'k',t:'안암 전체가 시끄러움',ts:Date.now()-1000*60*60*27},
     {k:'y',t:'연대생인데 입실렌티 궁금하긴 함',ts:Date.now()-1000*60*60*37},
     {k:'k',t:'작년보다 일찍 자리 잡아야지',ts:Date.now()-1000*60*60*50},
-    {k:'s',t:'이런 거 부럽다 진짜',ts:Date.now()-1000*60*60*58}
   ],
 };
 async function loadCheers(){
@@ -710,7 +722,7 @@ function renderEvents(){
   const open = [...document.querySelectorAll('.evc[open]')].map(d=>d.dataset.id);
   const list = EVENTS.slice().sort((a,b)=> new Date(a.date) - new Date(b.date));
   $('evlist').innerHTML = list.map(ev=>{
-    const cs = (CHEERS[ev.id]||[]);
+    const cs = (CHEERS[ev.id]||[]).filter(c=>c.k==='k'||c.k==='y');
     const d = dday(ev.date);
     const body = cs.length
       ? cs.slice(0,6).map(c=>{
@@ -825,7 +837,7 @@ function renderHeroCheer(){
     ? SCHOOL[MYKEY].nm + '대로 올라갑니다 · 최대 ' + CHEER_MAX + '자'
     : '위에서 우리 학교를 먼저 눌러주세요';
 
-  const cs = (CHEERS[HERO_EVID] || []).slice(0, 3);
+  const cs = (CHEERS[HERO_EVID] || []).filter(c=>c.k==='k'||c.k==='y').slice(0, 3);
   $('hcRecent').innerHTML = cs.map(c=>{
     const sc = SCHOOL[c.k] || { nm:'?', c:'#999' };
     return '<div class="rc"><span class="bg2" style="background:'+sc.c+'">'+sc.nm+'</span>'+
