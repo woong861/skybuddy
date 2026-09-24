@@ -8,6 +8,7 @@
 <meta property="og:title" content="고연전 · 연고전 응원방">
 <meta property="og:description" content="한마디 남기고, 누가 이길지 찍고 가세요. 혼자 가기 아쉬우면 같이 갈 사람도 구할 수 있어요.">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
 <style>
   :root{
     --yon:#2E5BD8; --kor:#D02840; --snu:#24457F;
@@ -244,6 +245,35 @@
   .sp-bar{display:flex;height:5px;border-radius:99px;overflow:hidden;background:var(--line);margin-top:9px}
   .sp-bar i{display:block;transition:width .5s ease}
   .sp-foot{padding:12px 16px;font-size:11.5px;font-weight:700;color:var(--sub);text-align:center;background:var(--bg)}
+  .predbtn{width:100%;margin-top:11px;padding:14px;border-radius:13px;font-size:14.5px;font-weight:800;
+    background:var(--ink);color:#fff;letter-spacing:-.02em}
+  .predbtn:disabled{background:var(--line);color:#B6B0C4}
+
+  /* 공유 이미지 — 화면에는 안 보이고 캡처만 합니다 */
+  .pcard-wrap{position:fixed;left:-9999px;top:0;width:540px;pointer-events:none}
+  .pcard{width:540px;padding:46px 42px 38px;box-sizing:border-box;
+    background:linear-gradient(168deg,#2E1A38 0%,#43192C 56%,#221530 100%);color:#fff;
+    font-family:inherit;border-radius:0}
+  .pc-hd{text-align:center;padding-bottom:26px;border-bottom:1px solid rgba(255,255,255,.16)}
+  .pc-tag{display:inline-block;font-size:15px;font-weight:800;color:#FFC2CE;letter-spacing:-.02em;
+    background:rgba(255,139,163,.16);padding:8px 16px;border-radius:99px}
+  .pc-ttl{font-size:42px;font-weight:900;letter-spacing:-.045em;margin-top:18px;line-height:1.15}
+  .pc-rows{margin-top:10px}
+  .pc-row{display:flex;align-items:center;gap:14px;padding:19px 2px;
+    border-bottom:1px solid rgba(255,255,255,.1)}
+  .pc-row:last-child{border-bottom:0}
+  .pc-ic{font-size:26px;width:34px;flex:none;text-align:center}
+  .pc-nm{font-size:23px;font-weight:800;letter-spacing:-.03em;flex:1}
+  .pc-dt{font-size:14px;font-weight:700;color:rgba(255,255,255,.45);margin-right:4px}
+  .pc-pick{font-size:19px;font-weight:900;letter-spacing:-.03em;padding:8px 16px;border-radius:10px;flex:none}
+  .pc-pick.k{background:rgba(255,139,163,.2);color:#FFB3C1}
+  .pc-pick.y{background:rgba(143,176,255,.2);color:#A9C2FF}
+  .pc-sum{margin-top:24px;padding:20px;border-radius:16px;background:rgba(255,255,255,.08);
+    text-align:center;font-size:22px;font-weight:900;letter-spacing:-.035em;line-height:1.5}
+  .pc-sum b{color:#FFC2CE}
+  .pc-ft{margin-top:26px;display:flex;flex-direction:column;gap:7px;align-items:center}
+  .pc-ft span{font-size:15px;font-weight:700;color:rgba(255,255,255,.5)}
+  .pc-ft b{font-size:16px;font-weight:800;color:#FFC2CE;letter-spacing:-.01em}
 
   /* ===== 베스트 응원 ===== */
   .best-card{margin-top:18px;border:1.5px solid #F0D8DE;border-radius:20px;background:#FFFCFD;padding:16px}
@@ -614,6 +644,22 @@
       <div id="spRows"></div>
       <div class="sp-foot" id="spFoot">아직 아무도 예측하지 않았어요</div>
     </div>
+
+    <button class="predbtn" id="predBtn" disabled>5개 다 찍으면 이미지가 나와요 · 0/5</button>
+
+    <!-- 공유 이미지용 (화면 밖에서 캡처합니다) -->
+    <div class="pcard-wrap"><div class="pcard" id="pcard">
+      <div class="pc-hd">
+        <div class="pc-tag">2026 고연전 · 연고전</div>
+        <div class="pc-ttl">나의 승부 예측</div>
+      </div>
+      <div class="pc-rows" id="pcRows"></div>
+      <div class="pc-sum" id="pcSum"></div>
+      <div class="pc-ft">
+        <span>내 예측은 몇 개 맞을까</span>
+        <b>woong861.github.io/skybuddy</b>
+      </div>
+    </div></div>
   </div>
 
   <div class="sec">
@@ -1089,7 +1135,63 @@ function renderSportRows(){
 
   const n = (PRED && PRED.voters) || 0;
   $('spFoot').innerHTML = n ? '<b>'+n+'명</b>이 예측했어요' : '아직 아무도 예측하지 않았어요';
+  syncPredBtn();
 }
+
+/* ====== 예측 결과 공유 이미지 ====== */
+function syncPredBtn(){
+  const b = $('predBtn'); if (!b) return;
+  const picks = myPicks();
+  const n = SPORTS.filter(sp=>picks[sp.id]).length;
+  const done = n === SPORTS.length;
+  b.disabled = !done;
+  b.textContent = done ? '내 예측 이미지로 저장하기'
+                       : '5개 다 찍으면 이미지가 나와요 · ' + n + '/5';
+}
+
+function fillPredCard(){
+  const picks = myPicks();
+  $('pcRows').innerHTML = SPORTS.map(sp=>{
+    const k = picks[sp.id];
+    return '<div class="pc-row"><span class="pc-ic">'+sp.ic+'</span>'+
+      '<span class="pc-nm">'+sp.nm+'</span>'+
+      '<span class="pc-dt">'+fmtDate(sp.date)+'</span>'+
+      '<span class="pc-pick '+k+'">'+SCHOOL[k].full+'</span></div>';
+  }).join('');
+
+  let ck = 0; SPORTS.forEach(sp=>{ if (picks[sp.id]==='k') ck++; });
+  const cy = SPORTS.length - ck;
+  const win = ck === cy ? null : (ck > cy ? 'k' : 'y');
+  $('pcSum').innerHTML = win
+    ? '<b>'+SCHOOL[win].full+'</b>가 '+Math.max(ck,cy)+' : '+Math.min(ck,cy)+'으로 이긴다'
+    : '이번엔 <b>'+ck+' : '+cy+'</b>, 딱 반반이다';
+}
+
+async function shotPred(){
+  fillPredCard();
+  const c = await html2canvas($('pcard'), { scale: 2, backgroundColor: null, useCORS: true });
+  return new Promise(r => c.toBlob(r, 'image/png'));
+}
+
+if ($('predBtn')) $('predBtn').onclick = async ()=>{
+  const b = $('predBtn'); const was = b.textContent;
+  b.disabled = true; b.textContent = '만드는 중';
+  try {
+    const blob = await shotPred();
+    const f = new File([blob], 'goyeon-pred.png', { type:'image/png' });
+    if (navigator.canShare && navigator.canShare({ files:[f] })) {
+      try { await navigator.share({ files:[f], title:'나의 고연전 예측' }); return; } catch(e){}
+    }
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob); a.download = 'goyeon-pred.png'; a.click();
+    alert('이미지를 저장했어요. 스토리에 올려주세요!');
+  } catch(e){
+    alert('이미지를 만들지 못했어요. 잠시 후 다시 시도해주세요');
+  } finally {
+    b.disabled = false; b.textContent = was;
+    syncPredBtn();
+  }
+};
 
 async function predict(sp, pick){
   const picks = myPicks();
