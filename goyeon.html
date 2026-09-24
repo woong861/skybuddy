@@ -220,6 +220,76 @@
     letter-spacing:-.02em;background:var(--rose);color:#fff}
   .wbtn:disabled{background:var(--line);color:#B6B0C4}
 
+
+  /* ===== 종목별 대결 + 승부 예측 ===== */
+  .sp-card{margin-top:18px;border:1.5px solid var(--line);border-radius:20px;background:#fff;overflow:hidden}
+  .sp-hd{padding:15px 16px 13px;border-bottom:1px solid var(--line)}
+  .sp-hd > b{font-size:15px;font-weight:900;letter-spacing:-.03em;display:block}
+  .sp-hd span{font-size:11.5px;color:var(--sub);font-weight:700;display:block;margin-top:4px}
+  .sp-row{padding:13px 16px;border-bottom:1px solid var(--line)}
+  .sp-row:last-child{border-bottom:0}
+  .sp-top{display:flex;align-items:center;gap:8px}
+  .sp-ic{font-size:15px;flex:none}
+  .sp-nm{font-size:13.5px;font-weight:900;letter-spacing:-.02em}
+  .sp-cheer{margin-left:auto;font-size:11px;font-weight:800;color:#B6B0C4}
+  .sp-cheer b{color:var(--sub)}
+  .sp-picks{display:flex;gap:7px;margin-top:10px}
+  .sp-pk{flex:1;padding:9px 6px;border-radius:11px;border:1.5px solid var(--line);background:#fff;
+    font-size:12px;font-weight:800;color:var(--sub);cursor:pointer;display:flex;
+    align-items:center;justify-content:center;gap:5px;transition:.15s}
+  .sp-pk .pc{font-size:11px;font-weight:900;opacity:.75}
+  .sp-pk[data-k="k"].on{border-color:#F3B9C5;background:#FFF1F4;color:#B31F36}
+  .sp-pk[data-k="y"].on{border-color:#AFC4FF;background:#EEF3FF;color:#1E44A8}
+  .sp-bar{display:flex;height:5px;border-radius:99px;overflow:hidden;background:var(--line);margin-top:9px}
+  .sp-bar i{display:block;transition:width .5s ease}
+  .sp-foot{padding:12px 16px;font-size:11.5px;font-weight:700;color:var(--sub);text-align:center;background:var(--bg)}
+
+  /* ===== 베스트 응원 ===== */
+  .best-card{margin-top:18px;border:1.5px solid #F0D8DE;border-radius:20px;background:#FFFCFD;padding:16px}
+  .best-hd > b{font-size:15px;font-weight:900;letter-spacing:-.03em;display:block}
+  .best-hd span{font-size:11.5px;color:var(--sub);font-weight:700;display:block;margin-top:4px;line-height:1.7}
+  .best-hd span b{font-weight:900;color:var(--rose-d)}
+  .best-list{margin-top:13px;display:flex;flex-direction:column;gap:9px}
+  .best-it{border:1.5px solid var(--line);border-radius:14px;background:#fff;padding:12px 13px}
+  .best-it .bt2{display:flex;align-items:center;gap:7px}
+  .best-it .bbadge{font-size:10px;font-weight:800;color:#fff;padding:3px 8px;border-radius:6px}
+  .best-it .blike{margin-left:auto;font-size:11.5px;font-weight:900;color:var(--rose-d);
+    display:inline-flex;align-items:center;gap:4px}
+  .best-it .blike svg{width:11px;height:11px;color:var(--rose)}
+  .best-it p{font-size:13.5px;font-weight:700;line-height:1.7;margin-top:8px;word-break:break-word}
+  .best-none{font-size:12.5px;color:var(--sub);font-weight:600;text-align:center;padding:14px 0}
+  .claim{width:100%;margin-top:9px;padding:10px;border-radius:11px;font-size:12.5px;font-weight:800;
+    background:var(--rose);color:#fff}
+  .claim:disabled{background:var(--line);color:#B6B0C4}
+  .claim-box{margin-top:9px;display:flex;gap:7px}
+  .claim-box input{flex:1;min-width:0;border:1.5px solid var(--line);border-radius:11px;padding:10px 12px;
+    font-family:inherit;font-size:13px;font-weight:600;outline:none;background:#fff}
+  .claim-box button{padding:10px 14px;border-radius:11px;background:var(--rose);color:#fff;
+    font-size:12.5px;font-weight:800;flex:none}
+  .claim-ok{margin-top:9px;font-size:12px;font-weight:800;color:#1E7A4B;background:#EAF7F0;
+    border-radius:10px;padding:10px 12px;line-height:1.6}
+
+  /* ===== 글쓰기 옵션 ===== */
+  .wopt{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:11px}
+  .wchip{padding:7px 11px;border-radius:99px;border:1.5px solid var(--line);background:#fff;
+    font-size:11.5px;font-weight:800;color:var(--sub);cursor:pointer;transition:.15s}
+  .wchip.on{border-color:var(--rose);background:var(--rose-s);color:var(--rose-d)}
+  .wchip:disabled{opacity:.45;cursor:default}
+  .wmate{display:flex;align-items:center;gap:8px;margin-top:11px;padding-top:11px;
+    border-top:1px solid var(--line);cursor:pointer}
+  .wmate input{width:17px;height:17px;flex:none;accent-color:var(--rose)}
+  .wmate span{font-size:12.5px;font-weight:800;color:var(--ink2)}
+  .wmate small{font-size:11px;color:var(--sub);font-weight:700;display:block;margin-top:2px}
+
+  /* ===== 피드 필터 ===== */
+  .ffilter{display:flex;gap:6px;overflow-x:auto;margin-top:16px;padding-bottom:3px;-webkit-overflow-scrolling:touch}
+  .ffilter::-webkit-scrollbar{display:none}
+  .fchip{flex:none;padding:8px 13px;border-radius:99px;border:1.5px solid var(--line);background:#fff;
+    font-size:12px;font-weight:800;color:var(--sub);cursor:pointer;white-space:nowrap}
+  .fchip.on{border-color:var(--ink);background:var(--ink);color:#fff}
+  .ptags{display:flex;gap:5px;margin-left:auto}
+  .ptag{font-size:10px;font-weight:800;padding:3px 7px;border-radius:6px;background:var(--bg);color:var(--sub)}
+  .ptag.mate{background:#EAF7F0;color:#1E7A4B}
   .feed{margin-top:14px;display:flex;flex-direction:column;gap:9px}
   .post{border:1.5px solid var(--line);border-radius:16px;background:#fff;padding:14px 15px}
   .post.mine{border-color:#F0D8DE;background:#FFFCFD}
@@ -522,21 +592,48 @@
   </div>
 
   <div class="sec">
+    <div class="stag">MATCH</div>
+    <h2>종목별 응원 대결</h2>
+    <div class="lead">어느 종목이 제일 뜨거운지, 그리고 누가 이길지.</div>
+
+    <div class="sp-card">
+      <div class="sp-hd"><b>누가 이길까요?</b><span>종목마다 한 번씩 찍을 수 있어요. 언제든 바꿔도 됩니다.</span></div>
+      <div id="spRows"></div>
+      <div class="sp-foot" id="spFoot">아직 아무도 예측하지 않았어요</div>
+    </div>
+  </div>
+
+  <div class="sec">
     <div class="stag">BOARD</div>
     <h2 id="boardTitle">고연전 응원방</h2>
     <div class="lead">아무 말이나 남겨도 됩니다. 두 학교 사람들이 다 봐요.</div>
 
     <div class="writer" id="writer">
+      <div class="wopt" id="wopt"></div>
       <textarea id="pwText" maxlength="150" placeholder="예: 올해는 진짜 이긴다"></textarea>
       <div class="wbot">
         <span class="wnote" id="pwNote">위에서 우리 학교를 먼저 눌러주세요</span>
         <span class="wcnt"><b id="pwLen">0</b>/150</span>
       </div>
+      <label class="wmate">
+        <input type="checkbox" id="pwMate">
+        <span>같이 갈 사람 구해요<small>이 표시가 붙은 글만 따로 모아 볼 수 있어요</small></span>
+      </label>
       <button class="wbtn" id="pwBtn" disabled>올리기</button>
     </div>
 
+    <div class="ffilter" id="ffilter"></div>
     <div class="feed" id="feed"></div>
     <button class="morebtn" id="moreBtn" style="display:none">더보기</button>
+
+    <div class="best-card">
+      <div class="best-hd">
+        <b>이번 주 베스트 응원</b>
+        <span>학교별로 하트를 가장 많이 받은 글 하나씩, <b>커피 기프티콘</b>을 드립니다.<br>
+        발표는 고연전 전날. 내 글이 뽑히면 아래 버튼이 열려요.</span>
+      </div>
+      <div class="best-list" id="bestList"></div>
+    </div>
   </div>
 
   <div class="sec">
@@ -696,9 +793,27 @@ function ago(ts){
 }
 
 
+// ====== 종목 ======
+const SPORTS = [
+  { id:'base', nm:'야구',      ic:'⚾' },
+  { id:'bask', nm:'농구',      ic:'🏀' },
+  { id:'rug',  nm:'럭비',      ic:'🏉' },
+  { id:'ice',  nm:'아이스하키', ic:'🏒' },
+  { id:'soc',  nm:'축구',      ic:'⚽' },
+];
+const SPORT_NM = {}; SPORTS.forEach(x=>SPORT_NM[x.id]=x.nm);
+
 // ====== 응원방 게시판 ======
 const POST_MAX = 150;
 let POSTS = [], POST_TOTAL = 0, POST_MORE = false, POST_COUNTS = { k:0, y:0 };
+let POST_SPORTS = {}, POST_WANTED = 0;
+let FILTER = { sp:'', wm:0 };          // 피드 필터
+let WSPORT = '';                       // 글쓰기 종목
+let PRED = null;                       // 예측 집계
+function myPicks(){ try { return JSON.parse(localStorage.getItem('syg_pred')||'{}'); } catch(e){ return {}; } }
+function savePicks(o){ try { localStorage.setItem('syg_pred', JSON.stringify(o)); } catch(e){} }
+function minePosts(){ try { return JSON.parse(localStorage.getItem('syg_mine')||'[]'); } catch(e){ return []; } }
+function addMine(id){ const a = minePosts(); a.push(id); try { localStorage.setItem('syg_mine', JSON.stringify(a.slice(-50))); } catch(e){} }
 
 function devId(){
   let d = null;
@@ -709,6 +824,31 @@ function devId(){
 function likedSet(){ try { return new Set(JSON.parse(localStorage.getItem('syg_liked')||'[]')); } catch(e){ return new Set(); } }
 function saveLiked(set){ try { localStorage.setItem('syg_liked', JSON.stringify([...set])); } catch(e){} }
 
+const MOCK_SP = {
+  '올해는 진짜 이긴다 제발 작년 생각하면 아직도 속 쓰림':'base',
+  '야구는 진짜 양보 못한다 다른 종목은 몰라도':'base',
+  '이번엔 진짜 다르다니까 분위기가 달라요':'base',
+  '표 드디어 구했다 한 달을 기다렸네':'base',
+  '작년에 울었는데 올해는 안 운다 진짜로':'bask',
+  '작년 그 분위기 잊을 수가 없어서 올해도 간다':'bask',
+  '전날 잠 안 올 것 같은데 나만 이런가':'bask',
+  '4학년이라 이번이 진짜 마지막이다 후회 없이 소리지른다':'rug',
+  '비 오면 어떻게 되나요 우산 챙겨야 하나':'rug',
+  '과 사람들이랑 단체로 가는데 자리 어디가 좋나요':'rug',
+  '아카라카 때보다 더 떨리는 건 나만 그런가':'ice',
+  '응원가 아직 다 못 외웠는데 괜찮겠지':'ice',
+  '목캔디 필수인가요 작년에 안 챙겨서 고생했다는 말 들음':'ice',
+  '과잠 꺼내놨음 이제 날씨만 도와주면 됨':'soc',
+  '아침부터 목 풀고 갑니다 오늘 다 쉬어버릴 예정':'soc',
+  '솔직히 이기든 지든 재밌으면 됐다고 생각함':'soc',
+  '응원단 보러 가는 거 맞습니다 경기는 부수적':'soc',
+};
+const MOCK_WM = ['동기들 다 약속 있다고 해서 혼자 갈 뻔했는데 여기 있어서 다행',
+                 '신촌 쪽 안 가고 안암에서 볼 사람 있나요',
+                 '끝나고 신촌에서 볼 사람 구합니다'];
+const MOCK_PRED = { ok:true, voters:37,
+  pred:{ base:{k:21,y:16}, bask:{k:14,y:23}, rug:{k:19,y:18},
+         ice:{k:11,y:26}, soc:{k:20,y:17} } };
 const MOCK_POSTS = [
   ['k','올해는 진짜 이긴다 제발 작년 생각하면 아직도 속 쓰림',2],
   ['y','고연전 아니고 연고전인데요 매번 말하지만',3],
@@ -734,38 +874,55 @@ const MOCK_POSTS = [
   ['k','전날 잠 안 올 것 같은데 나만 이런가',55],
   ['y','이번엔 진짜 다르다니까 분위기가 달라요',60],
   ['y','끝나고 신촌에서 볼 사람 구합니다',63],
-].map((p,i)=>({ id:'m'+i, k:p[0], t:p[1], ts:Date.now()-p[2]*3600*1000, likes:(i*5)%14 }));
+].map((p,i)=>({ id:'m'+i, k:p[0], t:p[1], ts:Date.now()-p[2]*3600*1000, likes:(i*5)%14,
+                sp:MOCK_SP[p[1]] || '', wm:MOCK_WM.indexOf(p[1])>=0 ? 1 : 0 }));
 
 function mockPage(offset){
   const all = MOCK_POSTS.slice().sort((a,b)=>b.ts-a.ts);
-  const counts = { k:0, y:0 };
-  all.forEach(p=>counts[p.k]++);
-  return { ok:true, posts: all.slice(offset, offset+20), total: all.length,
-           more: offset+20 < all.length, counts };
+  const counts = { k:0, y:0 }, sports = {};
+  SPORTS.forEach(sp=>sports[sp.id] = { k:0, y:0 });
+  let wanted = 0;
+  all.forEach(p=>{
+    counts[p.k]++;
+    if (sports[p.sp]) sports[p.sp][p.k]++;
+    if (p.wm) wanted++;
+  });
+  const list = all.filter(p=>(!FILTER.sp || p.sp === FILTER.sp) && (!FILTER.wm || p.wm));
+  return { ok:true, posts: list.slice(offset, offset+20), total: list.length,
+           more: offset+20 < list.length, counts, sports, wanted };
 }
 
 async function loadPosts(offset){
   offset = offset || 0;
   let r;
+  const q = { offset };
+  if (FILTER.sp) q.sp = FILTER.sp;
+  if (FILTER.wm) q.wm = 1;
   if (MOCK) { await new Promise(x=>setTimeout(x,250)); r = mockPage(offset); }
-  else { try { r = await api('skyPostList', { offset }); } catch(e){ r = null; } }
+  else { try { r = await api('skyPostList', q); } catch(e){ r = null; } }
   if (!r || !r.ok) { if (!offset) $('feed').innerHTML = '<div class="feed-empty">글을 불러오지 못했어요.<br>잠시 후 새로고침해주세요</div>'; return; }
   POSTS = offset ? POSTS.concat(r.posts) : r.posts;
   POST_TOTAL = r.total; POST_MORE = r.more; POST_COUNTS = r.counts || POST_COUNTS;
-  renderFeed(); renderBoard();
+  POST_SPORTS = r.sports || POST_SPORTS; POST_WANTED = r.wanted || 0;
+  renderFeed(); renderBoard(); renderFilter(); renderSportRows();
 }
 
 function renderFeed(){
   const liked = likedSet();
   if (!POSTS.length) {
-    $('feed').innerHTML = '<div class="feed-empty">아직 글이 없어요.<br>첫 번째로 남겨보세요</div>';
+    $('feed').innerHTML = (FILTER.sp || FILTER.wm)
+      ? '<div class="feed-empty">여기엔 아직 글이 없어요.<br>첫 번째로 남겨보세요</div>'
+      : '<div class="feed-empty">아직 글이 없어요.<br>첫 번째로 남겨보세요</div>';
   } else {
     $('feed').innerHTML = POSTS.map(p=>{
       const sc = SCHOOL[p.k]; if (!sc) return '';
       const on = liked.has(p.id);
+      const tags = (p.wm ? '<span class="ptag mate">같이 가요</span>' : '') +
+                   (p.sp && SPORT_NM[p.sp] ? '<span class="ptag">'+SPORT_NM[p.sp]+'</span>' : '');
       return '<div class="post'+(p.k===MYKEY?' mine':'')+'">'+
         '<div class="ptop"><span class="pbadge" style="background:'+sc.c+'">'+sc.full+'</span>'+
-        '<span class="ptime">'+ago(p.ts)+'</span></div>'+
+        '<span class="ptags">'+tags+'</span>'+
+        '<span class="ptime" style="margin-left:8px">'+ago(p.ts)+'</span></div>'+
         '<div class="ptext">'+escapeHtml(p.t)+'</div>'+
         '<button class="plike'+(on?' on':'')+'" data-id="'+p.id+'">'+
           '<svg><use href="#heart"/></svg>'+p.likes+'</button></div>';
@@ -787,19 +944,46 @@ async function likePost(id, btn){
   const p = POSTS.find(x=>x.id===id); if (p) p.likes++;
   btn.classList.add('on');
   btn.innerHTML = '<svg><use href="#heart"/></svg>' + (p ? p.likes : '');
-  if (!MOCK) { try { await api('skyPostLike', { id }); } catch(e){} }
+  if (MOCK) return;
+  let r = null;
+  try { r = await api('skyPostLike', { id, dev: devId() }); } catch(e){}
+  // 서버가 막으면(이미 누름·너무 빠름) 화면을 되돌립니다
+  if (!r || !r.ok) {
+    if (r && r.error === 'dup') return;            // 이미 눌렀던 글 — 그대로 둡니다
+    liked.delete(id); saveLiked(liked);
+    if (p) p.likes--;
+    btn.classList.remove('on');
+    btn.innerHTML = '<svg><use href="#heart"/></svg>' + (p ? p.likes : '');
+    if (r && r.error === 'rate') alert('잠깐 쉬었다 눌러주세요');
+  } else if (p && typeof r.likes === 'number') {
+    p.likes = r.likes;
+    btn.innerHTML = '<svg><use href="#heart"/></svg>' + r.likes;
+  }
 }
 
 const POST_ERR = { too_soon:'30초 뒤에 다시 올려주세요', empty:'내용을 입력해주세요',
   bad_school:'우리 학교를 먼저 눌러주세요', network:'전송에 실패했어요. 잠시 후 다시 시도해주세요' };
 
+function renderWopt(){
+  const box = $('wopt'); if (!box) return;
+  const ready = !!MYKEY;
+  box.innerHTML = [{ id:'', nm:'종목 없음' }].concat(SPORTS.map(x=>({ id:x.id, nm:x.ic+' '+x.nm })))
+    .map(o=>'<button class="wchip'+(WSPORT===o.id?' on':'')+'" data-sp="'+o.id+'"'+
+            (ready?'':' disabled')+'>'+o.nm+'</button>').join('');
+  box.querySelectorAll('.wchip').forEach(b=>b.onclick = ()=>{
+    if (!MYKEY) return;
+    WSPORT = b.dataset.sp; renderWopt();
+  });
+}
 function syncWriter(){
   const ready = !!MYKEY;
   $('pwText').disabled = !ready;
   $('pwBtn').disabled = !ready || !$('pwText').value.trim();
+  if ($('pwMate')) $('pwMate').disabled = !ready;
   $('pwNote').textContent = ready
     ? SCHOOL[MYKEY].full + '로 올라갑니다'
     : '위에서 우리 학교를 먼저 눌러주세요';
+  renderWopt();
 }
 if ($('pwText')) {
   $('pwText').oninput = ()=>{ $('pwLen').textContent = $('pwText').value.length; syncWriter(); };
@@ -810,20 +994,172 @@ if ($('pwText')) {
     if (Date.now() - last < 30000) { alert(POST_ERR.too_soon); return; }
     const b = $('pwBtn'); b.disabled = true; b.textContent = '올리는 중';
     let r;
+    const wantMate = !!($('pwMate') && $('pwMate').checked);
     if (MOCK) { await new Promise(x=>setTimeout(x,350));
-      MOCK_POSTS.unshift({ id:'n'+Date.now(), k:MYKEY, t:t.slice(0,POST_MAX), ts:Date.now(), likes:0 });
-      r = { ok:true };
-    } else { try { r = await api('skyPostAdd', { k:MYKEY, t:t.slice(0,POST_MAX), dev:devId() }); }
+      const nid = 'n'+Date.now();
+      MOCK_POSTS.unshift({ id:nid, k:MYKEY, t:t.slice(0,POST_MAX), ts:Date.now(),
+                           likes:0, sp:WSPORT, wm:wantMate?1:0 });
+      r = { ok:true, id:nid };
+    } else { try { r = await api('skyPostAdd',
+               { k:MYKEY, t:t.slice(0,POST_MAX), dev:devId(), sp:WSPORT, wm:wantMate?1:0 }); }
              catch(e){ r = { error:'network' }; } }
+    if (r && r.ok && r.id) addMine(r.id);
     b.disabled = false; b.textContent = '올리기';
     if (!r || !r.ok) { alert(POST_ERR[r && r.error] || '전송에 실패했어요'); return; }
     try { localStorage.setItem('syg_post_at', String(Date.now())); localStorage.setItem('syg_hc_'+HERO_EVID, '1'); } catch(e){}
-    $('pwText').value = ''; $('pwLen').textContent = '0'; syncWriter();
+    $('pwText').value = ''; $('pwLen').textContent = '0';
+    if ($('pwMate')) $('pwMate').checked = false;
+    WSPORT = '';
+    syncWriter();
     await loadPosts(0);
+    loadBest();
     renderHeroCheer();
   };
 }
 $('moreBtn').onclick = ()=>loadPosts(POSTS.length);
+
+/* ====== 피드 필터 ====== */
+function renderFilter(){
+  const box = $('ffilter'); if (!box) return;
+  const chips = [{ k:'all', nm:'전체', n:POST_COUNTS.k + POST_COUNTS.y },
+                 { k:'mate', nm:'🙋 같이 가요', n:POST_WANTED }]
+    .concat(SPORTS.map(sp=>{
+      const c = POST_SPORTS[sp.id] || { k:0, y:0 };
+      return { k:sp.id, nm:sp.ic + ' ' + sp.nm, n:c.k + c.y };
+    }));
+  box.innerHTML = chips.map(c=>{
+    const on = (c.k === 'all' && !FILTER.sp && !FILTER.wm) ||
+               (c.k === 'mate' && FILTER.wm) || (c.k === FILTER.sp);
+    return '<button class="fchip'+(on?' on':'')+'" data-f="'+c.k+'">'+c.nm+
+           (c.n ? ' <b>'+c.n+'</b>' : '')+'</button>';
+  }).join('');
+  box.querySelectorAll('.fchip').forEach(b=>b.onclick = ()=>{
+    const f = b.dataset.f;
+    FILTER = f === 'all' ? { sp:'', wm:0 }
+           : f === 'mate' ? { sp:'', wm:1 }
+           : { sp:f, wm:0 };
+    loadPosts(0);
+  });
+}
+
+/* ====== 종목별 대결 + 승부 예측 ====== */
+async function loadPred(){
+  if (MOCK) { PRED = MOCK_PRED; }
+  else { try { const r = await api('skyPredStats'); if (r && r.ok) PRED = r; } catch(e){} }
+  renderSportRows();
+}
+
+function renderSportRows(){
+  const box = $('spRows'); if (!box) return;
+  const picks = myPicks();
+  const pred = (PRED && PRED.pred) || {};
+
+  box.innerHTML = SPORTS.map(sp=>{
+    const c = POST_SPORTS[sp.id] || { k:0, y:0 };
+    const v = pred[sp.id] || { k:0, y:0 };
+    const tot = v.k + v.y;
+    const kp = tot ? Math.round(v.k / tot * 100) : 50;
+    const mine = picks[sp.id] || '';
+    const pc = t => tot ? '<span class="pc">'+t+'%</span>' : '';
+    return '<div class="sp-row" data-sp="'+sp.id+'">'+
+      '<div class="sp-top"><span class="sp-ic">'+sp.ic+'</span>'+
+        '<span class="sp-nm">'+sp.nm+'</span>'+
+        '<span class="sp-cheer">응원글 <b>'+(c.k + c.y)+'</b></span></div>'+
+      '<div class="sp-picks">'+
+        '<button class="sp-pk'+(mine==='k'?' on':'')+'" data-k="k" data-sp="'+sp.id+'">고려대'+pc(kp)+'</button>'+
+        '<button class="sp-pk'+(mine==='y'?' on':'')+'" data-k="y" data-sp="'+sp.id+'">연세대'+pc(100-kp)+'</button>'+
+      '</div>'+
+      (tot ? '<div class="sp-bar"><i data-w="'+kp+'" style="background:linear-gradient(90deg,#D02840,#FF7E93)"></i>'+
+             '<i data-w="'+(100-kp)+'" style="background:linear-gradient(90deg,#8FB0FF,#2E5BD8)"></i></div>' : '')+
+    '</div>';
+  }).join('');
+
+  box.querySelectorAll('.sp-pk').forEach(b=>b.onclick = ()=>predict(b.dataset.sp, b.dataset.k));
+  requestAnimationFrame(()=>box.querySelectorAll('.sp-bar i').forEach(i=>i.style.width = i.dataset.w + '%'));
+
+  const n = (PRED && PRED.voters) || 0;
+  $('spFoot').innerHTML = n ? '<b>'+n+'명</b>이 예측했어요' : '아직 아무도 예측하지 않았어요';
+}
+
+async function predict(sp, pick){
+  const picks = myPicks();
+  const was = picks[sp] || '';
+  if (was === pick) return;
+  picks[sp] = pick; savePicks(picks);
+
+  // 화면을 먼저 바꾸고, 집계도 바로 반영합니다
+  if (PRED && PRED.pred && PRED.pred[sp]) {
+    if (was) PRED.pred[sp][was] = Math.max(0, PRED.pred[sp][was] - 1);
+    PRED.pred[sp][pick]++;
+    if (!was) PRED.voters = (PRED.voters || 0) + (Object.keys(picks).length === 1 ? 1 : 0);
+  }
+  renderSportRows();
+  if (MOCK) return;
+  try { await api('skyPredict', { dev: devId(), k: MYKEY || '', sp, pick }); } catch(e){}
+}
+
+/* ====== 베스트 응원 ====== */
+let BEST = null;
+async function loadBest(){
+  if (MOCK) {
+    const by = {};
+    MOCK_POSTS.forEach(p=>{ if (!by[p.k] || p.likes > by[p.k].likes) by[p.k] = p; });
+    BEST = { ok:true, best:by };
+  } else { try { const r = await api('skyBest'); if (r && r.ok) BEST = r; } catch(e){} }
+  renderBest();
+}
+
+function renderBest(){
+  const box = $('bestList'); if (!box) return;
+  if (!BEST || !BEST.best || !Object.keys(BEST.best).length) {
+    box.innerHTML = '<div class="best-none">아직 하트를 받은 글이 없어요</div>'; return;
+  }
+  const mine = minePosts();
+  box.innerHTML = ['k','y'].map(k=>{
+    const b = BEST.best[k]; if (!b) return '';
+    const sc = SCHOOL[k];
+    const isMine = mine.indexOf(b.id) >= 0;
+    return '<div class="best-it" data-id="'+b.id+'">'+
+      '<div class="bt2"><span class="bbadge" style="background:'+sc.c+'">'+sc.full+'</span>'+
+        '<span class="blike"><svg><use href="#heart"/></svg>'+b.likes+'</span></div>'+
+      '<p>'+escapeHtml(b.t)+'</p>'+
+      (isMine
+        ? '<button class="claim" data-id="'+b.id+'">내 글이에요 · 기프티콘 받기</button>'
+        : '')+
+    '</div>';
+  }).join('');
+  box.querySelectorAll('.claim').forEach(b=>b.onclick = ()=>openClaim(b));
+}
+
+function openClaim(btn){
+  const id = btn.dataset.id;
+  const box = document.createElement('div');
+  box.className = 'claim-box';
+  box.innerHTML = '<input type="text" placeholder="카톡 ID 또는 전화번호" maxlength="60"><button>보내기</button>';
+  btn.replaceWith(box);
+  const input = box.querySelector('input'), send = box.querySelector('button');
+  input.focus();
+  send.onclick = async ()=>{
+    const v = input.value.trim();
+    if (!v) { input.focus(); return; }
+    send.disabled = true; send.textContent = '보내는 중';
+    let r = null;
+    if (MOCK) { await new Promise(x=>setTimeout(x,300)); r = { ok:true }; }
+    else { try { r = await api('skyClaim', { id, dev: devId(), contact: v }); } catch(e){} }
+    if (r && r.ok) {
+      const ok = document.createElement('div');
+      ok.className = 'claim-ok';
+      ok.textContent = '접수됐어요. 확인 후 연락드릴게요.';
+      box.replaceWith(ok);
+    } else {
+      send.disabled = false; send.textContent = '보내기';
+      alert(CLAIM_ERR[r && r.error] || '전송에 실패했어요');
+    }
+  };
+}
+const CLAIM_ERR = { not_yours:'이 글을 쓴 기기에서만 받을 수 있어요',
+  claimed:'이미 수령 신청된 글이에요', no_contact:'연락처를 입력해주세요',
+  not_found:'글을 찾을 수 없어요' };
 
 /* ====== 행사 목록 (D-day 만) ====== */
 function renderEvents(){
@@ -900,7 +1236,10 @@ if ($('hcBtn')) {
 }
 
 renderEvents();
+syncWriter();
 loadPosts(0);
+loadPred();
+loadBest();
 loadBoard();
 
 const dock = document.querySelector('.dock');
