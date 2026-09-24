@@ -1,0 +1,45 @@
+# 스카이버디
+
+연 · 고 · 서울대 3교 한정 매칭. 시즌마다 캠페인 페이지를 붙입니다.
+
+## 구조
+| 파일 | 역할 |
+|---|---|
+| `index.html` | **본체** — 상시 매칭. 학교 선택 → 종목 → 캠퍼스 → 연락처 |
+| `goyeon.html` | **시즌 캠페인** — 서연고전. 응원 한마디 + 학교별 한마디 순위 |
+| `match.html` | **짝 배정서** — 공유 이미지. 종목별 3가지 레이아웃 |
+| `apps_script_skybuddy.gs` | 백엔드 (신청 · 한마디 · 시딩) |
+| `_defs.html` | S·K·Y 배지 / 캠퍼스 건물 SVG 원본 (각 페이지에 인라인됨) |
+
+## 퍼널
+`goyeon.html` 한마디(문턱 0) → 한마디 남기면 전환 카드 → `index.html` 신청(연락처)
+`index.html` 하단 배너 → `goyeon.html`
+
+순위판이 두 곳에 있고 의미가 다릅니다.
+- goyeon: **한마디 수** (참여도)
+- index: **신청자 수** (본 게임)
+
+## 로컬 미리보기
+localhost / file:// 은 자동 목업 모드.
+- `index.html` — 신청 3단계 전부 동작
+- `goyeon.html` — 한마디 36개 시드 표시
+- `match.html?demo=1` 학교팅 / `?demo=2` 과팅 3:3 / `?demo=3` 고연전 친구찾기
+
+## 배포 전
+1. `.gs` 를 연애학개론 Apps Script 프로젝트에 새 파일로 붙여넣기
+2. 기존 `doGet(e)` 첫 줄에:
+       var skyRes = skyRouter_(e);
+       if (skyRes) return skyRes;
+3. 배포 → 배포 관리 → 새 버전 (URL 유지). **메일 권한 승인 불필요**
+4. 편집기에서 `skySeedCheers()` 1회 실행 → 한마디 36개 시딩
+5. `.gs` 의 `SKY_SITE` 를 실제 주소로
+
+## 운영
+- 신청은 `스카이버디_신청` 탭에 쌓입니다 (중복 판정: 전화번호)
+- `짝` 열에 상대 정보를 적고 그 행 선택 → `skyFillMatchLinkForActiveRow()` 실행
+  → `배정서링크` 열에 match.html 링크 생성. 카톡으로 그대로 전송
+- 한마디 문제 글: `서연고전_한마디` 탭 '상태' 열에 `hidden`
+
+## 날짜
+- 행사: `goyeon.html` 의 `EVENTS` (학교별 명칭은 `EV_LABEL`, 히어로 행사는 `HERO_EV`)
+- 모집 마감: 각 페이지의 `DEADLINE` 상수
