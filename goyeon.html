@@ -695,7 +695,7 @@
 <script>
 const API = 'https://script.google.com/macros/s/AKfycbxKFaL3S_tAXU6_pJfMovl705HqKKnc3jEh8iG7gN5eEJSmOw14twbcAKsUiaIkF_bFhg/exec';
 const MOCK = new URLSearchParams(location.search).get('mock') === '1' || location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
-const DEADLINE = new Date('2026-10-16T23:59:59+09:00');
+const DEADLINE = new Date('2026-09-29T23:59:59+09:00');
 const $ = id => document.getElementById(id);
 
 function encodeD(o){const b=new TextEncoder().encode(JSON.stringify(o));let s='';b.forEach(x=>s+=String.fromCharCode(x));
