@@ -49,12 +49,12 @@
   .madeby i{display:flex}.madeby svg{width:22px;height:22px;margin-right:-6px}
   .metro{margin:18px 0 0;padding:0 4px}
   .metro-head{text-align:center;margin-bottom:2px}.metro-head b{font-size:11px;font-weight:800;color:var(--sub);letter-spacing:.04em}
-  .metro-line{position:relative;height:108px}
-  .track{position:absolute;left:14%;right:14%;top:64px;height:6px;border-radius:99px;background:linear-gradient(90deg,var(--snu),var(--kor),var(--yon))}
-  .stn{position:absolute;bottom:0;width:33.3%;text-align:center}
-  .stn:nth-child(2){left:0}.stn:nth-child(3){left:33.3%}.stn:nth-child(4){left:66.6%}
-  .stn svg{width:48px;height:48px;display:block;margin:0 auto;filter:drop-shadow(0 4px 7px rgba(51,47,59,.14))}
-  .stn .dot{width:15px;height:15px;border-radius:50%;background:#fff;margin:1px auto 0;position:relative;z-index:2}
+  .metro-line{position:relative;height:96px;display:flex;align-items:flex-start;padding-top:2px}
+  /* 배지 중심을 지나가는 노선 (배지는 흰 배경이라 선이 뒤로 가려집니다) */
+  .track{position:absolute;left:16.6%;right:16.6%;top:25px;height:4px;border-radius:99px;z-index:1;
+    background:linear-gradient(90deg,var(--snu),var(--kor),var(--yon))}
+  .stn{position:relative;z-index:2;flex:1;text-align:center}
+  .stn svg{width:46px;height:46px;display:block;margin:0 auto 10px;filter:drop-shadow(0 4px 8px rgba(51,47,59,.16))}
   .stn .nm{font-size:11.5px;font-weight:800;margin-top:6px;letter-spacing:-.02em}.stn .sc{font-size:10px;color:var(--sub);font-weight:700;margin-top:2px}
   .card{margin:16px 20px 0;padding:16px;border-radius:18px;background:#fff;border:1.5px solid var(--line)}
   .gc-top{display:flex;justify-content:space-between;align-items:center}.gc-top b{font-size:13px;letter-spacing:-.02em}.gc-top .cnt{font-size:12.5px;font-weight:800;color:var(--kor)}
@@ -270,9 +270,9 @@
       <div class="metro-head"><b>SKY 노선 · 3개 역 운행 중</b></div>
       <div class="metro-line">
         <div class="track"></div>
-        <div class="stn"><svg><use href="#sts"/></svg><div class="dot" style="border:5px solid var(--snu)"></div><div class="nm">낙성대</div><div class="sc">서울대</div></div>
-        <div class="stn"><svg><use href="#stk"/></svg><div class="dot" style="border:5px solid var(--kor)"></div><div class="nm">안암</div><div class="sc">고려대</div></div>
-        <div class="stn"><svg><use href="#sty"/></svg><div class="dot" style="border:5px solid var(--yon)"></div><div class="nm">신촌</div><div class="sc">연세대</div></div>
+        <div class="stn"><svg><use href="#sts"/></svg><div class="nm">낙성대</div><div class="sc">서울대</div></div>
+        <div class="stn"><svg><use href="#stk"/></svg><div class="nm">안암</div><div class="sc">고려대</div></div>
+        <div class="stn"><svg><use href="#sty"/></svg><div class="nm">신촌</div><div class="sc">연세대</div></div>
       </div>
     </div>
   </div>
@@ -292,16 +292,8 @@
     <div class="goal">300명 넘으면 S·K·Y 배지 키링 전원 지급 · <span id="dday">마감 D-4</span></div>
   </div>
 
-  <div class="steps">
-    <h3>어떻게 진행되냐면</h3>
-    <div class="step"><div class="n">1</div><div><b>신청서 쓰기</b><p>학교 고르고, 종목과 갈 캠퍼스 정하기</p></div></div>
-    <div class="step"><div class="n">2</div><div><b>짝 배정서 받기</b><p>누구랑 어디서 만날지 카톡으로 갑니다</p></div></div>
-    <div class="step"><div class="n">3</div><div><b>첫 만남</b><p>배정된 캠퍼스에서 짝이랑 만나기</p></div></div>
-    <div class="step"><div class="n">4</div><div><b>후기 쓰기</b><p>쓰면 다음 기수 먼저 배정</p></div></div>
-  </div>
-
   <div class="cta">
-    <button class="btn" id="openApply">내 버디 찾기</button>
+    <button class="btn" id="openApply">내 인연 찾기</button>
     <p class="caption">신청 마감 <span id="deadlineTxt">8월 21일 23:59</span> · 참가비 없음</p>
   </div>
 

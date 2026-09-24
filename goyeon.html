@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>서연고전 — 고연전 응원 한마디</title>
+<title>고연전 · 연고전 응원방</title>
 <meta name="description" content="축구도 농구도 아닌 연애로 붙습니다. 성사된 커플 수로 순위가 갈리는 제1회 서연고전 연애부.">
 <meta property="og:title" content="서연고전 · 연애부">
 <meta property="og:description" content="이번 정기전 신설 종목은 연애입니다. 성사된 커플 수로 순위가 갈려요.">
@@ -205,6 +205,36 @@
 
 
   /* ===== 축제 · 행사 ===== */
+  /* 응원방 게시판 */
+  .writer{margin-top:18px;border:1.5px solid var(--line);border-radius:18px;background:#fff;padding:14px}
+  .writer textarea{width:100%;border:0;outline:none;resize:none;min-height:76px;font-family:inherit;
+    font-size:15px;font-weight:500;line-height:1.7;color:var(--ink);background:transparent}
+  .writer textarea::placeholder{color:#C4BCC4}
+  .writer textarea:disabled{color:#C4BCC4}
+  .wbot{display:flex;align-items:center;justify-content:space-between;gap:10px;
+    padding-top:10px;border-top:1px solid var(--line);margin-top:6px}
+  .wnote{font-size:11.5px;color:var(--sub);font-weight:700}
+  .wcnt{font-size:11.5px;color:#C4BCC4;font-weight:700}
+  .wcnt b{color:var(--sub)}
+  .wbtn{width:100%;margin-top:12px;padding:14px;border-radius:13px;font-size:15px;font-weight:800;
+    letter-spacing:-.02em;background:var(--rose);color:#fff}
+  .wbtn:disabled{background:var(--line);color:#B6B0C4}
+
+  .feed{margin-top:14px;display:flex;flex-direction:column;gap:9px}
+  .post{border:1.5px solid var(--line);border-radius:16px;background:#fff;padding:14px 15px}
+  .post.mine{border-color:#F0D8DE;background:#FFFCFD}
+  .ptop{display:flex;align-items:center;gap:8px}
+  .pbadge{font-size:10.5px;font-weight:800;color:#fff;padding:4px 9px;border-radius:7px;flex:none}
+  .ptime{font-size:11px;color:#B6B0C4;font-weight:700;margin-left:auto}
+  .ptext{font-size:14.5px;line-height:1.75;font-weight:600;color:var(--ink);margin-top:10px;word-break:break-word}
+  .plike{display:inline-flex;align-items:center;gap:5px;margin-top:11px;padding:7px 12px;border-radius:99px;
+    border:1.5px solid var(--line);background:#fff;font-size:12.5px;font-weight:800;color:var(--sub);cursor:pointer}
+  .plike svg{width:12px;height:12px}
+  .plike.on{border-color:#F6C9D3;background:var(--rose-s);color:var(--rose-d)}
+  .plike.on svg{color:var(--rose)}
+  .morebtn{width:100%;margin-top:12px;padding:14px;border-radius:13px;font-size:14.5px;font-weight:800;
+    background:var(--bg);color:var(--ink2);border:1.5px solid var(--line)}
+  .feed-empty{padding:30px 0;text-align:center;font-size:13px;color:var(--sub);font-weight:600;line-height:1.8}
   .evlist{margin-top:18px;display:flex;flex-direction:column;gap:10px}
   .evc{border:1.5px solid var(--line);border-radius:18px;background:#fff;overflow:hidden}
   .evc summary{padding:15px 16px;list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px}
@@ -217,19 +247,7 @@
   .evc .dd2{font-size:13px;font-weight:800;letter-spacing:-.02em}
   .evc .cnt{font-size:10.5px;color:var(--sub);font-weight:700;margin-top:3px}
   .evc[open] summary{border-bottom:1px solid var(--line)}
-  .cheerbox{padding:14px 16px 16px;background:#FBFAFD}
-  .cheer{display:flex;gap:9px;padding:9px 0;border-bottom:1px dashed var(--line);align-items:flex-start}
   .cheer:last-of-type{border:0}
-  .cheer .bg{font-size:9.5px;font-weight:800;color:#fff;padding:3px 7px;border-radius:6px;flex:none;margin-top:1px}
-  .cheer .tx{flex:1;font-size:13px;font-weight:600;color:var(--ink);line-height:1.6;word-break:break-all}
-  .cheer .tm{font-size:10px;color:#B6B0C4;font-weight:700;flex:none;margin-top:2px}
-  .cheer-empty{font-size:12.5px;color:var(--sub);font-weight:600;text-align:center;padding:14px 0;line-height:1.7}
-  .cheer-in{display:flex;gap:7px;margin-top:12px}
-  .cheer-in input{flex:1;padding:12px 13px;border:1.5px solid var(--line);border-radius:12px;background:#fff;outline:none;font-size:14px;font-weight:500}
-  .cheer-in input:focus{border-color:var(--accent1,var(--gold))}
-  .cheer-in button{padding:0 16px;border-radius:12px;background:var(--ink);color:#fff;font-size:13.5px;font-weight:800;white-space:nowrap}
-  .cheer-in button:disabled{background:var(--line);color:#B6B0C4}
-  .cheer-note{font-size:10.5px;color:#B6B0C4;font-weight:600;margin-top:8px;line-height:1.6}
   .steps{margin-top:18px}
   .st{display:flex;gap:13px;padding:14px;border-radius:16px;background:#fff;border:1.5px solid var(--line);margin-bottom:9px}
   .st .n{width:26px;height:26px;border-radius:9px;flex:none;background:linear-gradient(135deg,var(--gold),var(--pink));
@@ -456,7 +474,7 @@
     <div class="hd">
       <div class="lg">
         <div class="m"><svg><use href="#heart"/></svg></div>
-        <div><b>서연고전</b><span>스카이버디 시즌 이벤트</span></div>
+        <div><b id="roomName">고연전 응원방</b><span>스카이버디 시즌 이벤트</span></div>
       </div>
       <span class="dd" id="dday">시즌 마감</span>
     </div>
@@ -475,7 +493,7 @@
     <div class="hsub">같이 갈 사람이 있어야 재밌잖아요.<br>옆 학교 사람 한 명, 저희가 찾아드립니다.</div>
 
     <div class="hcheer" id="hcheer">
-      <div class="hl2" id="hcTitle">한마디 남기고 가세요</div>
+      <div class="hl2" id="hcTitle">응원 한마디 남기고 가세요</div>
       <div class="hin">
         <input id="hcInput" maxlength="40" placeholder="예: 올해는 진짜 이긴다">
         <button id="hcBtn">남기기</button>
@@ -492,21 +510,39 @@
     <div class="board">
       <div class="bt"><b>실시간 응원 대결</b><span class="live"><i></i>LIVE</span></div>
       <div class="vs" id="board"></div>
-      <div class="bfoot">지금까지 남은 한마디 <b id="totalCouple">0</b>개</div>
+      <div class="bfoot">응원방에 올라온 글 <b id="totalCouple">0</b>개</div>
     </div>
 
     <div class="twist">
-      <b>여기는 응원, 짝은 스카이버디에서</b>
-      <p>한마디는 누구나 남길 수 있어요.<br>같이 갈 사람이 필요하면 <b>스카이버디</b>가 짝을 지어드립니다.</p>
+      <b>여기는 응원방, 짝은 스카이버디에서</b>
+      <p>글은 누구나 남길 수 있어요.<br>같이 갈 사람이 필요하면 <b>스카이버디</b>가 짝을 지어드립니다.</p>
     </div>
 
     <div class="hcta"><a class="btn goMatch" href="index.html">짝 찾으러 가기</a></div>
   </div>
 
   <div class="sec">
+    <div class="stag">BOARD</div>
+    <h2 id="boardTitle">고연전 응원방</h2>
+    <div class="lead">아무 말이나 남겨도 됩니다. 두 학교 사람들이 다 봐요.</div>
+
+    <div class="writer" id="writer">
+      <textarea id="pwText" maxlength="150" placeholder="예: 올해는 진짜 이긴다"></textarea>
+      <div class="wbot">
+        <span class="wnote" id="pwNote">위에서 우리 학교를 먼저 눌러주세요</span>
+        <span class="wcnt"><b id="pwLen">0</b>/150</span>
+      </div>
+      <button class="wbtn" id="pwBtn" disabled>올리기</button>
+    </div>
+
+    <div class="feed" id="feed"></div>
+    <button class="morebtn" id="moreBtn" style="display:none">더보기</button>
+  </div>
+
+  <div class="sec">
     <div class="stag">EVENTS</div>
     <h2>다가오는 축제 · 행사</h2>
-    <div class="lead">이 중에 같이 갈 사람이 필요한 날이 있으실 거예요.<br>한마디씩 남겨두면 다른 학교 사람들도 봅니다.</div>
+    <div class="lead">이 중에 같이 갈 사람이 필요한 날이 있으실 거예요.</div>
     <div class="evlist" id="evlist"></div>
   </div>
 
@@ -588,14 +624,12 @@ function applyTheme(k){
   renderBoard(); updateTip();
   if (document.getElementById('evlist')) renderEvents();
   renderHeroCheer();
+  if (typeof syncWriter === 'function') syncWriter();
+  if (typeof renderFeed === 'function' && POSTS.length) renderFeed();
 }
 document.querySelectorAll('.crest .c').forEach(c=>c.onclick=()=>applyTheme(c.dataset.k));
 
-function cheerCounts(){
-  const c = { y:0, k:0 };
-  Object.keys(CHEERS || {}).forEach(ev=>(CHEERS[ev]||[]).forEach(x=>{ if (c[x.k] !== undefined) c[x.k]++; }));
-  return c;
-}
+function cheerCounts(){ return POST_COUNTS; }
 function renderBoard(){
   const st = cheerCounts();
   const K = Object.assign({ v: st.k }, SCHOOL.k);
@@ -648,7 +682,6 @@ const EVENTS = [
   { id:'ipselenti', nm:'입실렌티',     who:'고려대',      ic:'🔥', date:'2026-10-30', tint:'#FFF0F3' },
 ];
 const CHEER_MAX = 40;
-let CHEERS = {};
 
 function dday(iso){
   const d = Math.ceil((new Date(iso+'T00:00:00+09:00') - new Date())/86400000);
@@ -662,96 +695,148 @@ function ago(ts){
   return Math.floor(h/24)+'일 전';
 }
 
-// 기기 식별용 토큰 (도배 방지에만 씀)
+
+// ====== 응원방 게시판 ======
+const POST_MAX = 150;
+let POSTS = [], POST_TOTAL = 0, POST_MORE = false, POST_COUNTS = { k:0, y:0 };
+
 function devId(){
   let d = null;
   try { d = localStorage.getItem('syg_dev'); } catch(e){}
   if (!d) { d = Math.random().toString(36).slice(2) + Date.now().toString(36); try { localStorage.setItem('syg_dev', d); } catch(e){} }
   return d;
 }
-const MOCK_CHEERS = {
-  goyeon:[
-    {k:'k',t:'올해는 진짜 이긴다 제발',ts:Date.now()-1000*60*60*2},
-    {k:'y',t:'고연전 아니고 연고전인데요',ts:Date.now()-1000*60*60*3},
-    {k:'k',t:'아침부터 목 풀고 간다',ts:Date.now()-1000*60*60*5},
-    {k:'y',t:'솔직히 뒤풀이가 본경기 아님?',ts:Date.now()-1000*60*60*6},
-    {k:'k',t:'4학년이라 이번이 마지막이다',ts:Date.now()-1000*60*60*9},
-    {k:'y',t:'과잠 꺼내놨음',ts:Date.now()-1000*60*60*11},
-    {k:'k',t:'야구는 진짜 양보 못함',ts:Date.now()-1000*60*60*14},
-    {k:'y',t:'동기들 다 약속 있어서 혼자 갈 뻔했다',ts:Date.now()-1000*60*60*17},
-    {k:'k',t:'작년에 울었는데 올해는 안 운다',ts:Date.now()-1000*60*60*26},
-    {k:'y',t:'아카라카 때보다 더 떨림',ts:Date.now()-1000*60*60*31},
-    {k:'k',t:'신촌 쪽 안 가고 안암에서 볼 사람',ts:Date.now()-1000*60*60*38},
-    {k:'y',t:'표 구했다 드디어',ts:Date.now()-1000*60*60*44},
-    {k:'k',t:'응원단 보러 가는 거 맞음',ts:Date.now()-1000*60*60*52},
-    {k:'y',t:'이번엔 진짜 다르다니까',ts:Date.now()-1000*60*60*60}
-  ],
-  akaraka:[
-    {k:'y',t:'티켓팅 성공했다',ts:Date.now()-1000*60*60*8},
-    {k:'y',t:'올해 라인업 기대 중',ts:Date.now()-1000*60*60*15},
-    {k:'y',t:'작년 그 무대 아직도 생각남',ts:Date.now()-1000*60*60*22},
-    {k:'k',t:'고대생도 갈 수 있나요 궁금',ts:Date.now()-1000*60*60*33},
-    {k:'y',t:'신촌 다 터지겠다',ts:Date.now()-1000*60*60*46},
-  ],
-  ipselenti:[
-    {k:'k',t:'입실렌티가 진짜 축제지',ts:Date.now()-1000*60*60*10},
-    {k:'k',t:'올해도 목 나갈 예정',ts:Date.now()-1000*60*60*19},
-    {k:'k',t:'안암 전체가 시끄러움',ts:Date.now()-1000*60*60*27},
-    {k:'y',t:'연대생인데 입실렌티 궁금하긴 함',ts:Date.now()-1000*60*60*37},
-    {k:'k',t:'작년보다 일찍 자리 잡아야지',ts:Date.now()-1000*60*60*50},
-  ],
-};
-async function loadCheers(){
-  if (MOCK) {
-    if (!Object.keys(CHEERS).length) {
-      try { CHEERS = JSON.parse(localStorage.getItem('syg_cheers')||'null') || MOCK_CHEERS; }
-      catch(e){ CHEERS = MOCK_CHEERS; }
-    }
-    renderEvents(); return;
-  }
-  try {
-    const r = await api('skyCheerList');
-    if (r && r.ok) CHEERS = r.cheers || {};
-  } catch(e){}
-  renderEvents(); renderBoard();
-}
-function saveCheers(){ if (MOCK) { try { localStorage.setItem('syg_cheers', JSON.stringify(CHEERS)); } catch(e){} } }
+function likedSet(){ try { return new Set(JSON.parse(localStorage.getItem('syg_liked')||'[]')); } catch(e){ return new Set(); } }
+function saveLiked(set){ try { localStorage.setItem('syg_liked', JSON.stringify([...set])); } catch(e){} }
 
+const MOCK_POSTS = [
+  ['k','올해는 진짜 이긴다 제발 작년 생각하면 아직도 속 쓰림',2],
+  ['y','고연전 아니고 연고전인데요 매번 말하지만',3],
+  ['k','아침부터 목 풀고 갑니다 오늘 다 쉬어버릴 예정',5],
+  ['y','솔직히 뒤풀이가 본경기 아닌가요 다들 인정하시죠',6],
+  ['k','1학년인데 처음이라 뭐 준비해야 하는지 모르겠음',7],
+  ['k','4학년이라 이번이 진짜 마지막이다 후회 없이 소리지른다',9],
+  ['y','과잠 꺼내놨음 이제 날씨만 도와주면 됨',11],
+  ['y','목캔디 필수인가요 작년에 안 챙겨서 고생했다는 말 들음',13],
+  ['k','야구는 진짜 양보 못한다 다른 종목은 몰라도',14],
+  ['y','동기들 다 약속 있다고 해서 혼자 갈 뻔했는데 여기 있어서 다행',17],
+  ['k','친구가 연대생인데 같이 가기로 했다 누가 이겨도 웃긴 상황',20],
+  ['y','비 오면 어떻게 되나요 우산 챙겨야 하나',23],
+  ['k','작년에 울었는데 올해는 안 운다 진짜로',26],
+  ['k','응원가 아직 다 못 외웠는데 괜찮겠지',29],
+  ['y','아카라카 때보다 더 떨리는 건 나만 그런가',31],
+  ['y','작년 그 분위기 잊을 수가 없어서 올해도 간다',35],
+  ['k','신촌 쪽 안 가고 안암에서 볼 사람 있나요',38],
+  ['k','과 사람들이랑 단체로 가는데 자리 어디가 좋나요',41],
+  ['y','표 드디어 구했다 한 달을 기다렸네',44],
+  ['y','솔직히 이기든 지든 재밌으면 됐다고 생각함',47],
+  ['k','응원단 보러 가는 거 맞습니다 경기는 부수적',52],
+  ['k','전날 잠 안 올 것 같은데 나만 이런가',55],
+  ['y','이번엔 진짜 다르다니까 분위기가 달라요',60],
+  ['y','끝나고 신촌에서 볼 사람 구합니다',63],
+].map((p,i)=>({ id:'m'+i, k:p[0], t:p[1], ts:Date.now()-p[2]*3600*1000, likes:(i*5)%14 }));
+
+function mockPage(offset){
+  const all = MOCK_POSTS.slice().sort((a,b)=>b.ts-a.ts);
+  const counts = { k:0, y:0 };
+  all.forEach(p=>counts[p.k]++);
+  return { ok:true, posts: all.slice(offset, offset+20), total: all.length,
+           more: offset+20 < all.length, counts };
+}
+
+async function loadPosts(offset){
+  offset = offset || 0;
+  let r;
+  if (MOCK) { await new Promise(x=>setTimeout(x,250)); r = mockPage(offset); }
+  else { try { r = await api('skyPostList', { offset }); } catch(e){ r = null; } }
+  if (!r || !r.ok) { if (!offset) $('feed').innerHTML = '<div class="feed-empty">글을 불러오지 못했어요.<br>잠시 후 새로고침해주세요</div>'; return; }
+  POSTS = offset ? POSTS.concat(r.posts) : r.posts;
+  POST_TOTAL = r.total; POST_MORE = r.more; POST_COUNTS = r.counts || POST_COUNTS;
+  renderFeed(); renderBoard();
+}
+
+function renderFeed(){
+  const liked = likedSet();
+  if (!POSTS.length) {
+    $('feed').innerHTML = '<div class="feed-empty">아직 글이 없어요.<br>첫 번째로 남겨보세요</div>';
+  } else {
+    $('feed').innerHTML = POSTS.map(p=>{
+      const sc = SCHOOL[p.k]; if (!sc) return '';
+      const on = liked.has(p.id);
+      return '<div class="post'+(p.k===MYKEY?' mine':'')+'">'+
+        '<div class="ptop"><span class="pbadge" style="background:'+sc.c+'">'+sc.full+'</span>'+
+        '<span class="ptime">'+ago(p.ts)+'</span></div>'+
+        '<div class="ptext">'+escapeHtml(p.t)+'</div>'+
+        '<button class="plike'+(on?' on':'')+'" data-id="'+p.id+'">'+
+          '<svg><use href="#heart"/></svg>'+p.likes+'</button></div>';
+    }).join('');
+    $('feed').querySelectorAll('.plike').forEach(b=>b.onclick=()=>likePost(b.dataset.id, b));
+  }
+  $('moreBtn').style.display = POST_MORE ? 'block' : 'none';
+  if ($('boardTitle')) {
+    const noun = ($('heroNoun') && $('heroNoun').textContent) || '고연전';
+    $('boardTitle').textContent = noun + ' 응원방';
+    if ($('roomName')) $('roomName').textContent = noun + ' 응원방';
+  }
+}
+
+async function likePost(id, btn){
+  const liked = likedSet();
+  if (liked.has(id)) return;
+  liked.add(id); saveLiked(liked);
+  const p = POSTS.find(x=>x.id===id); if (p) p.likes++;
+  btn.classList.add('on');
+  btn.innerHTML = '<svg><use href="#heart"/></svg>' + (p ? p.likes : '');
+  if (!MOCK) { try { await api('skyPostLike', { id }); } catch(e){} }
+}
+
+const POST_ERR = { too_soon:'30초 뒤에 다시 올려주세요', empty:'내용을 입력해주세요',
+  bad_school:'우리 학교를 먼저 눌러주세요', network:'전송에 실패했어요. 잠시 후 다시 시도해주세요' };
+
+function syncWriter(){
+  const ready = !!MYKEY;
+  $('pwText').disabled = !ready;
+  $('pwBtn').disabled = !ready || !$('pwText').value.trim();
+  $('pwNote').textContent = ready
+    ? SCHOOL[MYKEY].full + '로 올라갑니다'
+    : '위에서 우리 학교를 먼저 눌러주세요';
+}
+if ($('pwText')) {
+  $('pwText').oninput = ()=>{ $('pwLen').textContent = $('pwText').value.length; syncWriter(); };
+  $('pwBtn').onclick = async ()=>{
+    const t = $('pwText').value.trim();
+    if (!MYKEY || !t) return;
+    let last = 0; try { last = +localStorage.getItem('syg_post_at')||0; } catch(e){}
+    if (Date.now() - last < 30000) { alert(POST_ERR.too_soon); return; }
+    const b = $('pwBtn'); b.disabled = true; b.textContent = '올리는 중';
+    let r;
+    if (MOCK) { await new Promise(x=>setTimeout(x,350));
+      MOCK_POSTS.unshift({ id:'n'+Date.now(), k:MYKEY, t:t.slice(0,POST_MAX), ts:Date.now(), likes:0 });
+      r = { ok:true };
+    } else { try { r = await api('skyPostAdd', { k:MYKEY, t:t.slice(0,POST_MAX), dev:devId() }); }
+             catch(e){ r = { error:'network' }; } }
+    b.disabled = false; b.textContent = '올리기';
+    if (!r || !r.ok) { alert(POST_ERR[r && r.error] || '전송에 실패했어요'); return; }
+    try { localStorage.setItem('syg_post_at', String(Date.now())); localStorage.setItem('syg_hc_'+HERO_EVID, '1'); } catch(e){}
+    $('pwText').value = ''; $('pwLen').textContent = '0'; syncWriter();
+    await loadPosts(0);
+    renderHeroCheer();
+  };
+}
+$('moreBtn').onclick = ()=>loadPosts(POSTS.length);
+
+/* ====== 행사 목록 (D-day 만) ====== */
 function renderEvents(){
-  const open = [...document.querySelectorAll('.evc[open]')].map(d=>d.dataset.id);
   const list = EVENTS.slice().sort((a,b)=> new Date(a.date) - new Date(b.date));
   $('evlist').innerHTML = list.map(ev=>{
-    const cs = (CHEERS[ev.id]||[]).filter(c=>c.k==='k'||c.k==='y');
     const d = dday(ev.date);
-    const body = cs.length
-      ? cs.slice(0,6).map(c=>{
-          const sc = SCHOOL[c.k] || {nm:'?', c:'#999'};
-          return '<div class="cheer"><span class="bg" style="background:'+sc.c+'">'+sc.nm+'</span>'+
-                 '<span class="tx">'+escapeHtml(c.t)+'</span><span class="tm">'+ago(c.ts)+'</span></div>';
-        }).join('')
-      : '<div class="cheer-empty">아직 한마디가 없어요.<br>첫 번째로 남겨보세요</div>';
-    return '<details class="evc" data-id="'+ev.id+'"'+(open.includes(ev.id)?' open':'')+'>'+
-      '<summary>'+
-        '<span class="ic" style="background:'+ev.tint+'">'+ev.ic+'</span>'+
-        '<span class="ti"><b>'+evName(ev.id, MYKEY)+'</b><span>'+ev.who+' · '+fmtDate(ev.date)+'</span></span>'+
-        '<span class="rt"><div class="dd2"'+(d==='D-DAY'?' style="color:var(--kor)"':'')+'>'+d+'</div>'+
-        '<div class="cnt">한마디 '+cs.length+'</div></span>'+
-      '</summary>'+
-      '<div class="cheerbox">'+ body +
-        '<div class="cheer-in">'+
-          '<input maxlength="'+CHEER_MAX+'" placeholder="한마디 남기기 (예: 기대된다)" data-ev="'+ev.id+'">'+
-          '<button data-ev="'+ev.id+'">남기기</button>'+
-        '</div>'+
-        '<div class="cheer-note">'+(MYKEY ? SCHOOL[MYKEY].nm+'대로 올라갑니다' : '위에서 우리 학교를 먼저 눌러주세요')+' · 최대 '+CHEER_MAX+'자</div>'+
-      '</div></details>';
+    return '<div class="evc" style="padding:15px 16px;display:flex;align-items:center;gap:12px">'+
+      '<span class="ic" style="background:'+ev.tint+'">'+ev.ic+'</span>'+
+      '<span class="ti"><b>'+evName(ev.id, MYKEY)+'</b><span>'+ev.who+' · '+fmtDate(ev.date)+'</span></span>'+
+      '<span class="rt"><div class="dd2"'+(d==='D-DAY'?' style="color:var(--kor)"':'')+'>'+d+'</div></span></div>';
   }).join('');
-
-  $('evlist').querySelectorAll('.cheer-in button').forEach(b=>b.onclick=()=>postCheer(b.dataset.ev));
-  $('evlist').querySelectorAll('.cheer-in input').forEach(i=>i.onkeydown=e=>{ if(e.key==='Enter') postCheer(i.dataset.ev); });
-
   updateHero(list);
 }
-
 // 선택한 학교에 맞춰 히어로 행사명을 바꿔줍니다
 function updateHero(list){
   list = list || EVENTS.slice().sort((a,b)=> new Date(a.date) - new Date(b.date));
@@ -766,43 +851,8 @@ function updateHero(list){
   HERO_EVID = ev.id;
   renderHeroCheer();
 }
+
 function escapeHtml(t){ return String(t).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m])); }
-
-const CHEER_ERR = { too_soon:'30초 뒤에 다시 남겨주세요', empty:'내용을 입력해주세요',
-  bad_event:'알 수 없는 행사예요', bad_school:'우리 학교를 먼저 눌러주세요', network:'전송에 실패했어요. 잠시 후 다시 시도해주세요' };
-
-async function postCheer(evId, box, btn, done){
-  box = box || $('evlist').querySelector('.cheer-in input[data-ev="'+evId+'"]');
-  btn = btn || $('evlist').querySelector('.cheer-in button[data-ev="'+evId+'"]');
-  const txt = (box.value||'').trim();
-  if (!MYKEY) { alert('맨 위에서 우리 학교를 먼저 눌러주세요'); return; }
-  if (!txt) return;
-
-  let last = 0; try { last = +localStorage.getItem('syg_cheer_at')||0; } catch(e){}
-  if (Date.now() - last < 30000) { alert(CHEER_ERR.too_soon); return; }
-
-  btn.disabled = true; btn.textContent = '전송 중';
-  let r;
-  if (MOCK) { await new Promise(x=>setTimeout(x,300)); r = { ok:true }; }
-  else { try { r = await api('skyCheerAdd', { ev:evId, k:MYKEY, t:txt.slice(0,CHEER_MAX), dev:devId() }); }
-         catch(e){ r = { error:'network' }; } }
-  btn.disabled = false; btn.textContent = '남기기';
-
-  if (!r || !r.ok) { alert(CHEER_ERR[r && r.error] || '전송에 실패했어요'); return; }
-
-  try { localStorage.setItem('syg_cheer_at', String(Date.now())); } catch(e){}
-  box.value = '';
-  if (MOCK) {
-    (CHEERS[evId] = CHEERS[evId] || []).unshift({ k:MYKEY, t:txt.slice(0,CHEER_MAX), ts:Date.now() });
-    saveCheers(); renderEvents();
-  } else {
-    await loadCheers();
-  }
-  renderHeroCheer();
-  if (done) done();
-  const d = $('evlist').querySelector('.evc[data-id="'+evId+'"]'); if (d) d.open = true;
-}
-
 
 /* ====== 히어로 한마디 (1차 전환) ====== */
 let HERO_EVID = null;
@@ -816,44 +866,41 @@ function renderHeroCheer(){
   const posted = heroPosted();
   const noun = ($('heroNoun') && $('heroNoun').textContent) || '행사';
 
-  // 행사가 끝났으면 한마디 박스 자체를 숨기고 매칭을 1차로
   box.style.display = (over || posted) ? 'none' : 'block';
   done.classList.toggle('on', !over && posted);
   const cta = document.querySelector('.hcta .btn');
   if (cta) cta.classList.toggle('soft2', !over && !posted);
+  if (over || posted) { if (posted) $('hdTitle').textContent = noun + ' 응원방에 글 남겼어요'; return; }
 
-  if (over || posted) {
-    if (posted) $('hdTitle').textContent = noun + ' 한마디 남겼어요';
-    return;
-  }
-
-  $('hcTitle').textContent = noun + ', 한마디 남기고 가세요';
+  $('hcTitle').textContent = noun + ', 응원 한마디 남기고 가세요';
   const ready = !!MYKEY;
   $('hcInput').disabled = !ready;
   $('hcBtn').disabled = !ready;
   box.classList.toggle('off', !ready);
-  $('hcNote').textContent = ready
-    ? SCHOOL[MYKEY].nm + '대로 올라갑니다 · 최대 ' + CHEER_MAX + '자'
-    : '위에서 우리 학교를 먼저 눌러주세요';
+  $('hcNote').textContent = ready ? SCHOOL[MYKEY].full + '로 올라갑니다 · 최대 40자' : '위에서 우리 학교를 먼저 눌러주세요';
 
-  const cs = (CHEERS[HERO_EVID] || []).filter(c=>c.k==='k'||c.k==='y').slice(0, 3);
-  $('hcRecent').innerHTML = cs.map(c=>{
-    const sc = SCHOOL[c.k] || { nm:'?', c:'#999' };
+  $('hcRecent').innerHTML = POSTS.slice(0,3).map(p=>{
+    const sc = SCHOOL[p.k] || { nm:'?', c:'#999' };
     return '<div class="rc"><span class="bg2" style="background:'+sc.c+'">'+sc.nm+'</span>'+
-           '<span class="tx2">'+escapeHtml(c.t)+'</span><span class="tm2">'+ago(c.ts)+'</span></div>';
+           '<span class="tx2">'+escapeHtml(p.t)+'</span><span class="tm2">'+ago(p.ts)+'</span></div>';
   }).join('');
 }
 
 if ($('hcBtn')) {
-  $('hcBtn').onclick = ()=>postCheer(HERO_EVID, $('hcInput'), $('hcBtn'), ()=>{
-    try { localStorage.setItem('syg_hc_'+HERO_EVID, '1'); } catch(e){}
-    renderHeroCheer();
-  });
+  $('hcBtn').onclick = async ()=>{
+    const t = ($('hcInput').value||'').trim();
+    if (!MYKEY || !t) { if (!MYKEY) alert('맨 위에서 우리 학교를 먼저 눌러주세요'); return; }
+    $('pwText').value = t.slice(0,40);
+    $('pwLen').textContent = $('pwText').value.length;
+    syncWriter();
+    $('hcInput').value = '';
+    $('pwBtn').click();
+  };
   $('hcInput').onkeydown = e=>{ if(e.key==='Enter') $('hcBtn').click(); };
 }
 
 renderEvents();
-loadCheers(); setInterval(loadCheers, 45000);
+loadPosts(0);
 loadBoard();
 
 const dock = document.querySelector('.dock');
