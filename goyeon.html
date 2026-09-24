@@ -231,6 +231,7 @@
   .sp-top{display:flex;align-items:center;gap:8px}
   .sp-ic{font-size:15px;flex:none}
   .sp-nm{font-size:13.5px;font-weight:900;letter-spacing:-.02em}
+  .sp-dt{font-size:10.5px;font-weight:800;color:#B6B0C4;background:var(--bg);padding:3px 7px;border-radius:6px}
   .sp-cheer{margin-left:auto;font-size:11px;font-weight:800;color:#B6B0C4}
   .sp-cheer b{color:var(--sub)}
   .sp-picks{display:flex;gap:7px;margin-top:10px}
@@ -306,6 +307,18 @@
     background:var(--bg);color:var(--ink2);border:1.5px solid var(--line)}
   .feed-empty{padding:30px 0;text-align:center;font-size:13px;color:var(--sub);font-weight:600;line-height:1.8}
   .evlist{margin-top:18px;display:flex;flex-direction:column;gap:10px}
+  .evday{border:1.5px solid var(--line);border-radius:18px;background:#fff;overflow:hidden}
+  .evday.over{opacity:.5}
+  .evday-hd{display:flex;align-items:center;gap:8px;padding:13px 16px;background:var(--bg);
+    border-bottom:1px solid var(--line)}
+  .evday-hd b{font-size:13.5px;font-weight:900;letter-spacing:-.02em}
+  .evday-hd span{font-size:11.5px;color:var(--sub);font-weight:700}
+  .evday-dd{margin-left:auto;font-size:12px;font-weight:900;color:var(--ink2)}
+  .evgame{display:flex;align-items:center;gap:10px;padding:12px 16px;border-bottom:1px solid var(--line)}
+  .evgame:last-child{border-bottom:0}
+  .eg-ic{font-size:15px;flex:none}
+  .eg-nm{font-size:13.5px;font-weight:800;letter-spacing:-.02em}
+  .eg-pl{margin-left:auto;font-size:11.5px;font-weight:700;color:var(--sub)}
   .evc{border:1.5px solid var(--line);border-radius:18px;background:#fff;overflow:hidden}
   .evc summary{padding:15px 16px;list-style:none;cursor:pointer;display:flex;align-items:center;gap:12px}
   .evc summary::-webkit-destails-marker,.evc summary::-webkit-details-marker{display:none}
@@ -638,8 +651,8 @@
 
   <div class="sec">
     <div class="stag">EVENTS</div>
-    <h2>다가오는 축제 · 행사</h2>
-    <div class="lead">이 중에 같이 갈 사람이 필요한 날이 있으실 거예요.</div>
+    <h2 id="evTitle">고연전 이틀, 다섯 경기</h2>
+    <div class="lead">어느 날 어느 경기에 갈지 정하셨나요. 같이 갈 사람은 위에서 구하시면 됩니다.</div>
     <div class="evlist" id="evlist"></div>
   </div>
 
@@ -763,20 +776,15 @@ function loadBoard(){ renderBoard(); }
 // 날짜만 고치면 D-day·정렬이 전부 따라갑니다
 // 학교마다 부르는 이름이 다릅니다 (고려=고연전, 연세=연고전)
 const EV_LABEL = {
-  goyeon:    { k:'고연전', y:'연고전', _:'고연전 · 연고전' },
-  akaraka:   { _:'아카라카' },
-  ipselenti: { _:'입실렌티' },
+  goyeon: { k:'고연전', y:'연고전', _:'고연전 · 연고전' },
 };
 // 히어로에 띄울 행사
 const HERO_EV   = { k:'goyeon', y:'goyeon' };
-const HERO_NOUN = { goyeon:{ k:'고연전', y:'연고전', _:'고연전' },
-                    akaraka:{ _:'아카라카' }, ipselenti:{ _:'입실렌티' } };
+const HERO_NOUN = { goyeon:{ k:'고연전', y:'연고전', _:'고연전' } };
 function evName(id, k){ const m = EV_LABEL[id] || {}; return m[k] || m._ || id; }
 
 const EVENTS = [
   { id:'goyeon', nm:'고연전 / 연고전', who:'연세 × 고려', ic:'🏟', date:'2026-10-02', tint:'#FFF0F3' },
-  { id:'akaraka', nm:'아카라카',       who:'연세대',      ic:'🎤', date:'2026-10-23', tint:'#EDF2FF' },
-  { id:'ipselenti', nm:'입실렌티',     who:'고려대',      ic:'🔥', date:'2026-10-30', tint:'#FFF0F3' },
 ];
 const CHEER_MAX = 40;
 
@@ -794,12 +802,13 @@ function ago(ts){
 
 
 // ====== 종목 ======
+// 2026 정기 고연전 — 고려대 공식 공지 기준 (10/2 야구·빙구·농구, 10/3 럭비·축구)
 const SPORTS = [
-  { id:'base', nm:'야구',      ic:'⚾' },
-  { id:'bask', nm:'농구',      ic:'🏀' },
-  { id:'rug',  nm:'럭비',      ic:'🏉' },
-  { id:'ice',  nm:'아이스하키', ic:'🏒' },
-  { id:'soc',  nm:'축구',      ic:'⚽' },
+  { id:'base', nm:'야구',       ic:'⚾', date:'2026-10-02', place:'미정' },
+  { id:'ice',  nm:'아이스하키',  ic:'🏒', date:'2026-10-02', place:'목동빙상장' },
+  { id:'bask', nm:'농구',       ic:'🏀', date:'2026-10-02', place:'잠실학생체육관' },
+  { id:'rug',  nm:'럭비',       ic:'🏉', date:'2026-10-03', place:'목동운동장' },
+  { id:'soc',  nm:'축구',       ic:'⚽', date:'2026-10-03', place:'목동운동장' },
 ];
 const SPORT_NM = {}; SPORTS.forEach(x=>SPORT_NM[x.id]=x.nm);
 
@@ -1064,6 +1073,7 @@ function renderSportRows(){
     return '<div class="sp-row" data-sp="'+sp.id+'">'+
       '<div class="sp-top"><span class="sp-ic">'+sp.ic+'</span>'+
         '<span class="sp-nm">'+sp.nm+'</span>'+
+        '<span class="sp-dt">'+fmtDate(sp.date)+'</span>'+
         '<span class="sp-cheer">응원글 <b>'+(c.k + c.y)+'</b></span></div>'+
       '<div class="sp-picks">'+
         '<button class="sp-pk'+(mine==='k'?' on':'')+'" data-k="k" data-sp="'+sp.id+'">고려대'+pc(kp)+'</button>'+
@@ -1163,19 +1173,33 @@ const CLAIM_ERR = { not_yours:'이 글을 쓴 기기에서만 받을 수 있어�
 
 /* ====== 행사 목록 (D-day 만) ====== */
 function renderEvents(){
-  const list = EVENTS.slice().sort((a,b)=> new Date(a.date) - new Date(b.date));
-  $('evlist').innerHTML = list.map(ev=>{
-    const d = dday(ev.date);
-    return '<div class="evc" style="padding:15px 16px;display:flex;align-items:center;gap:12px">'+
-      '<span class="ic" style="background:'+ev.tint+'">'+ev.ic+'</span>'+
-      '<span class="ti"><b>'+evName(ev.id, MYKEY)+'</b><span>'+ev.who+' · '+fmtDate(ev.date)+'</span></span>'+
-      '<span class="rt"><div class="dd2"'+(d==='D-DAY'?' style="color:var(--kor)"':'')+'>'+d+'</div></span></div>';
+  // 고연전 이틀 일정을 날짜별로 묶어서 보여줍니다
+  const days = [];
+  SPORTS.forEach(sp=>{
+    let d = days.find(x=>x.date === sp.date);
+    if (!d) { d = { date:sp.date, games:[] }; days.push(d); }
+    d.games.push(sp);
+  });
+  days.sort((a,b)=> new Date(a.date) - new Date(b.date));
+
+  $('evlist').innerHTML = days.map((d,i)=>{
+    const dd = dday(d.date);
+    const over = dd === '종료';
+    return '<div class="evday'+(over?' over':'')+'">'+
+      '<div class="evday-hd"><b>'+(i+1)+'일차</b><span>'+fmtDate(d.date)+'</span>'+
+        '<span class="evday-dd"'+(dd==='D-DAY'?' style="color:var(--kor)"':'')+'>'+dd+'</span></div>'+
+      d.games.map(g=>
+        '<div class="evgame"><span class="eg-ic">'+g.ic+'</span>'+
+        '<span class="eg-nm">'+g.nm+'</span>'+
+        '<span class="eg-pl">'+g.place+'</span></div>').join('')+
+    '</div>';
   }).join('');
-  updateHero(list);
+  updateHero();
 }
 // 선택한 학교에 맞춰 히어로 행사명을 바꿔줍니다
 function updateHero(list){
   list = list || EVENTS.slice().sort((a,b)=> new Date(a.date) - new Date(b.date));
+  if (!list.length) return;
   const alive = list.filter(e=>dday(e.date)!=='종료');
   if (!alive.length) return;
   const want = MYKEY && HERO_EV[MYKEY];
