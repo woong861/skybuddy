@@ -61,7 +61,7 @@
   .gauge{height:13px;border-radius:99px;background:#F5F3F9;margin-top:11px;display:flex;overflow:hidden;padding:3px;gap:2px}
   .gauge i{display:block;height:100%;border-radius:99px;transition:width .6s ease}
   .leg{display:flex;gap:10px;margin-top:10px}.leg span{font-size:11px;color:#918CA0;font-weight:700;display:flex;align-items:center;gap:4px}.leg em{width:8px;height:8px;border-radius:3px;display:block}
-  .goal{margin-top:12px;padding:10px 12px;border-radius:11px;background:#FFF4D6;font-size:11.5px;color:#8D6B12;font-weight:700;line-height:1.6}
+  .gnote{margin-top:11px;padding-top:11px;border-top:1px solid var(--line);font-size:11.5px;color:var(--sub);font-weight:700}
   .steps{margin:18px 20px 0}.steps h3{font-size:11.5px;font-weight:800;color:var(--sub);letter-spacing:.06em;margin-bottom:10px}
   .step{display:flex;gap:11px;align-items:center;padding:11px 12px;margin-bottom:7px;border-radius:14px;background:#FBFAFD;border:1.2px solid #F3F0F7}
   .step .n{width:24px;height:24px;border-radius:8px;flex:none;background:#fff;border:1.5px solid var(--line);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;color:var(--sub)}
@@ -278,7 +278,7 @@
   </div>
 
   <div class="card">
-    <div class="gc-top"><b>지금까지 신청한 사람</b><span class="cnt"><span id="stTotal">—</span> / 300명</span></div>
+    <div class="gc-top"><b>지금까지 신청한 사람</b><span class="cnt"><span id="stTotal">—</span>명</span></div>
     <div class="gauge">
       <i id="barS" style="background:linear-gradient(90deg,#3D63AE,#24457F);width:0"></i>
       <i id="barK" style="background:linear-gradient(90deg,#F79038,#D02840);width:0"></i>
@@ -289,7 +289,7 @@
       <span><em style="background:var(--kor)"></em>안암 <span id="stK">—</span></span>
       <span><em style="background:var(--yon)"></em>신촌 <span id="stY">—</span></span>
     </div>
-    <div class="goal">300명 넘으면 S·K·Y 배지 키링 전원 지급 · <span id="dday">마감 D-4</span></div>
+    <div class="gnote" id="dday">마감</div>
   </div>
 
   <div class="cta">
@@ -412,7 +412,7 @@ function encodeD(obj){const b=new TextEncoder().encode(JSON.stringify(obj));let 
 async function api(action, payload){
   if (MOCK) { await new Promise(r=>setTimeout(r,500));
     if (action==='skyApply')    return {ok:true};
-    if (action==='skyStats')    return {ok:true,total:218,y:94,k:78,s:46,capacity:300};
+    if (action==='skyStats')    return {ok:true,total:23,y:9,k:8,s:6};
   }
   const q = payload ? '&d='+encodeD(payload) : '';
   const res = await fetch(API+'?action='+action+q+'&t='+Date.now(), {cache:'no-store'});
@@ -431,8 +431,9 @@ const $ = id => document.getElementById(id);
 /* ---- 현황 ---- */
 async function loadStats(){
   let s; try { s = await api('skyStats'); } catch(e) {}
-  if (!s || !s.ok) s = {total:0,y:0,k:0,s:0,capacity:300};
-  const cap = s.capacity||300, pct = n => Math.min(100, n/cap*100)+'%';
+  if (!s || !s.ok) s = {total:0,y:0,k:0,s:0};
+  // 목표치가 없으므로 세 캠퍼스가 차지하는 비율을 보여줍니다
+  const tot = s.total || 0, pct = n => (tot ? n/tot*100 : 0)+'%';
   $('stTotal').textContent=s.total; $('stS').textContent=s.s; $('stK').textContent=s.k; $('stY').textContent=s.y;
   $('barS').style.width=pct(s.s); $('barK').style.width=pct(s.k); $('barY').style.width=pct(s.y);
 }
