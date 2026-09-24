@@ -61,6 +61,8 @@
   .gauge{height:13px;border-radius:99px;background:#F5F3F9;margin-top:11px;display:flex;overflow:hidden;padding:3px;gap:2px}
   .gauge i{display:block;height:100%;border-radius:99px;transition:width .6s ease}
   .leg{display:flex;gap:10px;margin-top:10px}.leg span{font-size:11px;color:#918CA0;font-weight:700;display:flex;align-items:center;gap:4px}.leg em{width:8px;height:8px;border-radius:3px;display:block}
+  .dv.closed{opacity:.45;cursor:default}
+  .dv.closed .tag1{background:var(--line);color:#918CA0}
   .gnote{margin-top:11px;padding-top:11px;border-top:1px solid var(--line);font-size:11.5px;color:var(--sub);font-weight:700}
   .steps{margin:18px 20px 0}.steps h3{font-size:11.5px;font-weight:800;color:var(--sub);letter-spacing:.06em;margin-bottom:10px}
   .step{display:flex;gap:11px;align-items:center;padding:11px 12px;margin-bottom:7px;border-radius:14px;background:#FBFAFD;border:1.2px solid #F3F0F7}
@@ -403,8 +405,11 @@
 <script>
 const API = 'https://script.google.com/macros/s/AKfycbxKFaL3S_tAXU6_pJfMovl705HqKKnc3jEh8iG7gN5eEJSmOw14twbcAKsUiaIkF_bFhg/exec';
 const MOCK = new URLSearchParams(location.search).get('mock') === '1' || location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
-// ▼ 마감일은 여기 한 곳만 바꾸면 D-day · 안내 문구가 같이 바뀝니다
-const DEADLINE = new Date('2026-09-29T23:59:59+09:00');
+// ▼ 고연전 동행은 경기 전에 짝을 지어야 해서 마감이 있습니다.
+//    학교팅 · 과팅은 상시 접수라 마감이 없습니다.
+const DEADLINE = new Date('2026-09-29T23:59:59+09:00');   // 고연전 친구찾기 전용
+const GOYEON_TYPE = '고연전 친구찾기';
+function goyeonOpen(){ return (DEADLINE - new Date()) > 0; }
 const CAMPUS = { y:{campus:'신촌',school:'연세대',sym:'#sty'}, k:{campus:'안암',school:'고려대',sym:'#stk'}, s:{campus:'관악',school:'서울대',sym:'#sts'} };
 const DOMAINS = ['yonsei.ac.kr','korea.ac.kr','snu.ac.kr'];
 
@@ -422,10 +427,15 @@ const $ = id => document.getElementById(id);
 
 /* ---- D-day ---- */
 (function(){
-  const d=Math.ceil((DEADLINE-new Date())/86400000); const el=$('dday');
-  el.textContent = d>0?('마감 D-'+d):(d===0?'오늘 마감':'신청 마감');
-  $('deadlineTxt').textContent = (DEADLINE.getMonth()+1)+'월 '+DEADLINE.getDate()+'일 23:59';
-  if (d<0) { const b=$('openApply'); b.disabled=true; b.textContent='이번 기수 신청 마감'; }
+  const d = Math.ceil((DEADLINE-new Date())/86400000);
+  const md = (DEADLINE.getMonth()+1)+'월 '+DEADLINE.getDate()+'일';
+  // 고연전 동행만 마감이고, 학교팅·과팅은 계속 받습니다
+  $('dday').textContent = goyeonOpen()
+    ? ('고연전 동행 마감 ' + (d>0 ? 'D-'+d : '오늘'))
+    : '고연전 동행 마감됨 · 학교팅 · 과팅은 계속 받아요';
+  $('deadlineTxt').textContent = goyeonOpen()
+    ? ('고연전 동행은 ' + md + ' 23:59 마감 · 학교팅 · 과팅은 상시 접수')
+    : '학교팅 · 과팅 상시 접수 중';
 })();
 
 /* ---- 현황 ---- */
@@ -486,7 +496,19 @@ document.querySelectorAll('#campPick .pk').forEach(p => p.onclick = () => {
 const val = g => { const el = document.querySelector('[data-single="'+g+'"] .chip.on'); return el ? el.dataset.v : ''; };
 
 let TYPE = '';
+(function(){
+  // 고연전 동행이 마감됐으면 그 카드만 잠급니다
+  if (goyeonOpen()) return;
+  const dv = document.querySelector('#typePick .dv[data-v="'+GOYEON_TYPE+'"]');
+  if (!dv) return;
+  dv.classList.add('closed');
+  const tag = dv.querySelector('.tag1');
+  if (tag) tag.textContent = '마감';
+  const p = dv.querySelector('p');
+  if (p) p.textContent = '고연전이 지나 접수를 닫았어요. 다음 시즌에 다시 엽니다';
+})();
 document.querySelectorAll('#typePick .dv').forEach(d => d.onclick = () => {
+  if (d.classList.contains('closed')) return;
   TYPE = d.dataset.v;
   document.querySelectorAll('#typePick .dv').forEach(x=>x.classList.toggle('on', x===d));
   $('sizeFld').style.display = (TYPE === '과팅') ? 'block' : 'none';
@@ -511,6 +533,7 @@ $('submitBtn').onclick = async () => {
   };
   if (!p.type) return showErr('err2','출전 종목을 골라주세요');
   if (p.type==='과팅' && !p.gsize) return showErr('err2','몇 대 몇으로 할지 골라주세요');
+  if (p.type===GOYEON_TYPE && !goyeonOpen()) return showErr('err2','고연전 동행은 방금 마감됐어요. 학교팅이나 과팅으로 바꿔주세요');
   if (!p.pick1) return showErr('err2','갈 캠퍼스를 골라주세요');
   if (p.phone.length<10) return showErr('err2','휴대폰 번호를 확인하세요');
   if (!p.kakao) return showErr('err2','카톡 ID를 입력하세요');
