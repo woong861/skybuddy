@@ -6,3 +6,6 @@
 index_email_backup.html
 index_*_rejected.html
 index_v*.html
+
+# clasp 작업 디렉터리 (스크립트 ID·시트 ID 포함)
+gas/
