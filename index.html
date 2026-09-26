@@ -339,6 +339,10 @@
       <div class="fld"><div class="q">학번 <span class="rq">필수</span></div>
         <div class="chips" data-single="year"><span class="chip" data-v="17">17</span><span class="chip" data-v="18">18</span><span class="chip" data-v="19">19</span><span class="chip" data-v="20">20</span><span class="chip" data-v="21">21</span><span class="chip" data-v="22">22</span><span class="chip" data-v="23">23</span><span class="chip" data-v="24">24</span><span class="chip" data-v="25">25</span><span class="chip" data-v="26">26</span></div></div>
 
+      <div class="fld"><div class="q">나이 <span class="rq">필수</span></div>
+        <div class="hint">만 나이가 아니라 흔히 쓰는 나이로요</div>
+        <div class="chips" data-single="age"><span class="chip" data-v="19">19</span><span class="chip" data-v="20">20</span><span class="chip" data-v="21">21</span><span class="chip" data-v="22">22</span><span class="chip" data-v="23">23</span><span class="chip" data-v="24">24</span><span class="chip" data-v="25">25</span><span class="chip" data-v="26">26</span><span class="chip" data-v="27">27</span><span class="chip" data-v="28">28</span><span class="chip" data-v="29">29</span><span class="chip" data-v="30">30</span></div></div>
+
       <div class="err" id="err1"></div>
       <div class="fld"><button class="btn" id="nextBtn">다음</button></div>
     </div>
@@ -377,20 +381,20 @@
         <textarea class="inp" id="intro" maxlength="60" placeholder="예) 안암 카페 다 털어본 사람 찾습니다"></textarea></div>
 
       <div class="fld"><div class="q">연락처 <span class="rq">필수</span></div>
-        <div class="hint">배정서를 보낼 때만 씁니다. 기수가 끝나면 폐기해요</div>
+        <div class="hint">배정서는 문자로 갑니다. 기수가 끝나면 폐기해요</div>
         <input class="inp" id="phone" inputmode="tel" placeholder="휴대폰 번호 (숫자만)">
-        <div class="rowi"><input class="inp" id="kakao" placeholder="카톡 ID"><input class="inp" id="insta" placeholder="인스타 (선택)"></div></div>
+        <div class="rowi"><input class="inp" id="kakao" placeholder="카톡 ID"><input class="inp" id="insta" placeholder="인스타 ID"></div></div>
 
       <div class="err" id="err2"></div>
       <div class="fld"><button class="btn" id="submitBtn">신청서 내기</button>
-        <p class="cap">하루 안에 짝 배정서를 보내드려요</p></div>
+        <p class="cap">짝이 정해지면 문자로 배정서를 보내드려요</p></div>
     </div>
 
     <div class="pane" id="pane3">
       <div class="done">
         <svg class="big" id="doneSvg"><use href="#sty"/></svg>
         <h2>신청 완료</h2>
-        <p id="doneMsg"><b id="doneSchool"></b> 명단에 올랐어요.<br>짝이 정해지면 카톡으로 배정서를 보내드립니다.</p>
+        <p id="doneMsg"><b id="doneSchool"></b> 명단에 올랐어요.<br>짝이 정해지면 문자로 배정서를 보내드립니다.</p>
         <div class="stage" style="max-width:300px;margin:22px auto 0"><span class="s1">옆 학교</span><i></i><span class="s2">친구</span><i></i><span class="s3">연인</span></div>
       </div>
       <div class="cta"><a class="btn soft" href="match.html?demo=1" style="text-decoration:none">배정서 미리보기</a><button class="btn soft" id="closeDone" style="margin-top:9px">닫기</button></div>
@@ -456,7 +460,8 @@ function showErr(id,msg){ const el=$(id); el.textContent=msg; el.classList.toggl
 /* ---- STEP 1 · 학교 선택 + 기본정보 ---- */
 const state = { key:null };
 const ERR = { dup:'이미 신청한 번호예요', bad_school:'우리 학교를 골라주세요',
-  bad_phone:'휴대폰 번호를 확인하세요', network:'네트워크 오류. 잠시 후 다시 시도해주세요' };
+  bad_phone:'휴대폰 번호를 확인하세요', no_insta:'인스타 ID를 입력하세요',
+  network:'네트워크 오류. 잠시 후 다시 시도해주세요' };
 
 const picks = [];
 function repaintPicks(){
@@ -516,13 +521,14 @@ $('nextBtn').onclick = () => {
   if (!$('name').value.trim()) return showErr('err1','이름을 입력하세요');
   if (!val('gender')) return showErr('err1','성별을 선택하세요');
   if (!val('year')) return showErr('err1','학번을 선택하세요');
+  if (!val('age')) return showErr('err1','나이를 선택하세요');
   goStep(2);
 };
 
 $('submitBtn').onclick = async () => {
   showErr('err2','');
   const p = {
-    school: state.key, name: $('name').value.trim(), gender: val('gender'), year: val('year'),
+    school: state.key, name: $('name').value.trim(), gender: val('gender'), year: val('year'), age: val('age'),
     pick1: picks[0]||'', pick2: picks[1]||'', type: TYPE, gsize: (TYPE==='과팅' ? val('gsize') : ''),
     intro: $('intro').value.trim(), phone: $('phone').value.replace(/[^0-9]/g,''),
     kakao: $('kakao').value.trim(), insta: $('insta').value.trim().replace(/^@/,'')
@@ -533,6 +539,7 @@ $('submitBtn').onclick = async () => {
   if (!p.pick1) return showErr('err2','갈 캠퍼스를 골라주세요');
   if (p.phone.length<10) return showErr('err2','휴대폰 번호를 확인하세요');
   if (!p.kakao) return showErr('err2','카톡 ID를 입력하세요');
+  if (!p.insta) return showErr('err2','인스타 ID를 입력하세요');
   const btn=$('submitBtn'); btn.disabled=true; btn.textContent='접수 중...';
   let r; try { r = await api('skyApply', p); } catch(e) { r={error:'network'}; }
   btn.disabled=false; btn.textContent='신청서 내기';

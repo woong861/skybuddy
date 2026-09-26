@@ -235,7 +235,7 @@ button{font-family:inherit;cursor:pointer;border:0}
           <div class="mrow"><span class="k">만나는 곳</span><span class="v" id="mSpot"></span></div>
           <div class="mrow"><span class="k">캠퍼스</span><span class="v" id="mCamp"></span></div>
           <div class="mrow"><span class="k">상대</span><span class="v" id="mWho"></span></div>
-          <div class="mrow"><span class="k">언제</span><span class="v" id="mWhen"></span></div>
+          <div class="mrow"><span class="k">언제</span><span class="v" id="mWhen">두 분이 정하세요</span></div>
         </div>
 
         <div class="quote" id="quote" style="display:none">
@@ -274,16 +274,16 @@ button{font-family:inherit;cursor:pointer;border:0}
           <div style="font-size:12.5px;color:var(--sub);margin-top:6px;font-weight:600;line-height:1.6" id="spotAd"></div>
         </div>
       </div>
-      <div class="warn">장소는 운영진이 정해드려요. 어디인지 모르겠으면 상대에게 물어보세요 — 그게 첫 대화입니다.</div>
+      <div class="warn">추천 장소예요. 다른 데가 편하시면 두 분이 정하셔도 됩니다.</div>
     </div>
 
     <div class="sec">
       <div class="stag">NEXT</div>
       <h2>이제 뭘 하면 되나요</h2>
       <div class="steps">
-        <div class="st"><div class="n">1</div><div><b>카톡으로 인사</b><p>운영진이 두 분을 카톡방에 초대해드립니다</p></div></div>
-        <div class="st"><div class="n">2</div><div><b>시간 확정</b><p>적힌 시간이 안 맞으면 둘이 조율하셔도 됩니다</p></div></div>
-        <div class="st"><div class="n">3</div><div><b>만나고 인증</b><p>사진 한 장 올리면 양쪽 학교 점수에 반영돼요</p></div></div>
+        <div class="st"><div class="n">1</div><div><b>카톡방 개설</b><p>운영진이 두 분을 카톡방에 초대해드립니다</p></div></div>
+        <div class="st"><div class="n">2</div><div><b>날짜 · 시간 정하기</b><p>두 분이 직접 맞추시면 됩니다. 운영진은 관여하지 않아요</p></div></div>
+        <div class="st"><div class="n">3</div><div><b>만나기</b><p>어색하면 위에 적힌 한마디부터 꺼내보세요</p></div></div>
       </div>
       <div class="warn" style="background:var(--rose-s);border-color:#FBDDE3;color:var(--rose-d)">
         못 가시게 되면 <b>24시간 안에</b> 알려주세요. 그때까지는 아무 불이익 없습니다.<br>
@@ -372,11 +372,12 @@ if (!SCHOOL[P.me] || !SCHOOL[P.you]) {
   $('mCamp').textContent = you.camp + ' (' + you.full + ')';
   $('mWho').textContent  = P.who || '배정 중';
   $('mSpot').textContent = spot;
-  $('mWhen').textContent = P.when || '조율 중';
+  $('mWhen').textContent = P.when || '두 분이 정하세요';
   if (P.say) { $('quote').style.display = 'block'; $('qText').textContent = '“' + P.say + '”'; $('qKey').textContent = T.role2 + '가 남긴 한마디'; }
 
-  $('ptB').textContent = P.type === '고연전 친구찾기' ? '만나면 양쪽 학교 모두 1점' : '만나면 양쪽 학교 모두 1점';
-  $('ptP').innerHTML = '만남을 인증하면 <b style="color:#fff">' + me.full + '</b>과 <b style="color:#fff">' + you.full + '</b> 기록에<br>각각 올라갑니다';
+  $('ptB').textContent = '연락은 두 분이 직접 하시면 됩니다';
+  $('ptP').innerHTML = '<b style="color:#fff">' + me.full + '</b>과 <b style="color:#fff">' + you.full + '</b>, ' +
+                       '날짜와 시간은 두 분이 편한 대로 정하세요';
 
   $('issued').textContent = new Date().toLocaleDateString('ko-KR', { year:'numeric', month:'long', day:'numeric' });
   $('serial').textContent = P.no ? '배정번호 ' + P.no : '';
