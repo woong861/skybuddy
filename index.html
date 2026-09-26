@@ -2,6 +2,9 @@
 <html lang="ko">
 <head>
 <meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta http-equiv="Pragma" content="no-cache">
+<meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>스카이버디 — 연세 · 고려 · 서울대</title>
 <meta name="description" content="서울대 · 연세대 · 고려대 서연고 교환매칭. 부담 없이 옆 학교 친구 한 명부터, 친구에서 연인으로.">
@@ -61,6 +64,22 @@
   .leg{display:flex;gap:10px;margin-top:10px}.leg span{font-size:11px;color:#918CA0;font-weight:700;display:flex;align-items:center;gap:4px}.leg em{width:8px;height:8px;border-radius:3px;display:block}
   .dv.closed{opacity:.45;cursor:default}
   .dv.closed .tag1{background:var(--line);color:#918CA0}
+  .feebox{margin-top:14px;border:1.5px solid var(--line);border-radius:16px;background:#fff;padding:16px}
+  .fb-t{font-size:13px;font-weight:900;letter-spacing:-.02em;margin-bottom:11px}
+  table.fee{width:100%;border-collapse:collapse}
+  table.fee th{font-size:11.5px;font-weight:800;color:var(--sub);padding:0 0 9px;text-align:right}
+  table.fee th:first-child{text-align:left}
+  table.fee td{font-size:13px;font-weight:800;padding:9px 0;text-align:right;
+    border-top:1px solid var(--line)}
+  table.fee td.g{text-align:left;font-weight:700;color:var(--ink2)}
+  table.fee td.g small{display:block;font-size:10.5px;font-weight:700;color:#B2AEBE;margin-top:3px}
+  table.fee td.free{color:#1E7A4B}
+  .fb-n{margin-top:12px;padding-top:11px;border-top:1px solid var(--line);
+    font-size:11px;color:var(--sub);font-weight:700;line-height:1.75}
+  .myfee{display:flex;align-items:center;justify-content:space-between;margin-top:6px;
+    padding:15px 16px;border-radius:14px;background:var(--rose-s);border:1.5px solid #F6C9D3}
+  .mf-k{font-size:13px;font-weight:800;color:var(--ink2)}
+  .mf-v{font-size:19px;font-weight:900;letter-spacing:-.03em;color:var(--rose-d)}
   .gnote{margin-top:11px;padding-top:11px;border-top:1px solid var(--line);font-size:11.5px;color:var(--sub);font-weight:700}
   .steps{margin:18px 20px 0}.steps h3{font-size:11.5px;font-weight:800;color:var(--sub);letter-spacing:.06em;margin-bottom:10px}
   .step{display:flex;gap:11px;align-items:center;padding:11px 12px;margin-bottom:7px;border-radius:14px;background:#FBFAFD;border:1.2px solid #F3F0F7}
@@ -318,6 +337,18 @@
         <div class="r"><span class="k">자　격</span><span class="v">서울대 · 연세대 · 고려대 재학생</span></div>
       </div>
 
+      <div class="feebox">
+        <div class="fb-t">신청비</div>
+        <table class="fee">
+          <tr><th></th><th>남자</th><th>여자</th></tr>
+          <tr><td class="g">소개팅 1:1<small>05~07년생</small></td><td>15,000원</td><td class="free">무료</td></tr>
+          <tr><td class="g">소개팅 1:1<small>98~04년생</small></td><td>19,000원</td><td>5,000원</td></tr>
+          <tr><td class="g">과팅<small>1인당 · 혼자도 가능</small></td><td>9,000원</td><td class="free">무료</td></tr>
+        </table>
+        <p class="fb-n">짝이 정해지면 입금 안내를 문자로 보내드려요.<br>
+        만나기 싫어지시면 상대방 신청비를 부담하시면 됩니다.</p>
+      </div>
+
       <div class="fld">
         <div class="q">우리 학교 <span class="rq">필수</span></div>
         <div class="hint">어느 학교 소속으로 신청할지 골라주세요</div>
@@ -384,6 +415,10 @@
         <input class="inp" id="phone" inputmode="tel" placeholder="휴대폰 번호 (숫자만)">
         <div class="rowi"><input class="inp" id="kakao" placeholder="카톡 ID"><input class="inp" id="insta" placeholder="인스타 ID"></div></div>
 
+      <div class="myfee" id="myFee" style="display:none">
+        <span class="mf-k">내 신청비</span><b class="mf-v" id="myFeeV">—</b>
+      </div>
+
       <div class="err" id="err2"></div>
       <div class="fld"><button class="btn" id="submitBtn">신청서 내기</button></div>
     </div>
@@ -392,7 +427,7 @@
       <div class="done">
         <svg class="big" id="doneSvg"><use href="#sty"/></svg>
         <h2>신청 완료</h2>
-        <p id="doneMsg"><b id="doneSchool"></b> 명단에 올랐어요.<br>짝이 정해지면 문자로 배정서를 보내드립니다.</p>
+        <p id="doneMsg"><b id="doneSchool"></b> 명단에 올랐어요.<br>짝이 정해지면 문자로 배정서와 입금 안내를 보내드립니다.</p>
         <div class="stage" style="max-width:300px;margin:22px auto 0"><span class="s1">옆 학교</span><i></i><span class="s2">친구</span><i></i><span class="s3">연인</span></div>
       </div>
       <div class="cta"><a class="btn soft" href="match.html?demo=1" style="text-decoration:none">배정서 미리보기</a><button class="btn soft" id="closeDone" style="margin-top:9px">닫기</button></div>
@@ -494,6 +529,26 @@ document.querySelectorAll('#campPick .pk').forEach(p => p.onclick = () => {
 });
 const val = g => { const el = document.querySelector('[data-single="'+g+'"] .chip.on'); return el ? el.dataset.v : ''; };
 
+/* ---- 신청비 ----
+   05~07년생 = 2026년 기준 20~22세, 98~04년생 = 23~29세 로 나눕니다.
+   고연전 친구찾기는 금액이 정해지지 않아 별도 안내로 둡니다. */
+function feeFor(type, gender, age){
+  const a = parseInt(age, 10) || 0;
+  const young = a > 0 && a <= 22;
+  const woman = gender === '여자';
+  if (type === '과팅')   return woman ? 0 : 9000;
+  if (type === '학교팅') return woman ? (young ? 0 : 5000) : (young ? 15000 : 19000);
+  return null;
+}
+function won(n){ return n === 0 ? '무료' : n.toLocaleString('ko-KR') + '원'; }
+function syncMyFee(){
+  const box = $('myFee'); if (!box) return;
+  const f = feeFor(TYPE, val('gender'), val('age'));
+  if (!TYPE) { box.style.display = 'none'; return; }
+  box.style.display = 'flex';
+  $('myFeeV').textContent = (f === null) ? '별도 안내' : won(f);
+}
+
 let TYPE = '';
 (function(){
   // 고연전 동행이 마감됐으면 그 카드만 잠급니다
@@ -511,6 +566,7 @@ document.querySelectorAll('#typePick .dv').forEach(d => d.onclick = () => {
   TYPE = d.dataset.v;
   document.querySelectorAll('#typePick .dv').forEach(x=>x.classList.toggle('on', x===d));
   $('sizeFld').style.display = (TYPE === '과팅') ? 'block' : 'none';
+  syncMyFee();
 });
 
 $('nextBtn').onclick = () => {
@@ -521,6 +577,7 @@ $('nextBtn').onclick = () => {
   if (!val('year')) return showErr('err1','학번을 선택하세요');
   if (!val('age')) return showErr('err1','나이를 선택하세요');
   goStep(2);
+  syncMyFee();
 };
 
 $('submitBtn').onclick = async () => {
