@@ -324,6 +324,10 @@
   .shotbox img{width:100%;border-radius:16px;display:block;box-shadow:0 20px 50px rgba(0,0,0,.45)}
   .shotbox p{margin-top:16px;font-size:13.5px;font-weight:700;color:#fff;line-height:1.7}
   .shotbox p b{color:#FFC2CE}
+  .shotbox p .s2{font-size:11.5px;font-weight:600;color:rgba(255,255,255,.55)}
+  .shottip{margin-top:12px;padding:11px 13px;border-radius:11px;background:rgba(255,255,255,.12);
+    font-size:11.5px;font-weight:700;color:rgba(255,255,255,.82);line-height:1.65}
+  .shottip b{color:#FFC2CE}
   .shotbox button{margin-top:16px;padding:13px 30px;border-radius:99px;background:#fff;
     color:var(--ink);font-size:14px;font-weight:800}
 
@@ -1239,13 +1243,25 @@ function canvasBlob(c){ return new Promise(r => c.toBlob(r, 'image/png')); }
 
 // 인앱 브라우저(카톡 등)는 blob: 다운로드를 막습니다.
 // 그래서 이미지를 화면에 띄우고 길게 눌러 저장하게 합니다.
+// 카톡 등 인앱 브라우저는 data: 이미지를 길게 눌러 저장하는 것도 막습니다.
+// 그래서 캡처를 1순위로 안내하고, 인앱이면 외부 브라우저로 여는 법을 같이 알려줍니다.
+function isInApp(){
+  const u = navigator.userAgent || '';
+  return /KAKAOTALK|NAVER\(inapp|Instagram|FBAN|FBAV|Line\//i.test(u);
+}
 function showShot(dataUrl){
+  const inapp = isInApp();
   const w = document.createElement('div');
   w.className = 'shotwrap';
   w.innerHTML =
     '<div class="shotbox">' +
       '<img src="' + dataUrl + '" alt="나의 고연전 예측">' +
-      '<p>이미지를 <b>꾹 눌러서</b> 저장하세요<br>그다음 스토리에 올리시면 됩니다</p>' +
+      '<p><b>화면을 캡처해서</b> 스토리에 올려주세요<br>' +
+      '<span class="s2">길게 눌러 저장이 되는 폰도 있어요</span></p>' +
+      (inapp
+        ? '<div class="shottip">저장이 안 되면 오른쪽 위 <b>⋮</b> → ' +
+          '<b>다른 브라우저로 열기</b> 후 다시 시도해보세요</div>'
+        : '') +
       '<button type="button">닫기</button>' +
     '</div>';
   w.addEventListener('click', function(e){
