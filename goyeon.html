@@ -175,7 +175,11 @@
   .hdone p{font-size:13px;color:#D8C7D1;margin-top:7px;font-weight:600;line-height:1.7}
 
   /* 한마디 전에는 매칭 버튼을 2차로 */
-  .btn.soft2{background:transparent;border:1.5px solid rgba(255,255,255,.3);color:#fff;box-shadow:none}
+  /* 어두운 카드 위에 얹히는 버튼. 투명 테두리로는 눈에 안 띄어 흰색으로 채웁니다.
+     로즈 계열은 하단바·남기기 버튼이 이미 쓰고 있어 색을 겹치지 않게 했습니다. */
+  .btn.soft2{background:#fff;color:#43192C;border:0;
+             box-shadow:0 10px 28px rgba(0,0,0,.34),0 2px 6px rgba(0,0,0,.2)}
+  .hcta .btn::after{content:'  →';font-weight:900}
   /* 2파전 */
   .crest.two{gap:10px}
   .crest.two .c{padding:16px 6px 14px}
@@ -343,6 +347,13 @@
   .plike svg{width:12px;height:12px}
   .plike.on{border-color:#F6C9D3;background:var(--rose-s);color:var(--rose-d)}
   .plike.on svg{color:var(--rose)}
+  .feedcta{display:block;text-decoration:none;margin:4px 0;padding:20px 18px;border-radius:18px;
+    background:linear-gradient(160deg,#FFF1F4,#FFE7EC);border:1.5px solid #F6C9D3;text-align:center}
+  .feedcta b{display:block;font-size:15.5px;font-weight:900;letter-spacing:-.03em;color:var(--ink)}
+  .feedcta p{font-size:12.5px;font-weight:600;color:var(--sub);line-height:1.75;margin-top:8px}
+  .fc-btn{display:block;margin-top:14px;padding:13px;border-radius:12px;font-size:14px;font-weight:800;
+    letter-spacing:-.02em;background:linear-gradient(110deg,var(--rose),var(--rose-lt));color:#fff;
+    box-shadow:0 8px 20px rgba(232,97,125,.3)}
   .morebtn{width:100%;margin-top:12px;padding:14px;border-radius:13px;font-size:14.5px;font-weight:800;
     background:var(--bg);color:var(--ink2);border:1.5px solid var(--line)}
   .feed-empty{padding:30px 0;text-align:center;font-size:13px;color:var(--sub);font-weight:600;line-height:1.8}
@@ -429,8 +440,9 @@
   .foot{padding:22px;font-size:10.5px;color:#A9A4B6;line-height:1.85;text-align:center;font-weight:600;background:var(--cream)}
 
   .dock{position:fixed;left:0;right:0;bottom:0;z-index:40;display:flex;justify-content:center;pointer-events:none;
-        padding-bottom:calc(env(safe-area-inset-bottom, 0px) + 12px)}
-  .dock .in{width:100%;max-width:480px;padding:0 20px;pointer-events:auto}
+        padding-bottom:calc(env(safe-area-inset-bottom, 0px) + 14px)}
+  .dock .in{width:100%;max-width:420px;padding:0 20px;pointer-events:auto}
+  .dock .btn{border-radius:99px;padding:16px}
   /* 배경을 깔지 않습니다. 밝은 페이지와 어두운 카드 위를 번갈아 지나가기 때문에
      크림 그라데이션을 쓰면 어두운 구간에서 흰 안개처럼 글씨를 덮습니다. */
   .dock .btn{box-shadow:0 10px 30px rgba(74,30,50,.42),0 2px 8px rgba(74,30,50,.24)}
@@ -637,8 +649,8 @@
     </div>
 
     <div class="twist">
-      <b>여기는 응원방, 짝은 스카이버디에서</b>
-      <p>글은 누구나 남길 수 있어요.<br>같이 갈 사람이 필요하면 <b>스카이버디</b>가 짝을 지어드립니다.</p>
+      <b>같이 갈 사람 필요하면 스카이버디에서 신청!</b>
+      <p>글은 누구나 남길 수 있어요.<br>서울대 · 연세대 · 고려대 학생끼리만 연결해드립니다.</p>
     </div>
 
     <div class="hcta"><a class="btn goMatch" href="index.html">인연 찾으러 가기</a></div>
@@ -883,6 +895,14 @@ const POST_MAX = 150;
 let POSTS = [], POST_TOTAL = 0, POST_MORE = false, POST_COUNTS = { k:0, y:0 };
 let POST_SPORTS = {}, POST_WANTED = 0;
 let FILTER = { sp:'', wm:0 };          // 피드 필터
+let FEED_SHOWN = 6;                    // 처음에 보여주는 글 수
+const FEED_CTA_AT = 4;                 // 이 글 뒤에 전환 카드
+const FEED_CTA_HTML =
+  '<a class="feedcta" href="index.html">' +
+    '<b>같이 갈 사람 필요하면 스카이버디에서 신청!</b>' +
+    '<p>서울대 · 연세대 · 고려대 학생끼리만 연결해드려요.<br>참가비 없습니다.</p>' +
+    '<span class="fc-btn">인연 찾으러 가기 →</span>' +
+  '</a>';
 let WSPORT = '';                       // 글쓰기 종목
 let PRED = null;                       // 예측 집계
 function myPicks(){ try { return JSON.parse(localStorage.getItem('syg_pred')||'{}'); } catch(e){ return {}; } }
@@ -969,6 +989,7 @@ function mockPage(offset){
 
 async function loadPosts(offset){
   offset = offset || 0;
+  if (!offset) FEED_SHOWN = 6;
   let r;
   const q = { offset };
   if (FILTER.sp) q.sp = FILTER.sp;
@@ -989,7 +1010,8 @@ function renderFeed(){
       ? '<div class="feed-empty">여기엔 아직 글이 없어요.<br>첫 번째로 남겨보세요</div>'
       : '<div class="feed-empty">아직 글이 없어요.<br>첫 번째로 남겨보세요</div>';
   } else {
-    $('feed').innerHTML = POSTS.map(p=>{
+    const view = POSTS.slice(0, FEED_SHOWN);
+    $('feed').innerHTML = view.map((p,i)=>{
       const sc = SCHOOL[p.k]; if (!sc) return '';
       const on = liked.has(p.id);
       const tags = (p.wm ? '<span class="ptag mate">같이 가요</span>' : '') +
@@ -1000,11 +1022,15 @@ function renderFeed(){
         '<span class="ptime" style="margin-left:8px">'+ago(p.ts)+'</span></div>'+
         '<div class="ptext">'+escapeHtml(p.t)+'</div>'+
         '<button class="plike'+(on?' on':'')+'" data-id="'+p.id+'">'+
-          '<svg><use href="#heart"/></svg>'+p.likes+'</button></div>';
+          '<svg><use href="#heart"/></svg>'+p.likes+'</button></div>' +
+        // 글을 끝까지 내려야 CTA 가 나오면 아무도 안 봅니다. 중간에 한 번 끼웁니다.
+        (i === FEED_CTA_AT && view.length > FEED_CTA_AT + 1 ? FEED_CTA_HTML : '');
     }).join('');
     $('feed').querySelectorAll('.plike').forEach(b=>b.onclick=()=>likePost(b.dataset.id, b));
   }
-  $('moreBtn').style.display = POST_MORE ? 'block' : 'none';
+  const hasMore = FEED_SHOWN < POSTS.length || POST_MORE;
+  $('moreBtn').style.display = hasMore ? 'block' : 'none';
+  $('moreBtn').textContent = '글 더보기';
   if ($('boardTitle')) {
     const noun = ($('heroNoun') && $('heroNoun').textContent) || '고연전';
     $('boardTitle').textContent = noun + ' 응원방';
@@ -1092,7 +1118,11 @@ if ($('pwText')) {
     renderHeroCheer();
   };
 }
-$('moreBtn').onclick = ()=>loadPosts(POSTS.length);
+$('moreBtn').onclick = ()=>{
+  if (FEED_SHOWN < POSTS.length) { FEED_SHOWN += 10; renderFeed(); return; }
+  FEED_SHOWN += 10;
+  loadPosts(POSTS.length);
+};
 
 /* ====== 피드 필터 ====== */
 function renderFilter(){
@@ -1403,13 +1433,32 @@ const dock = document.querySelector('.dock');
 const heroCta = document.querySelector('.hcta');
 // 페이지를 열자마자 띄우면 히어로 내용을 덮습니다.
 // 어느 정도 내려간 뒤에만, 그리고 히어로 버튼이 화면에 없을 때만 띄웁니다.
-let heroCtaOn = false;
+let heroCtaOn = false, writerOn = false;
 function syncDock(){
-  dock.classList.toggle('show', !heroCtaOn && window.scrollY > 520);
+  // 글을 쓰려는 중에는 띄우지 않습니다. 종목 칩과 입력칸을 가립니다.
+  dock.classList.toggle('show', !heroCtaOn && !writerOn && window.scrollY > 520);
 }
 new IntersectionObserver(function(es){ heroCtaOn = es[0].isIntersecting; syncDock(); },
   {rootMargin:'-40px 0px 0px 0px'}).observe(heroCta);
+const writerEl = document.getElementById('writer');
+if (writerEl) new IntersectionObserver(function(es){ writerOn = es[0].isIntersecting; syncDock(); },
+  {rootMargin:'0px 0px -80px 0px'}).observe(writerEl);
 addEventListener('scroll', syncDock, { passive:true });
+
+// 일부 인앱 브라우저는 레이아웃 높이를 실제 화면보다 짧게 잡아
+// bottom:0 이 화면 맨 아래에 닿지 않습니다. 차이만큼 내려줍니다.
+function pinDock(){
+  const vv = window.visualViewport;
+  if (!vv) return;
+  const gap = Math.round(vv.height + vv.offsetTop - window.innerHeight);
+  dock.style.bottom = (gap > 0 && gap < 320) ? (-gap + 'px') : '0px';
+}
+if (window.visualViewport) {
+  visualViewport.addEventListener('resize', pinDock);
+  visualViewport.addEventListener('scroll', pinDock);
+}
+addEventListener('resize', pinDock);
+pinDock();
 syncDock();
 
 function updateTip(){
