@@ -69,6 +69,13 @@
   .df-r{display:flex;align-items:center;justify-content:space-between}
   .df-r span{font-size:13px;font-weight:800;color:var(--ink2)}
   .df-r b{font-size:22px;font-weight:900;letter-spacing:-.03em;color:var(--rose-d)}
+  .df-acc{margin-top:13px;padding:13px 14px;border-radius:12px;background:#fff;
+    border:1.5px solid #F3D3DB}
+  .da-k{display:block;font-size:11px;font-weight:800;color:var(--sub)}
+  .da-v{display:block;margin-top:5px;font-size:15px;font-weight:900;letter-spacing:-.02em;
+    color:var(--ink);word-break:keep-all}
+  .da-n{display:block;margin-top:7px;font-size:11px;font-weight:700;color:var(--sub);line-height:1.65}
+  .da-n b{color:var(--rose-d);font-weight:800}
   .donefee p{margin-top:12px;padding-top:11px;border-top:1px solid #F3D3DB;
     font-size:11.5px;font-weight:700;color:var(--sub);line-height:1.75}
   .gnote{margin-top:11px;padding-top:11px;border-top:1px solid var(--line);font-size:11.5px;color:var(--sub);font-weight:700}
@@ -328,7 +335,7 @@
         <div class="r"><span class="k">자　격</span><span class="v">서울대 · 연세대 · 고려대 재학생</span></div>
       </div>
 
-
+      <div class="fld"><div class="q">우리 학교 <span class="rq">필수</span></div>
         <div class="hint">어느 학교 소속으로 신청할지 골라주세요</div>
         <div class="picks" id="myPick">
           <div class="pk" data-k="s"><svg><use href="#sts"/></svg><b>서울대</b></div>
@@ -349,7 +356,7 @@
 
       <div class="fld"><div class="q">나이 <span class="rq">필수</span></div>
         <div class="hint">만 나이가 아니라 흔히 쓰는 나이로요</div>
-        <div class="chips" data-single="age"><span class="chip" data-v="19">19</span><span class="chip" data-v="20">20</span><span class="chip" data-v="21">21</span><span class="chip" data-v="22">22</span><span class="chip" data-v="23">23</span><span class="chip" data-v="24">24</span><span class="chip" data-v="25">25</span><span class="chip" data-v="26">26</span><span class="chip" data-v="27">27</span><span class="chip" data-v="28">28</span><span class="chip" data-v="29">29</span><span class="chip" data-v="30">30</span></div></div>
+        <div class="chips" data-single="age"><span class="chip" data-v="20">20</span><span class="chip" data-v="21">21</span><span class="chip" data-v="22">22</span><span class="chip" data-v="23">23</span><span class="chip" data-v="24">24</span><span class="chip" data-v="25">25</span><span class="chip" data-v="26">26</span><span class="chip" data-v="27">27</span><span class="chip" data-v="28">28</span><span class="chip" data-v="29">29</span></div></div>
 
       <div class="err" id="err1"></div>
       <div class="fld"><button class="btn" id="nextBtn">다음</button></div>
@@ -407,7 +414,12 @@
 
       <div class="donefee" id="doneFee">
         <div class="df-r"><span>신청비</span><b id="doneFeeV">—</b></div>
-        <p>짝이 정해지면 입금 안내를 문자로 보내드려요.<br>
+        <div class="df-acc" id="doneAcc">
+          <span class="da-k">입금 계좌</span>
+          <b class="da-v">카카오뱅크 3333-24-1809842</b>
+          <span class="da-n">예금주 박*일 · 보내는 분 이름은 <b>신청자 본인 이름</b>으로</span>
+        </div>
+        <p>입금 확인 후 짝을 배정해드려요.<br>
         만나기 싫어지시면 상대방 신청비를 부담하시면 됩니다.</p>
       </div>
       <div class="cta"><a class="btn soft" href="match.html?demo=1" style="text-decoration:none">배정서 미리보기</a><button class="btn soft" id="closeDone" style="margin-top:9px">닫기</button></div>
@@ -525,6 +537,9 @@ function showDoneFee(){
   const el = $('doneFeeV'); if (!el) return;
   const f = feeFor(TYPE, val('gender'), val('age'));
   el.textContent = (f === null) ? '별도 안내' : won(f);
+  // 무료면 계좌를 보여줄 이유가 없습니다
+  const acc = $('doneAcc');
+  if (acc) acc.style.display = (f === 0) ? 'none' : 'block';
 }
 
 let TYPE = '';

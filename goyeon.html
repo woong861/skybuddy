@@ -743,13 +743,6 @@
     </a>
   </div>
 
-  <div class="sec">
-    <div class="stag">EVENTS</div>
-    <h2 id="evTitle">고연전 이틀, 다섯 경기</h2>
-    <div class="lead">어느 날 어느 경기에 갈지 정하셨나요. 같이 갈 사람은 위에서 구하시면 됩니다.</div>
-    <div class="evlist" id="evlist"></div>
-  </div>
-
   <div class="sec pb">
     <div class="stag">TEAMS</div>
     <h2>참가 학교</h2>
@@ -1388,7 +1381,8 @@ const CLAIM_ERR = { not_yours:'이 글을 쓴 기기에서만 받을 수 있어�
 
 /* ====== 행사 목록 (D-day 만) ====== */
 function renderEvents(){
-  // 고연전 이틀 일정을 날짜별로 묶어서 보여줍니다
+  // 일정 섹션은 뺐지만 히어로 D-day 는 여기서 세팅합니다
+  if (!$('evlist')) { updateHero(); return; }
   const days = [];
   SPORTS.forEach(sp=>{
     let d = days.find(x=>x.date === sp.date);
