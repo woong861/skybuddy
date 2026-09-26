@@ -314,6 +314,16 @@
   .wmate span{font-size:12.5px;font-weight:800;color:var(--ink2)}
   .wmate small{font-size:11px;color:var(--sub);font-weight:700;display:block;margin-top:2px}
 
+  /* 예측 이미지 보기 */
+  .shotwrap{position:fixed;inset:0;z-index:90;background:rgba(30,16,36,.82);
+    display:flex;align-items:center;justify-content:center;padding:20px;overflow:auto}
+  .shotbox{width:100%;max-width:340px;text-align:center}
+  .shotbox img{width:100%;border-radius:16px;display:block;box-shadow:0 20px 50px rgba(0,0,0,.45)}
+  .shotbox p{margin-top:16px;font-size:13.5px;font-weight:700;color:#fff;line-height:1.7}
+  .shotbox p b{color:#FFC2CE}
+  .shotbox button{margin-top:16px;padding:13px 30px;border-radius:99px;background:#fff;
+    color:var(--ink);font-size:14px;font-weight:800}
+
   /* ===== 오픈채팅 ===== */
   .ocbar{display:flex;align-items:center;gap:12px;margin-top:14px;padding:15px 16px;border-radius:18px;
     background:#FEE500;border:1.5px solid #F0D500;text-decoration:none}
@@ -679,7 +689,7 @@
       <div class="pc-sum" id="pcSum"></div>
       <div class="pc-ft">
         <span>내 예측은 몇 개 맞을까</span>
-        <b>woong861.github.io/skybuddy</b>
+        <b>skybuddy.cloud</b>
       </div>
     </div></div>
   </div>
@@ -750,7 +760,7 @@
       <details class="qa"><summary>상대가 누군지 미리 알 수 있나요?</summary>
         <p>연합팀 결성증에 학교 · 학번 · 학과와 본인이 쓴 한마디가 적혀 옵니다. 사진은 없어요. 만나서 보는 게 이 종목의 규칙입니다.</p></details>
       <details class="qa"><summary>만나기 싫어지면요?</summary>
-        <p>결성증을 받고 24시간 안에 취소하면 기록에 남지 않습니다. 대신 점수도 올라가지 않아요.</p></details>
+        <p>배정서를 받고 마음이 바뀌셨다면 알려주세요. 상대방 신청비를 부담하시면 됩니다.</p></details>
       <details class="qa"><summary>학교에서 하는 행사인가요?</summary>
         <p>아닙니다. 세 학교 학생 3명이 만든 이벤트고, 학교 · 총학생회와 아무 관련이 없습니다.</p></details>
     </div>
@@ -758,12 +768,12 @@
 
   <div class="last">
     <h2>지금 1위는<br><em id="leadName">—</em></h2>
-    <p>한마디는 여기, 짝은 스카이버디에서.<br>둘 다 참가비 없습니다.</p>
+    <p>한마디는 여기, 짝은 스카이버디에서.</p>
     <a class="btn goMatch" href="index.html">인연 찾으러 가기</a>
   </div>
 
   <div class="foot">
-    학교 공식 행사가 아닙니다.<br>고연전 응원방은 스카이버디가 여는 시즌 이벤트로, 연세대 · 고려대와 아무 관련이 없는 학생 자체 기획이에요.
+    학교 공식 프로그램 아니며, 학생 자체 기획 이벤트입니다!
   </div>
 </div>
 
@@ -900,7 +910,7 @@ const FEED_CTA_AT = 4;                 // 이 글 뒤에 전환 카드
 const FEED_CTA_HTML =
   '<a class="feedcta" href="index.html">' +
     '<b>같이 갈 사람 필요하면 스카이버디에서 신청!</b>' +
-    '<p>서울대 · 연세대 · 고려대 학생끼리만 연결해드려요.<br>참가비 없습니다.</p>' +
+    '<p>서울대 · 연세대 · 고려대 학생끼리만 연결해드려요.</p>' +
     '<span class="fc-btn">인연 찾으러 가기 →</span>' +
   '</a>';
 let WSPORT = '';                       // 글쓰기 종목
@@ -1220,22 +1230,55 @@ function fillPredCard(){
 
 async function shotPred(){
   fillPredCard();
-  const c = await html2canvas($('pcard'), { scale: 2, backgroundColor: null, useCORS: true });
-  return new Promise(r => c.toBlob(r, 'image/png'));
+  return html2canvas($('pcard'), { scale: 2, backgroundColor: null, useCORS: true });
+}
+function canvasBlob(c){ return new Promise(r => c.toBlob(r, 'image/png')); }
+
+// 인앱 브라우저(카톡 등)는 blob: 다운로드를 막습니다.
+// 그래서 이미지를 화면에 띄우고 길게 눌러 저장하게 합니다.
+function showShot(dataUrl){
+  const w = document.createElement('div');
+  w.className = 'shotwrap';
+  w.innerHTML =
+    '<div class="shotbox">' +
+      '<img src="' + dataUrl + '" alt="나의 고연전 예측">' +
+      '<p>이미지를 <b>꾹 눌러서</b> 저장하세요<br>그다음 스토리에 올리시면 됩니다</p>' +
+      '<button type="button">닫기</button>' +
+    '</div>';
+  w.addEventListener('click', function(e){
+    if (e.target === w || e.target.tagName === 'BUTTON') w.remove();
+  });
+  document.body.appendChild(w);
 }
 
 if ($('predBtn')) $('predBtn').onclick = async ()=>{
   const b = $('predBtn'); const was = b.textContent;
   b.disabled = true; b.textContent = '만드는 중';
   try {
-    const blob = await shotPred();
-    const f = new File([blob], 'goyeon-pred.png', { type:'image/png' });
-    if (navigator.canShare && navigator.canShare({ files:[f] })) {
-      try { await navigator.share({ files:[f], title:'나의 고연전 예측' }); return; } catch(e){}
+    const canvas = await shotPred();
+
+    // 1순위: 공유 시트 (사파리·크롬 모바일)
+    try {
+      const blob = await canvasBlob(canvas);
+      const f = new File([blob], 'goyeon-pred.png', { type:'image/png' });
+      if (navigator.canShare && navigator.canShare({ files:[f] })) {
+        await navigator.share({ files:[f], title:'나의 고연전 예측' });
+        return;
+      }
+    } catch(e){ /* 공유를 닫았거나 지원하지 않으면 아래로 */ }
+
+    const url = canvas.toDataURL('image/png');
+
+    // 2순위: 다운로드 (데스크톱). 인앱 브라우저는 여기서 조용히 실패하므로 쓰지 않습니다.
+    const isTouch = matchMedia('(pointer: coarse)').matches;
+    if (!isTouch) {
+      const a = document.createElement('a');
+      a.href = url; a.download = 'goyeon-pred.png'; a.click();
+      return;
     }
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob); a.download = 'goyeon-pred.png'; a.click();
-    alert('이미지를 저장했어요. 스토리에 올려주세요!');
+
+    // 3순위: 화면에 띄우고 길게 눌러 저장 — 인앱 브라우저에서 확실히 되는 방법
+    showShot(url);
   } catch(e){
     alert('이미지를 만들지 못했어요. 잠시 후 다시 시도해주세요');
   } finally {
