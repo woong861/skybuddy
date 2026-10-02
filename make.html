@@ -1,0 +1,302 @@
+<!doctype html><html lang="ko"><head><meta charset="utf-8">
+<meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>스카이버디 운영 — 짝 배정</title>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+<style>
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--ink:#241F2B;--sub:#7E7789;--line:#ECE6F2;--bg:#FAF8FC;--rose:#E8617D;--rose-d:#B31F36;
+        --kor:#D02840;--yon:#2E5BD8;--snu:#24457F;--ok:#1E7A4B}
+  body{font-family:Pretendard,-apple-system,sans-serif;background:var(--bg);color:var(--ink);
+       font-size:14px;line-height:1.5;-webkit-text-size-adjust:100%}
+  button,input,select{font-family:inherit;font-size:inherit;border:0;outline:none}
+  button{cursor:pointer}
+  .wrap{max-width:1080px;margin:0 auto;padding:18px 16px 60px}
+  h1{font-size:20px;font-weight:900;letter-spacing:-.03em}
+  .sub{font-size:12px;color:var(--sub);font-weight:600;margin-top:4px}
+
+  .card{background:#fff;border:1.5px solid var(--line);border-radius:14px;padding:14px;margin-top:14px}
+  .card h2{font-size:13px;font-weight:900;letter-spacing:-.02em;margin-bottom:10px}
+  .row{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+  .inp{flex:1;min-width:180px;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;
+       font-weight:600;background:#fff}
+  .btn{padding:10px 16px;border-radius:10px;font-weight:800;background:var(--ink);color:#fff}
+  .btn.sec{background:#fff;color:var(--ink);border:1.5px solid var(--line)}
+  .btn.go{background:linear-gradient(110deg,var(--rose),#FF8FA3)}
+  .btn:disabled{background:var(--line);color:#B6B0C4;cursor:default}
+
+  .stats{display:flex;gap:8px;flex-wrap:wrap;margin-top:14px}
+  .st{flex:1;min-width:92px;background:#fff;border:1.5px solid var(--line);border-radius:12px;padding:11px 13px}
+  .st b{display:block;font-size:19px;font-weight:900;letter-spacing:-.03em}
+  .st span{font-size:11px;color:var(--sub);font-weight:700}
+  .st.warn{border-color:#F6C9D3;background:#FFF5F7}
+  .st.warn b{color:var(--rose-d)}
+
+  .fil{display:flex;gap:6px;flex-wrap:wrap;margin-top:10px}
+  .fc{padding:7px 12px;border-radius:99px;border:1.5px solid var(--line);background:#fff;
+      font-size:12px;font-weight:800;color:var(--sub)}
+  .fc.on{background:var(--ink);border-color:var(--ink);color:#fff}
+
+  .list{margin-top:10px;max-height:460px;overflow:auto;display:flex;flex-direction:column;gap:7px}
+  .p{border:1.5px solid var(--line);border-radius:12px;background:#fff;padding:11px 12px;cursor:pointer}
+  .p:hover{border-color:#D9D2E6}
+  .p.sel{border-color:var(--rose);background:#FFF7F9}
+  .p.done{opacity:.5}
+  .p-t{display:flex;align-items:center;gap:7px;flex-wrap:wrap}
+  .tag{font-size:10.5px;font-weight:800;padding:3px 8px;border-radius:6px;color:#fff}
+  .p-n{font-size:14px;font-weight:900;letter-spacing:-.02em}
+  .p-m{font-size:11.5px;color:var(--sub);font-weight:700;margin-left:auto}
+  .p-d{font-size:11.5px;color:var(--sub);font-weight:600;margin-top:6px;line-height:1.6;word-break:break-all}
+  .p-say{font-size:11.5px;color:var(--ink);font-weight:600;margin-top:5px;font-style:italic}
+  .badge{font-size:10px;font-weight:800;padding:2px 7px;border-radius:5px;background:var(--bg);color:var(--sub)}
+  .badge.ok{background:#EAF7F0;color:var(--ok)}
+  .badge.rec{background:#FFF1F4;color:var(--rose-d)}
+
+  .slots{display:flex;gap:10px;flex-wrap:wrap}
+  .slot{flex:1;min-width:230px;border:2px dashed var(--line);border-radius:12px;padding:13px;min-height:96px;
+        display:flex;flex-direction:column;justify-content:center}
+  .slot.has{border-style:solid;border-color:var(--rose);background:#FFF7F9}
+  .slot .ph{font-size:12.5px;color:#B6B0C4;font-weight:700;text-align:center}
+  .empty{padding:26px 0;text-align:center;font-size:12.5px;color:var(--sub);font-weight:600}
+  pre{white-space:pre-wrap;word-break:break-all;font-size:11.5px;line-height:1.7;font-family:inherit;
+      background:var(--bg);border-radius:10px;padding:11px;margin-top:8px;font-weight:600}
+  .msg{margin-top:9px;font-size:12px;font-weight:800;padding:9px 11px;border-radius:9px}
+  .msg.ok{background:#EAF7F0;color:var(--ok)}
+  .msg.err{background:#FFF0F3;color:var(--rose-d)}
+  .hide{display:none}
+</style></head><body>
+<div class="wrap">
+  <h1>스카이버디 운영</h1>
+  <div class="sub">짝 배정 · 문자 발송 · 입금 확인</div>
+
+  <div class="card">
+    <h2>접속</h2>
+    <div class="row">
+      <input class="inp" id="key" type="password" placeholder="관리자 키">
+      <button class="btn" id="loadBtn">불러오기</button>
+    </div>
+    <div class="sub" id="state" style="margin-top:8px">키를 넣고 불러오기를 누르세요</div>
+  </div>
+
+  <div class="stats" id="stats"></div>
+
+  <div class="card">
+    <h2>신청자</h2>
+    <div class="row"><input class="inp" id="q" placeholder="이름 · 전화 · 카톡 · 인스타 검색"></div>
+    <div class="fil" id="fGender"></div>
+    <div class="fil" id="fSchool"></div>
+    <div class="fil" id="fEtc"></div>
+    <div class="list" id="list"><div class="empty">아직 불러오지 않았어요</div></div>
+  </div>
+
+  <div class="card">
+    <h2>짝 배정</h2>
+    <div class="slots">
+      <div class="slot" id="slotA"><div class="ph">A — 목록에서 선택</div></div>
+      <div class="slot" id="slotB"><div class="ph">B — 목록에서 선택</div></div>
+    </div>
+    <div class="row" style="margin-top:10px">
+      <button class="btn sec" id="swapBtn">A↔B</button>
+      <button class="btn sec" id="clearBtn">비우기</button>
+      <button class="btn" id="prevBtn" disabled>문자 미리보기</button>
+      <button class="btn go" id="sendBtn" disabled>짝 확정 + 문자 발송</button>
+    </div>
+    <div id="preview" class="hide"></div>
+    <div id="msg"></div>
+  </div>
+</div>
+
+<script>
+const API = 'https://script.google.com/macros/s/AKfycbxKFaL3S_tAXU6_pJfMovl705HqKKnc3jEh8iG7gN5eEJSmOw14twbcAKsUiaIkF_bFhg/exec';
+const $ = id => document.getElementById(id);
+const esc = t => String(t==null?'':t).replace(/[&<>"']/g, m=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[m]));
+const SCH = { '고려대':'var(--kor)', '연세대':'var(--yon)', '서울대':'var(--snu)' };
+const CAMP_OF = { '고려대':'안암', '연세대':'신촌', '서울대':'관악' };
+
+let ROWS = [], A = null, B = null;
+let F = { gender:'', school:'', only:'' };
+
+function enc(o){
+  return btoa(String.fromCharCode(...new TextEncoder().encode(JSON.stringify(o))))
+    .replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');
+}
+async function api(action, payload){
+  let u = API + '?action=' + action + '&key=' + encodeURIComponent($('key').value.trim()) + '&t=' + Date.now();
+  if (payload) u += '&d=' + enc(payload);
+  const r = await fetch(u, { cache:'no-store' });
+  return r.json();
+}
+function say(t, ok){ $('msg').className = 'msg ' + (ok ? 'ok' : 'err'); $('msg').textContent = t; }
+
+/* ---------- 불러오기 ---------- */
+async function load(){
+  const k = $('key').value.trim();
+  if (!k) { say('관리자 키를 넣어주세요', false); return; }
+  try { localStorage.setItem('syg_admin_key', k); } catch(e){}
+  $('state').textContent = '불러오는 중... (처음엔 30초까지 걸릴 수 있어요)';
+  try {
+    const d = await api('skyAdminList');
+    if (!d.ok) { $('state').textContent = '실패: ' + (d.error || '알 수 없음'); return; }
+    ROWS = d.rows || [];
+    $('state').textContent = ROWS.length + '명 · 갱신 ' + new Date().toLocaleTimeString('ko-KR');
+    renderStats(); renderFilters(); renderList();
+  } catch(e){ $('state').textContent = '실패: ' + e.message; }
+}
+
+/* ---------- 통계 ---------- */
+function renderStats(){
+  const n = ROWS.length;
+  const m = ROWS.filter(r=>r['성별']==='남자').length;
+  const w = n - m;
+  const done = ROWS.filter(r=>String(r['짝']||'').trim()).length;
+  const paid = ROWS.filter(r=>String(r['입금']||'').trim()).length;
+  const ratio = w ? (m/w).toFixed(1) : '∞';
+  $('stats').innerHTML =
+    st(n,'전체') + st(m,'남자') + st(w,'여자') +
+    st(ratio+' : 1','성비', m > w*1.5) +
+    st(done,'배정됨') + st(paid,'입금확인');
+}
+function st(v,l,warn){
+  return '<div class="st'+(warn?' warn':'')+'"><b>'+v+'</b><span>'+l+'</span></div>';
+}
+
+/* ---------- 필터 ---------- */
+function renderFilters(){
+  $('fGender').innerHTML = chips('gender', [['','성별 전체'],['남자','남자'],['여자','여자']]);
+  $('fSchool').innerHTML = chips('school', [['','학교 전체'],['고려대','고려대'],['연세대','연세대'],['서울대','서울대']]);
+  $('fEtc').innerHTML = chips('only', [['','전체'],['un','미배정만'],['rec','A와 맞는 후보만']]);
+  document.querySelectorAll('[data-f]').forEach(b=>b.onclick=()=>{
+    F[b.dataset.f] = b.dataset.v; renderFilters(); renderList();
+  });
+}
+function chips(f, opts){
+  return opts.map(([v,l])=>'<button class="fc'+(F[f]===v?' on':'')+'" data-f="'+f+'" data-v="'+v+'">'+l+'</button>').join('');
+}
+
+/* ---------- 후보 판정 ----------
+   반대 성별 · 아직 배정 안 됨 · 같은 종목 · 서로 다른 학교 ·
+   A의 지망에 상대 캠퍼스가 있고, 상대 지망에도 A 캠퍼스가 있으면 1순위 */
+function baseType(t){ return String(t||'').replace(/\s*\(.*\)$/,''); }
+function fitLevel(a, b){
+  if (!a || !b) return 0;
+  if (a._row === b._row) return 0;
+  if (a['성별'] === b['성별']) return 0;
+  if (String(b['짝']||'').trim()) return 0;
+  if (a['학교'] === b['학교']) return 0;
+  if (baseType(a['출전종목']) !== baseType(b['출전종목'])) return 0;
+  const aWants = [a['1지망'], a['2지망']].map(String);
+  const bWants = [b['1지망'], b['2지망']].map(String);
+  const aOk = aWants.indexOf(CAMP_OF[b['학교']]) >= 0;
+  const bOk = bWants.indexOf(CAMP_OF[a['학교']]) >= 0;
+  if (a['1지망'] === CAMP_OF[b['학교']] && b['1지망'] === CAMP_OF[a['학교']]) return 3;
+  if (aOk && bOk) return 2;
+  if (aOk || bOk) return 1;
+  return 0;
+}
+
+/* ---------- 목록 ---------- */
+function renderList(){
+  const q = $('q').value.trim().toLowerCase();
+  let list = ROWS.filter(r=>{
+    if (F.gender && r['성별'] !== F.gender) return false;
+    if (F.school && r['학교'] !== F.school) return false;
+    if (F.only === 'un' && String(r['짝']||'').trim()) return false;
+    if (F.only === 'rec' && !fitLevel(A, r)) return false;
+    if (q) {
+      const hay = [r['이름'],r['전화'],r['카톡'],r['인스타']].join(' ').toLowerCase();
+      if (hay.indexOf(q) < 0) return false;
+    }
+    return true;
+  });
+  if (A) list.sort((x,y)=>fitLevel(A,y)-fitLevel(A,x));
+
+  if (!list.length) { $('list').innerHTML = '<div class="empty">조건에 맞는 사람이 없어요</div>'; return; }
+  $('list').innerHTML = list.map(r=>{
+    const matched = String(r['짝']||'').trim();
+    const fit = fitLevel(A, r);
+    const selected = (A && A._row===r._row) || (B && B._row===r._row);
+    return '<div class="p'+(selected?' sel':'')+(matched?' done':'')+'" data-row="'+r._row+'">'+
+      '<div class="p-t">'+
+        '<span class="tag" style="background:'+(SCH[r['학교']]||'#999')+'">'+esc(r['학교'])+'</span>'+
+        '<span class="p-n">'+esc(r['이름'])+'</span>'+
+        '<span class="badge">'+esc(r['성별'])+' · '+esc(r['나이']||'?')+'살 · '+esc(r['학번'])+'학번</span>'+
+        (fit===3?'<span class="badge rec">1지망 서로 일치</span>':fit===2?'<span class="badge rec">지망 맞음</span>':'')+
+        (String(r['입금']||'').trim()?'<span class="badge ok">입금</span>':'')+
+        '<span class="p-m">'+(matched?'배정됨':'#'+r._row)+'</span>'+
+      '</div>'+
+      '<div class="p-d">'+esc(baseType(r['출전종목']))+' · 1지망 '+esc(r['1지망'])+
+        (r['2지망']?' · 2지망 '+esc(r['2지망']):'')+'<br>'+
+        esc(r['전화'])+(r['카톡']?' · 카톡 '+esc(r['카톡']):'')+(r['인스타']?' · @'+esc(r['인스타']):'')+'</div>'+
+      (r['한마디']?'<div class="p-say">"'+esc(r['한마디'])+'"</div>':'')+
+      (matched?'<div class="p-d">→ '+esc(matched)+'</div>':'')+
+    '</div>';
+  }).join('');
+  $('list').querySelectorAll('.p').forEach(el=>el.onclick=()=>pick(+el.dataset.row));
+}
+
+function pick(row){
+  const r = ROWS.find(x=>x._row===row); if (!r) return;
+  if (A && A._row===row) { A = null; }
+  else if (B && B._row===row) { B = null; }
+  else if (!A) { A = r; }
+  else if (!B) { B = r; }
+  else { B = r; }
+  renderSlots(); renderList();
+}
+function renderSlots(){
+  [['slotA',A,'A'],['slotB',B,'B']].forEach(([id,p,l])=>{
+    const el = $(id);
+    if (!p) { el.className='slot'; el.innerHTML='<div class="ph">'+l+' — 목록에서 선택</div>'; return; }
+    el.className='slot has';
+    el.innerHTML = '<div class="p-t"><span class="tag" style="background:'+(SCH[p['학교']]||'#999')+'">'+esc(p['학교'])+'</span>'+
+      '<span class="p-n">'+esc(p['이름'])+'</span>'+
+      '<span class="badge">'+esc(p['성별'])+' · '+esc(p['나이']||'?')+'살</span></div>'+
+      '<div class="p-d">'+esc(baseType(p['출전종목']))+' · 1지망 '+esc(p['1지망'])+'<br>'+esc(p['전화'])+'</div>';
+  });
+  const ready = !!(A && B) && A._row !== B._row;
+  $('prevBtn').disabled = !ready;
+  $('sendBtn').disabled = !ready;
+  if (ready) {
+    const f = fitLevel(A, B);
+    if (!f) say('⚠ 조건이 안 맞습니다 (성별 같음 / 같은 학교 / 종목 다름 / 이미 배정됨). 그래도 보낼 수는 있어요.', false);
+    else say('조건 확인 완료' + (f===3?' — 1지망 서로 일치':''), true);
+  } else { $('msg').textContent=''; $('msg').className=''; }
+}
+
+/* ---------- 미리보기 / 발송 ---------- */
+async function preview(){
+  const d = await api('skyMatch', { a:A._row, b:B._row, preview:1 });
+  if (!d.ok) { say('실패: ' + (d.error||''), false); return; }
+  $('preview').className = '';
+  $('preview').innerHTML =
+    '<pre>' + esc(d.a.name) + ' (' + esc(d.a.phone) + ')\n\n' + esc(d.a.sms) + '</pre>' +
+    '<pre>' + esc(d.b.name) + ' (' + esc(d.b.phone) + ')\n\n' + esc(d.b.sms) + '</pre>';
+}
+async function send(){
+  if (!confirm(A['이름']+' ('+A['전화']+')\n'+B['이름']+' ('+B['전화']+')\n\n짝으로 확정하고 양쪽에 문자를 보낼까요?')) return;
+  const btn = $('sendBtn'); btn.disabled = true; btn.textContent = '발송 중...';
+  try {
+    const d = await api('skyMatch', { a:A._row, b:B._row });
+    if (!d.ok) { say('실패: ' + (d.error||''), false); }
+    else {
+      const bad = [d.sent.a, d.sent.b].filter(x=>x && x.indexOf('FAIL')===0);
+      if (bad.length) say('짝은 기록됐지만 문자 발송 실패: ' + bad.join(' / '), false);
+      else say('✓ 짝 확정 + 양쪽 문자 발송 완료', true);
+      A = null; B = null; renderSlots();
+      await load();
+    }
+  } catch(e){ say('실패: ' + e.message, false); }
+  btn.disabled = false; btn.textContent = '짝 확정 + 문자 발송';
+}
+
+$('loadBtn').onclick = load;
+$('prevBtn').onclick = preview;
+$('sendBtn').onclick = send;
+$('swapBtn').onclick = ()=>{ const t=A; A=B; B=t; renderSlots(); renderList(); };
+$('clearBtn').onclick = ()=>{ A=null; B=null; renderSlots(); renderList(); $('preview').className='hide'; };
+$('q').oninput = renderList;
+$('key').onkeydown = e=>{ if (e.key==='Enter') load(); };
+try { const k = localStorage.getItem('syg_admin_key'); if (k) { $('key').value = k; load(); } } catch(e){}
+</script>
+</body></html>
