@@ -6,163 +6,214 @@
 <meta http-equiv="Pragma" content="no-cache">
 <meta http-equiv="Expires" content="0">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>스카이버디 — 연세 · 고려 · 서울대</title>
-<meta name="description" content="서울대 · 연세대 · 고려대 서연고 교환매칭. 부담 없이 옆 학교 친구 한 명부터, 친구에서 연인으로.">
-<meta property="og:title" content="스카이버디 — 서연고 교환매칭 프로그램">
-<meta property="og:description" content="학교는 3개, 노선은 하나. 부담 없이 서연고 친구 한 명부터 시작해요.">
+<title>스카이버디 — 서울대 · 연세대 · 고려대 교환매칭</title>
+<meta name="description" content="서울대 · 연세대 · 고려대 학생끼리만. 운영진이 신청서를 보고 직접 이어드려요. 여학우 무료.">
+<meta property="og:title" content="스카이버디 — 서연고 교환매칭">
+<meta property="og:description" content="학교팅 1:1 · 과팅 2:2/3:3. 운영진이 직접 매칭해드려요.">
 <link rel="stylesheet" as="style" crossorigin href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
 <style>
-  :root{
-    --yon:#2E5BD8; --yon-d:#1E3F9E; --yon-s:#E1EAFF;
-    --kor:#D02840; --kor-d:#9B1226; --kor-s:#FFE4E7;
-    --snu:#24457F; --snu-d:#152B57; --snu-s:#E2E9F7;
-    --ink:#332F3B; --sub:#918CA0; --line:#EFEBF2; --paper:#FFFDF7; --tape:#FFE9A8; --bg:#F1EEF5;
-  }
-  *{box-sizing:border-box;margin:0;padding:0}
-  html,body{background:var(--bg)}
-  body{font-family:'Pretendard','Apple SD Gothic Neo',-apple-system,BlinkMacSystemFont,'Noto Sans KR',sans-serif;color:var(--ink);-webkit-font-smoothing:antialiased;line-height:1.4}
-  .app{max-width:480px;margin:0 auto;min-height:100vh;background:#fff;position:relative;box-shadow:0 0 40px rgba(51,47,59,.08)}
-  button{font-family:inherit;cursor:pointer}
-  input,textarea,select{font-family:inherit;font-size:14px;color:var(--ink)}
-  .btn{display:block;width:100%;text-align:center;padding:17px;border:0;border-radius:16px;font-size:15px;font-weight:800;letter-spacing:-.02em;color:#fff;
-       background:linear-gradient(110deg,var(--yon) 0%,#8B47B8 50%,var(--kor) 100%);box-shadow:0 8px 20px rgba(90,60,150,.24)}
-  .btn:disabled{opacity:.55;box-shadow:none;cursor:default}
-  .btn.soft{background:#fff;color:var(--ink);border:1.5px solid var(--line);box-shadow:none}
-  .caption{font-size:11.5px;color:#B2AEBE;text-align:center;margin-top:11px;line-height:1.7}
-  .foot{margin:10px 20px 28px;padding:12px;border-radius:12px;background:#FAF8FC;font-size:10.5px;color:#A9A4B6;line-height:1.75;text-align:center;font-weight:600}
+  *{margin:0;padding:0;box-sizing:border-box}
+  :root{--ink:#241F2B;--ink2:#443D52;--sub:#7E7789;--line:#ECE6F2;--bg:#FAF8FC;--cream:#FFFCF8;
+        --rose:#E8617D;--rose-lt:#FF8FA3;--rose-d:#B31F36;--rose-s:#FFF1F4;
+        --kor:#D02840;--yon:#2E5BD8;--snu:#24457F;--ok:#1E7A4B}
+  html{scroll-behavior:smooth}
+  body{font-family:Pretendard,'Apple SD Gothic Neo',-apple-system,sans-serif;color:var(--ink);
+       background:var(--bg);line-height:1.5;-webkit-text-size-adjust:100%}
+  button,input,textarea,select{font-family:inherit;font-size:inherit;border:0;outline:none;color:inherit}
+  button{cursor:pointer;background:none}
+  a{color:inherit}
+  .app{max-width:480px;margin:0 auto;background:var(--cream);min-height:100vh;
+       box-shadow:0 0 50px rgba(42,23,51,.08);overflow:hidden}
 
-  .hero{padding:18px 22px 0;background:linear-gradient(180deg,#FFFDFA,#FFF8F4)}
-  .logo{display:flex;align-items:center;gap:9px}
-  .logo .mark{width:32px;height:32px;border-radius:10px;flex:none;background:linear-gradient(135deg,var(--yon),var(--kor));display:flex;align-items:center;justify-content:center}
-  .logo .mark svg{width:20px;height:20px;filter:brightness(0) invert(1)}
-  .logo b{font-size:16px;letter-spacing:-.03em;display:block}
-  .logo span{font-size:10.5px;color:var(--sub);font-weight:800}
-  .hero h1{font-size:30px;line-height:1.32;letter-spacing:-.045em;font-weight:800;margin-top:18px}
-  .hero h1 .hl{position:relative;display:inline-block;z-index:1}
-  .hero h1 .hl:after{content:'';position:absolute;left:-3px;right:-3px;bottom:1px;height:12px;background:linear-gradient(90deg,#D9E4FF,#FFD9E1);border-radius:7px;z-index:-1}
-  .hero p{font-size:13.5px;color:#7E7A8C;line-height:1.75;margin-top:12px;font-weight:600}
-  .stage{display:flex;align-items:center;margin-top:15px}
-  .stage span{padding:7px 14px;border-radius:99px;font-size:12px;font-weight:800;letter-spacing:-.02em}
-  .stage i{flex:1;height:0;border-top:2px dotted #DDD6E6;margin:0 4px}
-  .stage .s1{background:#F2EFF6;color:#8B879A}.stage .s2{background:#E7E1F7;color:#6B4FA8}
-  .stage .s3{background:linear-gradient(120deg,#8B47B8,#D02840);color:#fff;box-shadow:0 4px 12px rgba(150,60,130,.28)}
-  .madeby{display:inline-flex;align-items:center;gap:8px;margin-top:14px;padding:6px 12px 6px 8px;border-radius:99px;background:#fff;border:1.5px solid var(--line);font-size:11px;font-weight:800;color:#7E7A8C}
-  .madeby i{display:flex}.madeby svg{width:22px;height:22px;margin-right:-6px}
-  .metro{margin:18px 0 0;padding:0 4px}
-  .metro-head{text-align:center;margin-bottom:2px}.metro-head b{font-size:11px;font-weight:800;color:var(--sub);letter-spacing:.04em}
-  .metro-line{position:relative;height:96px;display:flex;align-items:flex-start;padding-top:2px}
-  /* 배지 중심을 지나가는 노선 (배지는 흰 배경이라 선이 뒤로 가려집니다) */
+  /* 상단 고정 바 */
+  .nav{position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:9px;
+       padding:11px 18px;background:rgba(255,252,248,.94);backdrop-filter:blur(10px);
+       border-bottom:1px solid var(--line)}
+  .nav .mk{width:28px;height:28px;border-radius:9px;background:linear-gradient(135deg,#6C3FA8,#C42F5B);
+       display:flex;align-items:center;justify-content:center;flex:none}
+  .nav .mk svg{width:16px;height:16px;color:#fff}
+  .nav b{font-size:15px;font-weight:900;letter-spacing:-.03em}
+  .nav .go{margin-left:auto;padding:8px 15px;border-radius:99px;font-size:12.5px;font-weight:800;
+       background:linear-gradient(110deg,var(--rose),var(--rose-lt));color:#fff}
+
+  /* 히어로 */
+  .hero{padding:30px 22px 26px;background:linear-gradient(180deg,#FFFDFA,#FFF6F3)}
+  .chip{display:inline-block;font-size:11.5px;font-weight:800;color:var(--rose-d);
+        background:var(--rose-s);padding:7px 13px;border-radius:99px;letter-spacing:-.02em}
+  h1{font-size:30px;font-weight:900;letter-spacing:-.045em;line-height:1.26;margin-top:15px}
+  h1 .hl{background:linear-gradient(transparent 62%,#FFD9E2 62%)}
+  .hero p{margin-top:13px;font-size:14.5px;font-weight:600;color:var(--ink2);line-height:1.75}
+  .metro{margin-top:26px;position:relative;height:96px;display:flex;align-items:flex-start;padding-top:2px}
   .track{position:absolute;left:16.6%;right:16.6%;top:25px;height:4px;border-radius:99px;z-index:1;
-    background:linear-gradient(90deg,var(--snu),var(--kor),var(--yon))}
+         background:linear-gradient(90deg,var(--snu),var(--kor),var(--yon))}
   .stn{position:relative;z-index:2;flex:1;text-align:center}
   .stn svg{width:46px;height:46px;display:block;margin:0 auto 10px;filter:drop-shadow(0 4px 8px rgba(51,47,59,.16))}
-  .stn .nm{font-size:11.5px;font-weight:800;margin-top:6px;letter-spacing:-.02em}.stn .sc{font-size:10px;color:var(--sub);font-weight:700;margin-top:2px}
-  .card{margin:16px 20px 0;padding:16px;border-radius:18px;background:#fff;border:1.5px solid var(--line)}
-  .gc-top{display:flex;justify-content:space-between;align-items:center}.gc-top b{font-size:13px;letter-spacing:-.02em}.gc-top .cnt{font-size:12.5px;font-weight:800;color:var(--kor)}
-  .gauge{height:13px;border-radius:99px;background:#F5F3F9;margin-top:11px;display:flex;overflow:hidden;padding:3px;gap:2px}
-  .gauge i{display:block;height:100%;border-radius:99px;transition:width .6s ease}
-  .leg{display:flex;gap:10px;margin-top:10px}.leg span{font-size:11px;color:#918CA0;font-weight:700;display:flex;align-items:center;gap:4px}.leg em{width:8px;height:8px;border-radius:3px;display:block}
+  .stn .nm{font-size:13px;font-weight:900;letter-spacing:-.03em}
+  .stn .sc{font-size:11px;font-weight:700;color:var(--sub);margin-top:3px}
+
+  /* 섹션 */
+  .sec{padding:34px 22px 0}
+  .sec.pb{padding-bottom:34px}
+  .stag{font-size:11px;font-weight:900;letter-spacing:.08em;color:var(--rose);text-transform:uppercase}
+  h2{font-size:23px;font-weight:900;letter-spacing:-.04em;line-height:1.32;margin-top:9px}
+  .lead{margin-top:10px;font-size:13.5px;font-weight:600;color:var(--sub);line-height:1.75}
+
+  /* 차별점 */
+  .whys{margin-top:18px;display:flex;flex-direction:column;gap:9px}
+  .why{display:flex;gap:12px;align-items:flex-start;border:1.5px solid var(--line);
+       border-radius:15px;background:#fff;padding:14px 15px}
+  .why .ic{font-size:19px;flex:none;line-height:1.3}
+  .why b{display:block;font-size:14px;font-weight:900;letter-spacing:-.03em}
+  .why span{display:block;font-size:12.5px;font-weight:600;color:var(--sub);margin-top:4px;line-height:1.6}
+
+  /* 참가비 */
+  .fee{margin-top:18px;border:1.5px solid var(--line);border-radius:18px;background:#fff;overflow:hidden}
+  .fee-h{display:flex;align-items:center;gap:9px;padding:14px 16px;border-bottom:1px solid var(--line)}
+  .fee-h b{font-size:15px;font-weight:900;letter-spacing:-.03em}
+  .fee-h .free{margin-left:auto;font-size:11.5px;font-weight:900;color:var(--ok);
+       background:#EAF7F0;padding:5px 11px;border-radius:99px}
+  .fee-b{padding:4px 16px 14px}
+  .fr{display:flex;align-items:center;padding:13px 0;border-bottom:1px solid var(--line)}
+  .fr:last-child{border-bottom:0}
+  .fr .k{flex:1}
+  .fr .k b{display:block;font-size:13.5px;font-weight:900;letter-spacing:-.02em}
+  .fr .k small{display:block;font-size:11px;font-weight:700;color:#B2AEBE;margin-top:3px}
+  .fr .m,.fr .w{width:76px;text-align:right;font-size:14px;font-weight:900;letter-spacing:-.02em}
+  .fr .w{color:var(--ok)}
+  .fr.head{padding:9px 0 7px;border-bottom:1.5px solid var(--line)}
+  .fr.head .m,.fr.head .w{font-size:11.5px;font-weight:800;color:var(--sub)}
+  .fee-n{padding:12px 16px;background:var(--bg);font-size:11.5px;font-weight:700;
+       color:var(--sub);line-height:1.7}
+
+  /* 진행 */
+  .steps{margin-top:18px;display:flex;flex-direction:column;gap:0}
+  .stp{display:flex;gap:13px;align-items:flex-start;padding-bottom:18px;position:relative}
+  .stp:last-child{padding-bottom:0}
+  .stp:not(:last-child):before{content:'';position:absolute;left:14px;top:30px;bottom:4px;
+       width:2px;background:var(--line)}
+  .stp .n{width:28px;height:28px;border-radius:50%;flex:none;display:flex;align-items:center;
+       justify-content:center;font-size:12.5px;font-weight:900;background:var(--rose-s);
+       color:var(--rose-d);position:relative;z-index:1}
+  .stp b{display:block;font-size:14.5px;font-weight:900;letter-spacing:-.03em}
+  .stp span{display:block;font-size:12.5px;font-weight:600;color:var(--sub);margin-top:4px;line-height:1.65}
+
+  /* 현황 */
+  .gauge-c{margin-top:18px;border:1.5px solid var(--line);border-radius:16px;background:#fff;padding:15px 16px}
+  .gc-top{display:flex;justify-content:space-between;align-items:center}
+  .gc-top b{font-size:13px;letter-spacing:-.02em;font-weight:900}
+  .gc-top .cnt{font-size:13px;font-weight:900;color:var(--rose-d)}
+  .gauge{height:11px;border-radius:99px;background:#F5F3F9;margin-top:11px;display:flex;
+       overflow:hidden;padding:2px;gap:2px}
+  .gauge i{display:block;border-radius:99px;transition:width .7s ease}
+  .leg{display:flex;gap:11px;margin-top:10px}
+  .leg span{font-size:11px;color:#918CA0;font-weight:700;display:flex;align-items:center;gap:4px}
+  .leg em{width:8px;height:8px;border-radius:3px;display:block}
+
+  /* 신청서 */
+  .form{margin-top:18px}
+  .fgrp{border:1.5px solid var(--line);border-radius:18px;background:#fff;padding:16px;margin-bottom:11px}
+  .fgrp-h{display:flex;align-items:center;gap:9px;margin-bottom:14px}
+  .fgrp-h .no{width:23px;height:23px;border-radius:7px;background:var(--ink);color:#fff;flex:none;
+       display:flex;align-items:center;justify-content:center;font-size:11.5px;font-weight:900}
+  .fgrp-h b{font-size:15px;font-weight:900;letter-spacing:-.03em}
+  .fld{margin-bottom:17px}
+  .fld:last-child{margin-bottom:0}
+  .q{font-size:13.5px;font-weight:900;letter-spacing:-.02em}
+  .q .rq{font-size:10.5px;color:var(--rose);margin-left:4px;font-weight:800}
+  .hint{font-size:11.5px;color:var(--sub);font-weight:600;margin-top:4px;line-height:1.6}
+  .inp{width:100%;margin-top:9px;border:1.5px solid var(--line);border-radius:12px;padding:13px 14px;
+       font-size:14.5px;font-weight:600;background:#fff}
+  .inp:focus{border-color:var(--rose)}
+  .inp::placeholder{color:#C4BCC4}
+  textarea.inp{min-height:76px;resize:none;line-height:1.7}
+  .rowi{display:flex;gap:8px}
+  .rowi .inp{flex:1;min-width:0}
+  .chips{display:flex;gap:7px;margin-top:10px;flex-wrap:wrap}
+  .chip2{padding:10px 15px;border-radius:99px;border:1.5px solid var(--line);background:#fff;
+       font-size:13.5px;font-weight:800;color:var(--sub);cursor:pointer}
+  .chip2.on{background:var(--ink);border-color:var(--ink);color:#fff}
+  .picks{display:flex;gap:8px;margin-top:10px}
+  .pk{flex:1;border:1.5px solid var(--line);border-radius:14px;background:#fff;padding:14px 6px 12px;
+      text-align:center;cursor:pointer;position:relative}
+  .pk svg{width:42px;height:42px;display:block;margin:0 auto 7px}
+  .pk b{font-size:12.5px;font-weight:900;letter-spacing:-.03em}
+  .pk.r1{border-color:var(--rose);background:var(--rose-s)}
+  .pk.r2{border-color:#F3D3DB;background:#FFF9FA}
+  .pk.off{opacity:.38;pointer-events:none}
+  .rk2{position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:9.5px;font-weight:800;
+       color:#fff;background:var(--rose);padding:3px 8px;border-radius:99px;white-space:nowrap}
+  .pk:not(.r1):not(.r2) .rk2{display:none}
+  .divs{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+  .dv{border:1.5px solid var(--line);border-radius:14px;background:#fff;padding:14px 15px;cursor:pointer}
+  .dv.on{border-color:var(--rose);background:var(--rose-s)}
   .dv.closed{opacity:.45;cursor:default}
+  .dh{display:flex;align-items:center;gap:8px}
+  .dh b{font-size:14.5px;font-weight:900;letter-spacing:-.03em}
+  .tag1{font-size:10.5px;font-weight:800;color:var(--rose-d);background:var(--rose-s);
+        padding:3px 9px;border-radius:6px}
   .dv.closed .tag1{background:var(--line);color:#918CA0}
-  .donefee{margin:18px 20px 0;border:1.5px solid #F6C9D3;border-radius:16px;
-    background:var(--rose-s);padding:16px}
+  .dv p{font-size:12.5px;font-weight:600;color:var(--sub);margin-top:6px;line-height:1.6}
+
+  .myfee{display:flex;align-items:center;justify-content:space-between;margin-top:11px;
+       padding:15px 16px;border-radius:14px;background:var(--rose-s);border:1.5px solid #F6C9D3}
+  .mf-k{font-size:13px;font-weight:800;color:var(--ink2)}
+  .mf-v{font-size:20px;font-weight:900;letter-spacing:-.03em;color:var(--rose-d)}
+
+  .agree{display:flex;gap:10px;align-items:flex-start;margin-top:4px;cursor:pointer}
+  .agree input{width:19px;height:19px;flex:none;margin-top:1px;accent-color:var(--rose)}
+  .agree span{font-size:12.5px;font-weight:600;color:var(--ink2);line-height:1.65}
+
+  .err{font-size:12.5px;color:var(--rose-d);font-weight:800;margin:10px 0 0;min-height:17px}
+  .btn{display:block;width:100%;text-align:center;padding:17px;border-radius:15px;font-size:16px;
+       font-weight:900;letter-spacing:-.025em;text-decoration:none;
+       background:linear-gradient(110deg,#5B57C9,var(--rose));color:#fff;
+       box-shadow:0 10px 26px rgba(150,60,110,.26)}
+  .btn:disabled{background:var(--line);color:#B6B0C4;box-shadow:none}
+  .btn.sec{background:#fff;color:var(--ink);border:1.5px solid var(--line);box-shadow:none}
+  .cap{font-size:11.5px;color:#AEA9BA;text-align:center;margin-top:11px;line-height:1.7;font-weight:600}
+
+  /* 완료 */
+  .done{display:none;text-align:center;padding:30px 0 6px}
+  .done.on{display:block}
+  .done .big{width:76px;height:76px;margin:0 auto}
+  .done h3{font-size:24px;font-weight:900;letter-spacing:-.04em;margin-top:16px}
+  .done p{margin-top:11px;font-size:14px;font-weight:600;color:var(--sub);line-height:1.75}
+  .donefee{margin-top:20px;border:1.5px solid #F6C9D3;border-radius:16px;background:var(--rose-s);
+       padding:16px;text-align:left}
   .df-r{display:flex;align-items:center;justify-content:space-between}
   .df-r span{font-size:13px;font-weight:800;color:var(--ink2)}
   .df-r b{font-size:22px;font-weight:900;letter-spacing:-.03em;color:var(--rose-d)}
-  .df-acc{margin-top:13px;padding:13px 14px;border-radius:12px;background:#fff;
-    border:1.5px solid #F3D3DB}
+  .df-acc{margin-top:13px;padding:13px 14px;border-radius:12px;background:#fff;border:1.5px solid #F3D3DB}
   .da-k{display:block;font-size:11px;font-weight:800;color:var(--sub)}
-  .da-v{display:block;margin-top:5px;font-size:15px;font-weight:900;letter-spacing:-.02em;
-    color:var(--ink);word-break:keep-all}
+  .da-v{display:block;margin-top:5px;font-size:15px;font-weight:900;letter-spacing:-.02em;word-break:keep-all}
   .da-n{display:block;margin-top:7px;font-size:11px;font-weight:700;color:var(--sub);line-height:1.65}
   .da-n b{color:var(--rose-d);font-weight:800}
-  .donefee p{margin-top:12px;padding-top:11px;border-top:1px solid #F3D3DB;
-    font-size:11.5px;font-weight:700;color:var(--sub);line-height:1.75}
-  .gnote{margin-top:11px;padding-top:11px;border-top:1px solid var(--line);font-size:11.5px;color:var(--sub);font-weight:700}
-  .steps{margin:18px 20px 0}.steps h3{font-size:11.5px;font-weight:800;color:var(--sub);letter-spacing:.06em;margin-bottom:10px}
-  .step{display:flex;gap:11px;align-items:center;padding:11px 12px;margin-bottom:7px;border-radius:14px;background:#FBFAFD;border:1.2px solid #F3F0F7}
-  .step .n{width:24px;height:24px;border-radius:8px;flex:none;background:#fff;border:1.5px solid var(--line);font-size:11px;font-weight:800;display:flex;align-items:center;justify-content:center;color:var(--sub)}
-  .step b{font-size:13.5px;letter-spacing:-.02em;display:block}.step p{font-size:11.5px;color:var(--sub);margin-top:2px;font-weight:600}
-  .seasonbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:16px 20px 0;
-    padding:15px 16px;border-radius:16px;text-decoration:none;
-    background:linear-gradient(120deg,#2E1A38,#43192C);color:#fff}
+  .donefee>p{margin-top:12px;padding-top:11px;border-top:1px solid #F3D3DB;font-size:11.5px;
+       font-weight:700;color:var(--sub);line-height:1.75;text-align:left}
+
+  /* FAQ */
+  .qa{border:1.5px solid var(--line);border-radius:14px;background:#fff;margin-top:9px;overflow:hidden}
+  .qa summary{padding:15px 16px;list-style:none;cursor:pointer;font-size:13.5px;font-weight:800;
+       letter-spacing:-.02em;display:flex;align-items:center;gap:10px}
+  .qa summary::-webkit-details-marker{display:none}
+  .qa summary:after{content:'+';margin-left:auto;font-size:17px;font-weight:800;color:#C4BCC4}
+  .qa[open] summary:after{content:'−'}
+  .qa p{padding:0 16px 15px;font-size:12.5px;font-weight:600;color:var(--sub);line-height:1.8}
+
+  /* 마무리 */
+  .last{margin-top:34px;padding:32px 22px;background:linear-gradient(168deg,#2E1A38,#43192C 60%,#221530);
+        color:#fff;text-align:center}
+  .last h2{color:#fff}
+  .last p{margin-top:11px;font-size:13.5px;font-weight:600;color:rgba(255,255,255,.62);line-height:1.75}
+  .last .btn{margin-top:20px}
+  .seasonbar{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:14px 20px 0;
+       padding:15px 17px;border-radius:16px;text-decoration:none;
+       background:linear-gradient(120deg,#3A1330,#6E1130)}
   .seasonbar .sb-l{font-size:13.5px;font-weight:600;letter-spacing:-.02em;color:#E4D5DD}
   .seasonbar .sb-l b{color:#FFC2CE;font-weight:800;margin-right:5px}
   .seasonbar .sb-r{font-size:15px;color:#FFC2CE;font-weight:800;flex:none}
-  .cta{padding:18px 20px 8px}
-
-  /* ---- 신청 시트 ---- */
-  .sheet{position:fixed;inset:0;background:rgba(30,25,40,.5);display:none;z-index:50;overflow-y:auto;-webkit-overflow-scrolling:touch}
-  .sheet.on{display:block}
-  .sheet .inner{max-width:480px;margin:0 auto;min-height:100vh;background:#fff}
-  .sh-top{position:sticky;top:0;background:#fff;z-index:2;display:flex;align-items:center;justify-content:space-between;padding:14px 18px;border-bottom:1.5px solid var(--line)}
-  .sh-top b{font-size:15px;letter-spacing:-.03em}
-  .sh-top button{border:0;background:#F4F2F8;width:32px;height:32px;border-radius:50%;font-size:16px;color:#6E6A7C}
-  .prog{display:flex;gap:4px;justify-content:center;padding:14px 0 4px}.prog i{height:5px;border-radius:99px;background:#EDE9F2;width:26px;display:block}.prog i.on{background:var(--kor);width:38px}
-  .pane{display:none;padding:6px 0 30px}.pane.on{display:block}
-  .field{padding:16px 20px 0}.field .q{font-size:14px;font-weight:800;letter-spacing:-.025em}.field .q .req{color:var(--kor);font-size:10px;margin-left:4px;vertical-align:2px}
-  .field .hint{font-size:11.5px;color:#B2AEBE;margin-top:4px;font-weight:600}
-  .input{margin-top:10px;width:100%;padding:14px;border:1.5px solid var(--line);border-radius:14px;background:#FCFBFE;outline:none}
-  .input:focus{border-color:#B9A6E6;background:#fff}
-  textarea.input{resize:none;min-height:84px}
-  .row{display:flex;gap:8px;margin-top:10px}.row .input{margin-top:0}
-  /* ── 신청서: 새 구성 ── */
-  .fld{padding:16px 22px 0}
-  .fld .q{font-size:14px;font-weight:800;letter-spacing:-.025em}
-  .fld .q .rq{color:var(--kor);font-size:10px;margin-left:4px;vertical-align:2px}
-  .fld .hint{font-size:11.5px;color:#B2AEBE;margin-top:4px;font-weight:600;line-height:1.6}
-  .fld .inp{margin-top:10px}
-  .fld .btn{margin-top:4px}
-  .rowi{display:flex;gap:8px;margin-top:10px}
-  .rowi .inp{margin-top:0}
-  .inp{width:100%;padding:14px;border:1.5px solid var(--line);border-radius:14px;background:#FCFBFE;outline:none;font-weight:500;font-size:15px}
-  .inp:focus{border-color:var(--ink);background:#fff}
-  textarea.inp{resize:none;min-height:84px}
-
-  .divs{margin-top:14px;display:flex;flex-direction:column;gap:9px}
-  .dv{border:1.5px solid var(--line);border-radius:16px;padding:14px 15px;background:#fff}
-  .dh{display:flex;align-items:center;gap:8px}
-  .dh b{font-size:15.5px;font-weight:800;letter-spacing:-.03em}
-  .dh .tag1{font-size:11px;font-weight:800;color:var(--kor-d);background:var(--kor-s);padding:4px 9px;border-radius:7px;white-space:nowrap}
-  .dv p{font-size:13px;color:var(--sub);line-height:1.65;margin-top:7px;font-weight:600}
-  .pick-div .dv{cursor:pointer;transition:.16s}
-  .pick-div .dv.on{border-color:var(--kor);border-width:2px;background:var(--kor-s)}
-  .pick-div .dv.on .dh b{color:var(--kor-d)}
-  .pick-div .dv.on .tag1{background:var(--kor);color:#fff}
-
-  .picks{display:flex;gap:7px;margin-top:12px}
-  .pk{flex:1;border-radius:14px;border:2px solid var(--line);background:#fff;padding:10px 4px 9px;text-align:center;position:relative;cursor:pointer}
-  .pk svg{width:56px;height:41px;display:block;margin:5px auto 4px}
-  .pk b{font-size:12px;font-weight:800;display:block}
-  .pk .rk2{position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:9.5px;font-weight:800;color:#fff;
-    padding:3px 8px;border-radius:99px;white-space:nowrap;display:none}
-  .pk.r1 .rk2,.pk.r2 .rk2{display:block}
-  .pk.r1{border-color:var(--kor);background:#FFFAFB}
-  .pk.r2{border-color:var(--snu);background:#FAFBFF}
-  .pk.off{opacity:.36;pointer-events:none}
-  #myPick .pk svg{width:46px;height:46px;margin:2px auto 5px}
-  #myPick .pk.r1{border-color:var(--ink);background:var(--bg)}
-  .chips{display:flex;gap:7px;margin-top:12px;flex-wrap:wrap}
-  .chip{padding:10px 14px;border-radius:99px;border:1.5px solid var(--line);font-size:13px;font-weight:700;color:#918CA0;background:#fff}
-  .chip.on{background:var(--ink);border-color:var(--ink);color:#fff}
-  .verify{margin:14px 20px 0;padding:12px 14px;border-radius:14px;background:var(--yon-s);display:none;gap:10px;align-items:center}
-  .verify.on{display:flex}.verify svg{width:36px;height:36px;flex:none}
-  .verify b{font-size:12.5px;letter-spacing:-.02em;display:block}.verify p{font-size:11px;color:#5C6C9E;margin-top:3px;font-weight:600}
-  .facts{margin:14px 20px 0;padding:4px 14px;border-radius:14px;border:1.5px solid var(--line);background:#FCFBFE}
-  .facts .r{display:flex;padding:9px 0;font-size:12px;border-bottom:1px dashed var(--line)}.facts .r:last-child{border:0}
-  .facts .k{width:62px;color:var(--sub);font-weight:700;flex:none}.facts .v{font-weight:800}
-  .facts .v small{font-weight:700;color:var(--sub);font-size:10.5px;margin-left:3px}
-  .pickrow{display:flex;gap:7px;margin-top:14px}
-  .pick{flex:1;border-radius:16px;border:2px solid var(--line);background:#fff;padding:10px 4px 9px;text-align:center;position:relative;cursor:pointer}
-  .pick svg{width:64px;height:46px;display:block;margin:7px auto 5px}.pick b{font-size:11.5px;font-weight:800;display:block;margin-top:3px}
-  .pick .rank{position:absolute;top:-8px;left:50%;transform:translateX(-50%);font-size:9.5px;font-weight:800;color:#fff;padding:3px 8px;border-radius:99px;white-space:nowrap;display:none}
-  .pick.r1 .rank,.pick.r2 .rank{display:block}.pick.r1{border-color:var(--kor);background:#FFFAFB}.pick.r2{border-color:var(--snu);background:#FAFBFF}
-  .pick.off{opacity:.38;pointer-events:none}
-  .tipbox{margin:12px 20px 0;padding:11px 13px;border-radius:12px;background:#FFF4D6;font-size:11.5px;color:#8D6B12;line-height:1.65;font-weight:700}
-  .err{margin:10px 20px 0;padding:10px 12px;border-radius:10px;background:#FFE4E7;color:#9B1226;font-size:12px;font-weight:700;display:none}.err.on{display:block}
-  .done{text-align:center;padding:34px 24px 20px}
-  .done h2{font-size:22px;font-weight:800;letter-spacing:-.04em;margin-top:14px}.done p{font-size:13px;color:#7E7A8C;line-height:1.75;margin-top:10px;font-weight:600}
-  .done .big{width:92px;height:92px;margin:0 auto;display:block}
+  .foot{margin:14px 20px 30px;padding:13px;border-radius:12px;background:#FAF8FC;font-size:10.5px;
+        color:#A9A4B6;line-height:1.75;text-align:center;font-weight:600}
 </style>
 </head>
 <body>
@@ -268,150 +319,196 @@
     </symbol>
 </defs></svg>
 <div class="app">
+  <div class="nav">
+    <span class="mk"><svg><use href="#logomark"/></svg></span>
+    <b>스카이버디</b>
+    <a class="go" href="#apply">신청하기</a>
+  </div>
+
   <div class="hero">
-    <div class="logo">
-      <div class="mark"><svg><use href="#logomark"/></svg></div>
-      <div><b>스카이버디</b><span>서연고 교환매칭 프로그램</span></div>
-    </div>
-    <h1>서울대 연세대 고려대,<br>친구에서 <span class="hl">연인으로</span></h1>
-    <p>부담 없이 서연고 친구 한 명부터.<br>그다음은 두 사람한테 달렸어요</p>
-    <div class="stage"><span class="s1">옆 학교</span><i></i><span class="s2">친구</span><i></i><span class="s3">연인</span></div>
-    <div class="madeby">
-      <i><svg><use href="#sts"/></svg><svg><use href="#stk"/></svg><svg><use href="#sty"/></svg></i>
-      3개 학교 학생 3명이 만들었어요
-    </div>
+    <span class="chip">서연고 교환매칭 · 모집 중</span>
+    <h1>옆 학교 사람,<br><span class="hl">제대로 소개받자</span></h1>
+    <p>랜덤으로 돌리지 않아요.<br>운영진이 신청서를 한 장씩 읽고 이어드립니다.</p>
 
     <div class="metro">
-      <div class="metro-head"><b>SKY 노선 · 3개 역 운행 중</b></div>
-      <div class="metro-line">
-        <div class="track"></div>
-        <div class="stn"><svg><use href="#sts"/></svg><div class="nm">관악</div><div class="sc">서울대</div></div>
-        <div class="stn"><svg><use href="#stk"/></svg><div class="nm">안암</div><div class="sc">고려대</div></div>
-        <div class="stn"><svg><use href="#sty"/></svg><div class="nm">신촌</div><div class="sc">연세대</div></div>
+      <div class="track"></div>
+      <div class="stn"><svg><use href="#sts"/></svg><div class="nm">관악</div><div class="sc">서울대</div></div>
+      <div class="stn"><svg><use href="#stk"/></svg><div class="nm">안암</div><div class="sc">고려대</div></div>
+      <div class="stn"><svg><use href="#sty"/></svg><div class="nm">신촌</div><div class="sc">연세대</div></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="stag">Why</div>
+    <h2>아무나 말고,<br>나랑 맞는 사람으로</h2>
+    <div class="whys">
+      <div class="why"><span class="ic">🎓</span><span><b>서연고 3개 학교만</b>
+        <span>서울대 · 연세대 · 고려대 재학생만 받습니다</span></span></div>
+      <div class="why"><span class="ic">🙋</span><span><b>만날 캠퍼스를 직접 고름</b>
+        <span>관악 · 안암 · 신촌 중 1지망 · 2지망을 정하세요</span></span></div>
+      <div class="why"><span class="ic">👥</span><span><b>친구랑 같이 과팅</b>
+        <span>2:2 · 3:3 가능. 혼자가 부담되면 이쪽으로</span></span></div>
+      <div class="why"><span class="ic">💬</span><span><b>프로필 먼저 보고 결정</b>
+        <span>짝이 정해지면 문자로 보내드려요. 아니다 싶으면 안 만나셔도 됩니다</span></span></div>
+      <div class="why"><span class="ic">🔒</span><span><b>연락처는 양쪽 동의 후에만</b>
+        <span>한 분이라도 거절하면 연락처는 넘어가지 않아요</span></span></div>
+      <div class="why"><span class="ic">💗</span><span><b>여학우는 무료거나 5천원</b>
+        <span>과팅은 여학우 전원 무료</span></span></div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="stag">Price</div>
+    <h2>참가비</h2>
+    <div class="fee">
+      <div class="fee-h"><b>신청비</b><span class="free">여학우 무료~5천원</span></div>
+      <div class="fee-b">
+        <div class="fr head"><span class="k"></span><span class="m">남자</span><span class="w">여자</span></div>
+        <div class="fr"><span class="k"><b>학교팅 1:1</b><small>20~22살</small></span>
+          <span class="m">15,000원</span><span class="w">무료</span></div>
+        <div class="fr"><span class="k"><b>학교팅 1:1</b><small>23~29살</small></span>
+          <span class="m">19,000원</span><span class="w">5,000원</span></div>
+        <div class="fr"><span class="k"><b>과팅 2:2 · 3:3</b><small>1인당</small></span>
+          <span class="m">9,000원</span><span class="w">무료</span></div>
+      </div>
+      <div class="fee-n">짝이 정해진 뒤에 입금하시면 돼요. 지금은 안 내셔도 됩니다.<br>
+      만나기 싫어지시면 상대방 신청비를 부담하시면 됩니다.</div>
+    </div>
+  </div>
+
+  <div class="sec">
+    <div class="stag">How</div>
+    <h2>신청부터 연락까지,<br>이렇게 진행돼요</h2>
+    <div class="steps">
+      <div class="stp"><span class="n">1</span><span><b>신청서 작성</b>
+        <span>아래 신청서를 1분이면 채울 수 있어요</span></span></div>
+      <div class="stp"><span class="n">2</span><span><b>운영진이 직접 매칭</b>
+        <span>학교 · 나이 · 지망 캠퍼스를 보고 짝을 찾습니다</span></span></div>
+      <div class="stp"><span class="n">3</span><span><b>문자로 배정서 도착</b>
+        <span>상대 학교 · 학번 · 한마디와 연락처가 들어 있어요</span></span></div>
+      <div class="stp"><span class="n">4</span><span><b>두 분이 약속 잡기</b>
+        <span>날짜 · 시간 · 장소는 두 분이 정하시면 됩니다</span></span></div>
+    </div>
+
+    <div class="gauge-c">
+      <div class="gc-top"><b>지금까지 신청한 사람</b><span class="cnt"><span id="stTotal">—</span>명</span></div>
+      <div class="gauge">
+        <i id="barS" style="background:linear-gradient(90deg,#3D63AE,#24457F);width:0"></i>
+        <i id="barK" style="background:linear-gradient(90deg,#F79038,#D02840);width:0"></i>
+        <i id="barY" style="background:linear-gradient(90deg,#4E78EE,#2E5BD8);width:0"></i>
+      </div>
+      <div class="leg">
+        <span><em style="background:var(--snu)"></em>관악 <span id="stS">—</span></span>
+        <span><em style="background:var(--kor)"></em>안암 <span id="stK">—</span></span>
+        <span><em style="background:var(--yon)"></em>신촌 <span id="stY">—</span></span>
       </div>
     </div>
   </div>
 
-  <div class="card">
-    <div class="gc-top"><b>지금까지 신청한 사람</b><span class="cnt"><span id="stTotal">—</span>명</span></div>
-    <div class="gauge">
-      <i id="barS" style="background:linear-gradient(90deg,#3D63AE,#24457F);width:0"></i>
-      <i id="barK" style="background:linear-gradient(90deg,#F79038,#D02840);width:0"></i>
-      <i id="barY" style="background:linear-gradient(90deg,#4E78EE,#2E5BD8);width:0"></i>
-    </div>
-    <div class="leg">
-      <span><em style="background:var(--snu)"></em>관악 <span id="stS">—</span></span>
-      <span><em style="background:var(--kor)"></em>안암 <span id="stK">—</span></span>
-      <span><em style="background:var(--yon)"></em>신촌 <span id="stY">—</span></span>
-    </div>
-    <div class="gnote" id="dday">마감</div>
-  </div>
+  <div class="sec" id="apply">
+    <div class="stag">Apply</div>
+    <h2>스카이버디 신청서</h2>
+    <div class="lead">1분이면 끝나요. 적어주신 내용은 매칭에만 씁니다.</div>
 
-  <div class="cta">
-    <button class="btn" id="openApply">내 인연 찾기</button>
-    <p class="caption"><span id="deadlineTxt">상시 접수</span></p>
-  </div>
+    <div class="form" id="formWrap">
+      <div class="fgrp">
+        <div class="fgrp-h"><span class="no">1</span><b>나는 이런 사람</b></div>
 
-  <a class="seasonbar" href="goyeon.html">
-    <span class="sb-l"><b>고연전/연고전 응원방</b> 한마디 남기고 가세요</span>
-    <span class="sb-r">→</span>
-  </a>
+        <div class="fld">
+          <div class="q">우리 학교 <span class="rq">필수</span></div>
+          <div class="hint">어느 학교 소속으로 신청할지 골라주세요</div>
+          <div class="picks" id="myPick">
+            <div class="pk" data-k="s"><svg><use href="#sts"/></svg><b>서울대</b></div>
+            <div class="pk" data-k="k"><svg><use href="#stk"/></svg><b>고려대</b></div>
+            <div class="pk" data-k="y"><svg><use href="#sty"/></svg><b>연세대</b></div>
+          </div>
+        </div>
 
-  <div class="cta" style="padding-top:8px">
-  </div>
-  <div class="foot">학교 공식 프로그램 아니며, 학생 자체 기획 이벤트입니다!</div>
-</div>
+        <div class="fld"><div class="q">이름 <span class="rq">필수</span></div>
+          <div class="hint">실명으로 적어주세요. 짝에게 그대로 전달됩니다</div>
+          <input class="inp" id="name" placeholder="실명"></div>
 
-<!-- ================= 신청 시트 ================= -->
-<div class="sheet" id="sheet">
-  <div class="inner">
-    <div class="sh-top"><b>신청서</b><button id="closeApply" aria-label="닫기">✕</button></div>
-    <div class="prog"><i id="p1" class="on"></i><i id="p2"></i><i id="p3"></i></div>
+        <div class="fld"><div class="q">성별 <span class="rq">필수</span></div>
+          <div class="chips" data-single="gender">
+            <span class="chip2" data-v="남자">남자</span><span class="chip2" data-v="여자">여자</span></div></div>
 
-    <!-- STEP 1 · 메일 인증 -->
-    <div class="pane on" id="pane1">
-      <div class="facts">
-        <div class="r"><span class="k">기　수</span><span class="v">제1기 <small>2026년 가을</small></span></div>
-        <div class="r"><span class="k">자　격</span><span class="v">서울대 · 연세대 · 고려대 재학생</span></div>
+        <div class="fld"><div class="q">학번 <span class="rq">필수</span></div>
+          <div class="chips" data-single="year"><span class="chip2" data-v="17">17</span><span class="chip2" data-v="18">18</span><span class="chip2" data-v="19">19</span><span class="chip2" data-v="20">20</span><span class="chip2" data-v="21">21</span><span class="chip2" data-v="22">22</span><span class="chip2" data-v="23">23</span><span class="chip2" data-v="24">24</span><span class="chip2" data-v="25">25</span><span class="chip2" data-v="26">26</span></div></div>
+
+        <div class="fld"><div class="q">나이 <span class="rq">필수</span></div>
+          <div class="hint">만 나이가 아니라 흔히 쓰는 나이로요</div>
+          <div class="chips" data-single="age"><span class="chip2" data-v="20">20</span><span class="chip2" data-v="21">21</span><span class="chip2" data-v="22">22</span><span class="chip2" data-v="23">23</span><span class="chip2" data-v="24">24</span><span class="chip2" data-v="25">25</span><span class="chip2" data-v="26">26</span><span class="chip2" data-v="27">27</span><span class="chip2" data-v="28">28</span><span class="chip2" data-v="29">29</span></div></div>
       </div>
 
-      <div class="fld"><div class="q">우리 학교 <span class="rq">필수</span></div>
-        <div class="hint">어느 학교 소속으로 신청할지 골라주세요</div>
-        <div class="picks" id="myPick">
-          <div class="pk" data-k="s"><svg><use href="#sts"/></svg><b>서울대</b></div>
-          <div class="pk" data-k="k"><svg><use href="#stk"/></svg><b>고려대</b></div>
-          <div class="pk" data-k="y"><svg><use href="#sty"/></svg><b>연세대</b></div>
+      <div class="fgrp">
+        <div class="fgrp-h"><span class="no">2</span><b>어떤 만남을 원해요?</b></div>
+
+        <div class="fld">
+          <div class="q">만남 유형 <span class="rq">필수</span></div>
+          <div class="hint">같은 유형끼리만 매칭됩니다</div>
+          <div class="divs" id="typePick">
+            <div class="dv" data-v="학교팅"><div class="dh"><b>학교팅</b><span class="tag1">1 : 1</span></div>
+              <p>옆 학교 사람 한 명과 짝이 됩니다</p></div>
+            <div class="dv" data-v="과팅"><div class="dh"><b>과팅</b><span class="tag1">2 : 2 · 3 : 3</span></div>
+              <p>같은 과 친구들이랑 같이 신청해요</p></div>
+            <div class="dv" data-v="고연전 친구찾기"><div class="dh"><b>고연전 친구찾기</b><span class="tag1">동행</span></div>
+              <p>연애 말고 같이 응원 갈 사람만</p></div>
+          </div>
+        </div>
+
+        <div class="fld" id="sizeFld" style="display:none">
+          <div class="q">몇 대 몇으로 하실 건가요 <span class="rq">필수</span></div>
+          <div class="hint">본인 포함 인원이에요. 친구 연락처는 배정 후에 받습니다</div>
+          <div class="chips" data-single="gsize">
+            <span class="chip2" data-v="2:2">2 : 2</span><span class="chip2" data-v="3:3">3 : 3</span></div></div>
+
+        <div class="fld">
+          <div class="q">어느 캠퍼스로 갈까요 <span class="rq">필수</span></div>
+          <div class="hint">순서대로 눌러서 1지망 · 2지망을 정해요</div>
+          <div class="picks" id="campPick">
+            <div class="pk" data-c="관악"><span class="rk2"></span><svg><use href="#bld-snu"/></svg><b>관악</b></div>
+            <div class="pk" data-c="안암"><span class="rk2"></span><svg><use href="#bld-kor"/></svg><b>안암</b></div>
+            <div class="pk" data-c="신촌"><span class="rk2"></span><svg><use href="#bld-yon"/></svg><b>신촌</b></div>
+          </div>
+        </div>
+
+        <div class="fld"><div class="q">짝에게 한마디</div>
+          <div class="hint">배정서에 이 문장만 실려요 (60자)</div>
+          <textarea class="inp" id="intro" maxlength="60" placeholder="예) 안암 카페 다 털어본 사람 찾습니다"></textarea></div>
+      </div>
+
+      <div class="fgrp">
+        <div class="fgrp-h"><span class="no">3</span><b>연락받을 곳</b></div>
+        <div class="fld"><div class="q">연락처 <span class="rq">필수</span></div>
+          <div class="hint">배정서는 이 번호로 갑니다. 기수가 끝나면 폐기해요</div>
+          <input class="inp" id="phone" inputmode="tel" placeholder="휴대폰 번호 (숫자만)">
+          <div class="rowi" style="margin-top:8px">
+            <input class="inp" id="kakao" placeholder="카톡 ID">
+            <input class="inp" id="insta" placeholder="인스타 ID"></div></div>
+
+        <div class="myfee" id="myFee" style="display:none">
+          <span class="mf-k">내 신청비</span><b class="mf-v" id="myFeeV">—</b>
         </div>
       </div>
 
-      <div class="fld"><div class="q">이름 <span class="rq">필수</span></div>
-        <div class="hint">실명으로 적어주세요. 짝에게 그대로 전달됩니다</div>
-        <input class="inp" id="name" placeholder="실명"></div>
+      <div class="fgrp">
+        <label class="agree">
+          <input type="checkbox" id="agree">
+          <span>매칭을 위해 이름 · 연락처 · 카톡 · 인스타를 운영진이 확인하고,
+          <b>짝이 된 상대에게 학교 · 학번 · 나이 · 한마디 · 연락처가 전달</b>되는 데 동의해요.
+          기수가 끝나면 모두 폐기합니다.</span>
+        </label>
+      </div>
 
-      <div class="fld"><div class="q">성별 <span class="rq">필수</span></div>
-        <div class="chips" data-single="gender"><span class="chip" data-v="남자">남자</span><span class="chip" data-v="여자">여자</span></div></div>
-
-      <div class="fld"><div class="q">학번 <span class="rq">필수</span></div>
-        <div class="chips" data-single="year"><span class="chip" data-v="17">17</span><span class="chip" data-v="18">18</span><span class="chip" data-v="19">19</span><span class="chip" data-v="20">20</span><span class="chip" data-v="21">21</span><span class="chip" data-v="22">22</span><span class="chip" data-v="23">23</span><span class="chip" data-v="24">24</span><span class="chip" data-v="25">25</span><span class="chip" data-v="26">26</span></div></div>
-
-      <div class="fld"><div class="q">나이 <span class="rq">필수</span></div>
-        <div class="hint">만 나이가 아니라 흔히 쓰는 나이로요</div>
-        <div class="chips" data-single="age"><span class="chip" data-v="20">20</span><span class="chip" data-v="21">21</span><span class="chip" data-v="22">22</span><span class="chip" data-v="23">23</span><span class="chip" data-v="24">24</span><span class="chip" data-v="25">25</span><span class="chip" data-v="26">26</span><span class="chip" data-v="27">27</span><span class="chip" data-v="28">28</span><span class="chip" data-v="29">29</span></div></div>
-
-      <div class="err" id="err1"></div>
-      <div class="fld"><button class="btn" id="nextBtn">다음</button></div>
+      <div class="err" id="err"></div>
+      <button class="btn" id="submitBtn">신청서 제출하기</button>
+      <p class="cap">제출 후 짝이 정해지면 문자로 알려드려요</p>
     </div>
 
-    <div class="pane" id="pane2">
-      <div class="fld">
-        <div class="q">출전 종목 <span class="rq">필수</span></div>
-        <div class="hint">같은 종목끼리만 매칭됩니다</div>
-        <div class="divs pick-div" id="typePick">
-          <div class="dv" data-v="학교팅"><div class="dh"><b>학교팅</b><span class="tag1">1 : 1</span></div>
-            <p>옆 학교 사람 한 명과 짝이 됩니다</p></div>
-          <div class="dv" data-v="과팅"><div class="dh"><b>과팅</b><span class="tag1">2 : 2 · 3 : 3</span></div>
-            <p>같은 과 친구들이랑 같이 신청해요</p></div>
-          <div class="dv" data-v="고연전 친구찾기"><div class="dh"><b>고연전 친구찾기</b><span class="tag1">동행</span></div>
-            <p>연애 말고 같이 응원 갈 사람만</p></div>
-        </div>
-      </div>
-
-      <div class="fld" id="sizeFld" style="display:none">
-        <div class="q">몇 대 몇으로 하실 건가요 <span class="rq">필수</span></div>
-        <div class="hint">본인 포함 인원이에요. 친구 연락처는 배정 후에 받습니다</div>
-        <div class="chips" data-single="gsize"><span class="chip" data-v="2:2">2 : 2</span><span class="chip" data-v="3:3">3 : 3</span></div>
-      </div>
-
-      <div class="fld">
-        <div class="q">어느 캠퍼스로 갈까요 <span class="rq">필수</span></div>
-        <div class="hint">순서대로 눌러서 1지망 · 2지망을 정해요</div>
-        <div class="picks" id="campPick">
-          <div class="pk" data-c="관악"><span class="rk2" style="background:var(--snu)"></span><svg><use href="#bld-snu"/></svg><b>관악</b></div>
-          <div class="pk" data-c="안암"><span class="rk2" style="background:var(--kor)"></span><svg><use href="#bld-kor"/></svg><b>안암</b></div>
-          <div class="pk" data-c="신촌"><span class="rk2" style="background:var(--yon)"></span><svg><use href="#bld-yon"/></svg><b>신촌</b></div>
-        </div>
-      </div>
-
-      <div class="fld"><div class="q">짝에게 한마디</div><div class="hint">배정서에 이 문장만 실려요 (60자)</div>
-        <textarea class="inp" id="intro" maxlength="60" placeholder="예) 안암 카페 다 털어본 사람 찾습니다"></textarea></div>
-
-      <div class="fld"><div class="q">연락처 <span class="rq">필수</span></div>
-        <div class="hint">배정서는 문자로 갑니다. 기수가 끝나면 폐기해요</div>
-        <input class="inp" id="phone" inputmode="tel" placeholder="휴대폰 번호 (숫자만)">
-        <div class="rowi"><input class="inp" id="kakao" placeholder="카톡 ID"><input class="inp" id="insta" placeholder="인스타 ID"></div></div>
-
-      <div class="err" id="err2"></div>
-      <div class="fld"><button class="btn" id="submitBtn">신청서 내기</button></div>
-    </div>
-
-    <div class="pane" id="pane3">
-      <div class="done">
-        <svg class="big" id="doneSvg"><use href="#sty"/></svg>
-        <h2>신청 완료</h2>
-        <p id="doneMsg"><b id="doneSchool"></b> 명단에 올랐어요.<br>짝이 정해지면 문자로 배정서와 입금 안내를 보내드립니다.</p>
-        <div class="stage" style="max-width:300px;margin:22px auto 0"><span class="s1">옆 학교</span><i></i><span class="s2">친구</span><i></i><span class="s3">연인</span></div>
-      </div>
-
+    <div class="done" id="done">
+      <svg class="big" id="doneSvg"><use href="#sty"/></svg>
+      <h3>신청 완료</h3>
+      <p><b id="doneSchool"></b> 명단에 올랐어요.<br>짝이 정해지면 문자로 배정서와 입금 안내를 보내드립니다.</p>
       <div class="donefee" id="doneFee">
         <div class="df-r"><span>신청비</span><b id="doneFeeV">—</b></div>
         <div class="df-acc" id="doneAcc">
@@ -422,72 +519,94 @@
         <p>입금 확인 후 짝을 배정해드려요.<br>
         만나기 싫어지시면 상대방 신청비를 부담하시면 됩니다.</p>
       </div>
-      <div class="cta"><a class="btn soft" href="match.html?demo=1" style="text-decoration:none">배정서 미리보기</a><button class="btn soft" id="closeDone" style="margin-top:9px">닫기</button></div>
+      <a class="btn sec" href="match.html?demo=1" style="margin-top:14px">배정서 미리보기</a>
     </div>
   </div>
-</div>
 
+  <div class="sec pb">
+    <div class="stag">FAQ</div>
+    <h2>자주 묻는 질문</h2>
+
+    <details class="qa"><summary>서연고 학생만 신청할 수 있나요?</summary>
+      <p>네. 서울대 · 연세대 · 고려대 재학생만 받습니다. 세 학교끼리만 매칭돼요.</p></details>
+    <details class="qa"><summary>혼자 신청해도 되나요?</summary>
+      <p>학교팅 1:1은 혼자 신청하는 게 기본이에요. 혼자가 부담되시면 과팅으로 친구들과 함께 신청하셔도 됩니다.</p></details>
+    <details class="qa"><summary>상대가 누군지 미리 알 수 있나요?</summary>
+      <p>짝이 정해지면 문자로 배정서를 보내드려요. 상대 학교 · 학번 · 나이와 본인이 쓴 한마디, 연락처가 들어 있습니다. 사진은 없어요.</p></details>
+    <details class="qa"><summary>만나기 싫어지면요?</summary>
+      <p>미리 알려주세요. 상대방 신청비를 부담하시면 됩니다. 당일 연락 두절은 다음 기수 참여가 제한됩니다.</p></details>
+    <details class="qa"><summary>참가비는 언제 내나요?</summary>
+      <p>신청할 때가 아니라 <b>짝이 정해진 뒤</b>에 내시면 됩니다. 입금 계좌는 신청 완료 화면과 문자로 안내해드려요.</p></details>
+    <details class="qa"><summary>개인정보는 어떻게 쓰나요?</summary>
+      <p>매칭에만 씁니다. 짝이 된 상대에게는 학교 · 학번 · 나이 · 한마디 · 연락처만 전달되고, 기수가 끝나면 모두 폐기합니다.</p></details>
+    <details class="qa"><summary>학교에서 하는 행사인가요?</summary>
+      <p>아니요. 학생이 직접 기획한 이벤트고, 세 학교와 아무 관련이 없습니다.</p></details>
+  </div>
+
+  <a class="seasonbar" href="goyeon.html">
+    <span class="sb-l"><b>고연전/연고전 응원방</b> 한마디 남기고 가세요</span>
+    <span class="sb-r">→</span>
+  </a>
+
+  <div class="last">
+    <h2>옆 학교 사람 한 명,<br>그게 시작이에요</h2>
+    <p>신청은 1분. 그다음은 두 사람한테 달렸어요.</p>
+    <a class="btn" href="#apply">신청서 쓰러 가기</a>
+  </div>
+
+  <div class="foot">학교 공식 프로그램 아니며, 학생 자체 기획 이벤트입니다!</div>
+</div>
 <script>
 const API = 'https://script.google.com/macros/s/AKfycbxKFaL3S_tAXU6_pJfMovl705HqKKnc3jEh8iG7gN5eEJSmOw14twbcAKsUiaIkF_bFhg/exec';
-const MOCK = new URLSearchParams(location.search).get('mock') === '1' || location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
-// ▼ 고연전 동행은 경기 전에 짝을 지어야 해서 마감이 있습니다.
-//    학교팅 · 과팅은 상시 접수라 마감이 없습니다.
-const DEADLINE = new Date('2026-09-29T23:59:59+09:00');   // 고연전 친구찾기 전용
+const MOCK = new URLSearchParams(location.search).get('mock') === '1'
+  || location.protocol === 'file:' || /^(localhost|127\.0\.0\.1)$/.test(location.hostname);
+
+// 고연전 동행만 마감이 있고, 학교팅 · 과팅은 상시 접수입니다.
+const DEADLINE = new Date('2026-09-29T23:59:59+09:00');
 const GOYEON_TYPE = '고연전 친구찾기';
 function goyeonOpen(){ return (DEADLINE - new Date()) > 0; }
-const CAMPUS = { y:{campus:'신촌',school:'연세대',sym:'#sty'}, k:{campus:'안암',school:'고려대',sym:'#stk'}, s:{campus:'관악',school:'서울대',sym:'#sts'} };
-const DOMAINS = ['yonsei.ac.kr','korea.ac.kr','snu.ac.kr'];
 
+const CAMPUS = { y:{campus:'신촌',school:'연세대',sym:'#sty'},
+                 k:{campus:'안암',school:'고려대',sym:'#stk'},
+                 s:{campus:'관악',school:'서울대',sym:'#sts'} };
+const ERR = { dup:'이미 신청한 번호예요', bad_school:'우리 학교를 골라주세요',
+  bad_phone:'휴대폰 번호를 확인하세요', no_insta:'인스타 ID를 입력하세요',
+  network:'네트워크 오류. 잠시 후 다시 시도해주세요' };
+
+const $ = id => document.getElementById(id);
 function encodeD(obj){const b=new TextEncoder().encode(JSON.stringify(obj));let s='';b.forEach(x=>s+=String.fromCharCode(x));return btoa(s).replace(/\+/g,'-').replace(/\//g,'_').replace(/=+$/,'');}
 async function api(action, payload){
-  if (MOCK) { await new Promise(r=>setTimeout(r,500));
-    if (action==='skyApply')    return {ok:true};
-    if (action==='skyStats')    return {ok:true,total:23,y:9,k:8,s:6};
+  if (MOCK) { await new Promise(r=>setTimeout(r,400));
+    if (action==='skyApply') return {ok:true};
+    if (action==='skyStats') return {ok:true,total:75,y:13,k:48,s:14};
   }
   const q = payload ? '&d='+encodeD(payload) : '';
   const res = await fetch(API+'?action='+action+q+'&t='+Date.now(), {cache:'no-store'});
   return res.json();
 }
-const $ = id => document.getElementById(id);
-
-/* ---- D-day ---- */
-(function(){
-  const d = Math.ceil((DEADLINE-new Date())/86400000);
-  const md = (DEADLINE.getMonth()+1)+'월 '+DEADLINE.getDate()+'일';
-  // 고연전 동행만 마감이고, 학교팅·과팅은 계속 받습니다
-  $('dday').textContent = goyeonOpen()
-    ? ('고연전 동행 마감 ' + (d>0 ? 'D-'+d : '오늘'))
-    : '고연전 동행 마감됨 · 학교팅 · 과팅은 계속 받아요';
-  $('deadlineTxt').textContent = goyeonOpen()
-    ? ('고연전 동행은 ' + md + ' 23:59 마감 · 학교팅 · 과팅은 상시 접수')
-    : '학교팅 · 과팅 상시 접수 중';
-})();
 
 /* ---- 현황 ---- */
 async function loadStats(){
   let s; try { s = await api('skyStats'); } catch(e) {}
   if (!s || !s.ok) s = {total:0,y:0,k:0,s:0};
-  // 목표치가 없으므로 세 캠퍼스가 차지하는 비율을 보여줍니다
   const tot = s.total || 0, pct = n => (tot ? n/tot*100 : 0)+'%';
-  $('stTotal').textContent=s.total; $('stS').textContent=s.s; $('stK').textContent=s.k; $('stY').textContent=s.y;
+  $('stTotal').textContent=s.total; $('stS').textContent=s.s;
+  $('stK').textContent=s.k; $('stY').textContent=s.y;
   $('barS').style.width=pct(s.s); $('barK').style.width=pct(s.k); $('barY').style.width=pct(s.y);
 }
 loadStats(); setInterval(loadStats, 60000);
 
-/* ---- 시트 열고 닫기 ---- */
-const sheet=$('sheet');
-function openSheet(){ sheet.classList.add('on'); document.body.style.overflow='hidden'; }
-function closeSheet(){ sheet.classList.remove('on'); document.body.style.overflow=''; }
-$('openApply').onclick=openSheet; $('closeApply').onclick=closeSheet; $('closeDone').onclick=()=>{closeSheet(); location.reload();};
-function goStep(n){ [1,2,3].forEach(i=>{ $('pane'+i).classList.toggle('on',i===n); $('p'+i).classList.toggle('on',i<=n); }); sheet.scrollTo(0,0); }
-function showErr(id,msg){ const el=$(id); el.textContent=msg; el.classList.toggle('on',!!msg); }
+/* ---- 칩 (단일 선택) ---- */
+const val = g => { const el = document.querySelector('[data-single="'+g+'"] .chip2.on'); return el ? el.dataset.v : ''; };
+document.querySelectorAll('[data-single]').forEach(box=>{
+  box.querySelectorAll('.chip2').forEach(c=>c.onclick=()=>{
+    box.querySelectorAll('.chip2').forEach(x=>x.classList.toggle('on', x===c));
+    syncMyFee();
+  });
+});
 
-/* ---- STEP 1 · 학교 선택 + 기본정보 ---- */
+/* ---- 우리 학교 / 지망 캠퍼스 ---- */
 const state = { key:null };
-const ERR = { dup:'이미 신청한 번호예요', bad_school:'우리 학교를 골라주세요',
-  bad_phone:'휴대폰 번호를 확인하세요', no_insta:'인스타 ID를 입력하세요',
-  network:'네트워크 오류. 잠시 후 다시 시도해주세요' };
-
 const picks = [];
 function repaintPicks(){
   document.querySelectorAll('#campPick .pk').forEach(x=>{
@@ -496,7 +615,6 @@ function repaintPicks(){
     if (k>=0) { x.classList.add('r'+(k+1)); x.querySelector('.rk2').textContent = (k+1)+'지망'; }
   });
 }
-
 function setMySchool(k){
   if (!CAMPUS[k]) return;
   state.key = k;
@@ -510,20 +628,33 @@ function setMySchool(k){
   });
 }
 document.querySelectorAll('#myPick .pk').forEach(p=>p.onclick=()=>setMySchool(p.dataset.k));
-
-/* ---- 칩 / 지망 / 종목 ---- */
-document.querySelectorAll('[data-single]').forEach(g => g.querySelectorAll('.chip').forEach(ch => ch.onclick = () => {
-  g.querySelectorAll('.chip').forEach(x=>x.classList.remove('on')); ch.classList.add('on'); }));
-document.querySelectorAll('#campPick .pk').forEach(p => p.onclick = () => {
-  const c = p.dataset.c, i = picks.indexOf(c);
-  if (i>=0) picks.splice(i,1); else { if (picks.length>=2) picks.shift(); picks.push(c); }
+document.querySelectorAll('#campPick .pk').forEach(p=>p.onclick=()=>{
+  const c = p.dataset.c;
+  const i = picks.indexOf(c);
+  if (i>=0) picks.splice(i,1); else if (picks.length<2) picks.push(c);
   repaintPicks();
 });
-const val = g => { const el = document.querySelector('[data-single="'+g+'"] .chip.on'); return el ? el.dataset.v : ''; };
+
+/* ---- 만남 유형 ---- */
+let TYPE = '';
+(function(){
+  if (goyeonOpen()) return;
+  const dv = document.querySelector('#typePick .dv[data-v="'+GOYEON_TYPE+'"]');
+  if (!dv) return;
+  dv.classList.add('closed');
+  const tag = dv.querySelector('.tag1'); if (tag) tag.textContent = '마감';
+  const p = dv.querySelector('p'); if (p) p.textContent = '고연전이 지나 접수를 닫았어요. 다음 시즌에 다시 엽니다';
+})();
+document.querySelectorAll('#typePick .dv').forEach(d => d.onclick = () => {
+  if (d.classList.contains('closed')) return;
+  TYPE = d.dataset.v;
+  document.querySelectorAll('#typePick .dv').forEach(x=>x.classList.toggle('on', x===d));
+  $('sizeFld').style.display = (TYPE === '과팅') ? 'block' : 'none';
+  syncMyFee();
+});
 
 /* ---- 신청비 ----
-   05~07년생 = 2026년 기준 20~22세, 98~04년생 = 23~29세 로 나눕니다.
-   고연전 친구찾기는 금액이 정해지지 않아 별도 안내로 둡니다. */
+   20~22살 = 05~07년생, 23~29살 = 98~04년생 */
 function feeFor(type, gender, age){
   const a = parseInt(age, 10) || 0;
   const young = a > 0 && a <= 22;
@@ -533,67 +664,63 @@ function feeFor(type, gender, age){
   return null;
 }
 function won(n){ return n === 0 ? '무료' : n.toLocaleString('ko-KR') + '원'; }
+function syncMyFee(){
+  const box = $('myFee'); if (!box) return;
+  const g = val('gender'), a = val('age');
+  if (!TYPE || !g || !a) { box.style.display = 'none'; return; }
+  const f = feeFor(TYPE, g, a);
+  box.style.display = 'flex';
+  $('myFeeV').textContent = (f === null) ? '별도 안내' : won(f);
+}
 function showDoneFee(){
   const el = $('doneFeeV'); if (!el) return;
   const f = feeFor(TYPE, val('gender'), val('age'));
   el.textContent = (f === null) ? '별도 안내' : won(f);
-  // 무료면 계좌를 보여줄 이유가 없습니다
   const acc = $('doneAcc');
   if (acc) acc.style.display = (f === 0) ? 'none' : 'block';
 }
 
-let TYPE = '';
-(function(){
-  // 고연전 동행이 마감됐으면 그 카드만 잠급니다
-  if (goyeonOpen()) return;
-  const dv = document.querySelector('#typePick .dv[data-v="'+GOYEON_TYPE+'"]');
-  if (!dv) return;
-  dv.classList.add('closed');
-  const tag = dv.querySelector('.tag1');
-  if (tag) tag.textContent = '마감';
-  const p = dv.querySelector('p');
-  if (p) p.textContent = '고연전이 지나 접수를 닫았어요. 다음 시즌에 다시 엽니다';
-})();
-document.querySelectorAll('#typePick .dv').forEach(d => d.onclick = () => {
-  if (d.classList.contains('closed')) return;
-  TYPE = d.dataset.v;
-  document.querySelectorAll('#typePick .dv').forEach(x=>x.classList.toggle('on', x===d));
-  $('sizeFld').style.display = (TYPE === '과팅') ? 'block' : 'none';
-});
-
-$('nextBtn').onclick = () => {
-  showErr('err1','');
-  if (!state.key) return showErr('err1','우리 학교를 골라주세요');
-  if (!$('name').value.trim()) return showErr('err1','이름을 입력하세요');
-  if (!val('gender')) return showErr('err1','성별을 선택하세요');
-  if (!val('year')) return showErr('err1','학번을 선택하세요');
-  if (!val('age')) return showErr('err1','나이를 선택하세요');
-  goStep(2);
-};
+/* ---- 제출 ---- */
+function showErr(t){ $('err').textContent = t || ''; if (t) $('err').scrollIntoView({block:'center'}); return false; }
 
 $('submitBtn').onclick = async () => {
-  showErr('err2','');
+  showErr('');
+  if (!state.key)                 return showErr('우리 학교를 골라주세요');
+  if (!$('name').value.trim())    return showErr('이름을 입력하세요');
+  if (!val('gender'))             return showErr('성별을 선택하세요');
+  if (!val('year'))               return showErr('학번을 선택하세요');
+  if (!val('age'))                return showErr('나이를 선택하세요');
+  if (!TYPE)                      return showErr('만남 유형을 골라주세요');
+  if (TYPE==='과팅' && !val('gsize')) return showErr('몇 대 몇으로 할지 골라주세요');
+  if (TYPE===GOYEON_TYPE && !goyeonOpen()) return showErr('고연전 동행은 마감됐어요. 학교팅이나 과팅으로 바꿔주세요');
+  if (!picks[0])                  return showErr('갈 캠퍼스를 골라주세요');
+
   const p = {
-    school: state.key, name: $('name').value.trim(), gender: val('gender'), year: val('year'), age: val('age'),
-    pick1: picks[0]||'', pick2: picks[1]||'', type: TYPE, gsize: (TYPE==='과팅' ? val('gsize') : ''),
-    intro: $('intro').value.trim(), phone: $('phone').value.replace(/[^0-9]/g,''),
+    school: state.key, name: $('name').value.trim(), gender: val('gender'),
+    year: val('year'), age: val('age'),
+    pick1: picks[0]||'', pick2: picks[1]||'', type: TYPE,
+    gsize: (TYPE==='과팅' ? val('gsize') : ''),
+    intro: $('intro').value.trim(),
+    phone: $('phone').value.replace(/[^0-9]/g,''),
     kakao: $('kakao').value.trim(), insta: $('insta').value.trim().replace(/^@/,'')
   };
-  if (!p.type) return showErr('err2','출전 종목을 골라주세요');
-  if (p.type==='과팅' && !p.gsize) return showErr('err2','몇 대 몇으로 할지 골라주세요');
-  if (p.type===GOYEON_TYPE && !goyeonOpen()) return showErr('err2','고연전 동행은 방금 마감됐어요. 학교팅이나 과팅으로 바꿔주세요');
-  if (!p.pick1) return showErr('err2','갈 캠퍼스를 골라주세요');
-  if (p.phone.length<10) return showErr('err2','휴대폰 번호를 확인하세요');
-  if (!p.kakao) return showErr('err2','카톡 ID를 입력하세요');
-  if (!p.insta) return showErr('err2','인스타 ID를 입력하세요');
-  const btn=$('submitBtn'); btn.disabled=true; btn.textContent='접수 중...';
-  let r; try { r = await api('skyApply', p); } catch(e) { r={error:'network'}; }
-  btn.disabled=false; btn.textContent='신청서 내기';
-  if (!r.ok) return showErr('err2', ERR[r.error] || ('오류: '+r.error));
+  if (p.phone.length<10)  return showErr('휴대폰 번호를 확인하세요');
+  if (!p.kakao)           return showErr('카톡 ID를 입력하세요');
+  if (!p.insta)           return showErr('인스타 ID를 입력하세요');
+  if (!$('agree').checked) return showErr('개인정보 전달에 동의해주세요');
+
+  const btn = $('submitBtn');
+  btn.disabled = true; btn.textContent = '접수 중...';
+  let r; try { r = await api('skyApply', p); } catch(e) { r = {error:'network'}; }
+  btn.disabled = false; btn.textContent = '신청서 제출하기';
+  if (!r || !r.ok) return showErr(ERR[r && r.error] || ('오류: ' + (r && r.error)));
+
   $('doneSvg').innerHTML = '<use href="'+CAMPUS[state.key].sym+'"/>';
-  if ($('doneSchool')) $('doneSchool').textContent = CAMPUS[state.key].school;
+  $('doneSchool').textContent = CAMPUS[state.key].school;
   showDoneFee();
-  goStep(3);
+  $('formWrap').style.display = 'none';
+  $('done').classList.add('on');
+  $('done').scrollIntoView({ block:'start', behavior:'smooth' });
 };
 </script>
 </body>
