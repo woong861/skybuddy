@@ -730,11 +730,10 @@ document.querySelectorAll('#typePick .dv').forEach(d => d.onclick = () => {
    20~22살 = 05~07년생, 23~29살 = 98~04년생 */
 function feeFor(type, gender, age){
   const a = parseInt(age, 10) || 0;
-  const young = a > 0 && a <= 22;   // 20~22살 = 05~07년생
-  const woman = gender === '여자';
-  if (type === '과팅')   return woman ? 2000 : 8000;              // 1인당
-  if (type === '학교팅') return woman ? (young ? 0 : 3000)        // 오픈기념가
-                                      : (young ? 14000 : 18000);
+  const young = a > 0 && a <= 22;          // 20~22살 = 05~07년생
+  if (gender === '여자') return 0;          // 여학우는 전부 무료
+  if (type === '과팅')   return 8000;       // 1인당
+  if (type === '학교팅') return young ? 14000 : 18000;   // 오픈기념가
   return null;
 }
 function won(n){ return n === 0 ? '무료' : n.toLocaleString('ko-KR') + '원'; }
