@@ -209,6 +209,8 @@
   .myfee{display:flex;align-items:center;justify-content:space-between;margin-top:11px;
        padding:15px 16px;border-radius:14px;background:var(--rose-s);border:1.5px solid #F6C9D3}
   .mf-k{font-size:13px;font-weight:800;color:var(--ink2)}
+  .mf-k .ev{font-style:normal;font-size:10px;font-weight:900;color:#fff;background:var(--rose);
+       padding:3px 7px;border-radius:5px;margin-left:5px;display:none}
   .mf-v{font-size:20px;font-weight:900;letter-spacing:-.03em;color:var(--rose-d)}
 
   .agree{display:flex;gap:10px;align-items:flex-start;margin-top:4px;cursor:pointer}
@@ -408,35 +410,10 @@
     <div class="whys">
       <div class="why"><span class="ic">🎓</span><span><b>서연고 3개 학교만</b>
         <span>서울대 · 연세대 · 고려대 재학생만 받습니다</span></span></div>
-      <div class="why"><span class="ic">🙋</span><span><b>만날 캠퍼스를 직접 고름</b>
-        <span>관악 · 안암 · 신촌 중 1지망 · 2지망을 정하세요</span></span></div>
       <div class="why"><span class="ic">👥</span><span><b>친구랑 같이 과팅</b>
         <span>2:2 · 3:3 가능. 혼자가 부담되면 이쪽으로</span></span></div>
-      <div class="why"><span class="ic">💬</span><span><b>프로필 먼저 보고 결정</b>
-        <span>짝이 정해지면 문자로 보내드려요. 아니다 싶으면 안 만나셔도 됩니다</span></span></div>
       <div class="why"><span class="ic">🔒</span><span><b>연락처는 양쪽 동의 후에만</b>
         <span>한 분이라도 거절하면 연락처는 넘어가지 않아요</span></span></div>
-      <div class="why"><span class="ic">💗</span><span><b>여학우는 무료거나 5천원</b>
-        <span>과팅은 여학우 전원 무료</span></span></div>
-    </div>
-  </div>
-
-  <div class="sec">
-    <div class="stag">Price</div>
-    <h2>참가비</h2>
-    <div class="fee">
-      <div class="fee-h"><b>신청비</b><span class="free">여학우 무료~5천원</span></div>
-      <div class="fee-b">
-        <div class="fr head"><span class="k"></span><span class="m">남자</span><span class="w">여자</span></div>
-        <div class="fr"><span class="k"><b>학교팅 1:1</b><small>20~22살</small></span>
-          <span class="m">15,000원</span><span class="w">무료</span></div>
-        <div class="fr"><span class="k"><b>학교팅 1:1</b><small>23~29살</small></span>
-          <span class="m">19,000원</span><span class="w">5,000원</span></div>
-        <div class="fr"><span class="k"><b>과팅 2:2 · 3:3</b><small>1인당</small></span>
-          <span class="m">9,000원</span><span class="w">무료</span></div>
-      </div>
-      <div class="fee-n">짝이 정해진 뒤에 입금하시면 돼요. 지금은 안 내셔도 됩니다.<br>
-      만나기 싫어지시면 상대방 신청비를 부담하시면 됩니다.</div>
     </div>
   </div>
 
@@ -570,7 +547,8 @@
             <input class="inp" id="insta" placeholder="인스타 ID"></div></div>
 
         <div class="myfee" id="myFee" style="display:none">
-          <span class="mf-k">내 신청비</span><b class="mf-v" id="myFeeV">—</b>
+          <span class="mf-k">내 신청비 <em class="ev" id="myFeeEv">오픈기념</em></span>
+          <b class="mf-v" id="myFeeV">—</b>
         </div>
       </div>
 
@@ -752,10 +730,11 @@ document.querySelectorAll('#typePick .dv').forEach(d => d.onclick = () => {
    20~22살 = 05~07년생, 23~29살 = 98~04년생 */
 function feeFor(type, gender, age){
   const a = parseInt(age, 10) || 0;
-  const young = a > 0 && a <= 22;
+  const young = a > 0 && a <= 22;   // 20~22살 = 05~07년생
   const woman = gender === '여자';
-  if (type === '과팅')   return woman ? 0 : 9000;
-  if (type === '학교팅') return woman ? (young ? 0 : 5000) : (young ? 15000 : 19000);
+  if (type === '과팅')   return woman ? 2000 : 8000;              // 1인당
+  if (type === '학교팅') return woman ? (young ? 0 : 3000)        // 오픈기념가
+                                      : (young ? 14000 : 18000);
   return null;
 }
 function won(n){ return n === 0 ? '무료' : n.toLocaleString('ko-KR') + '원'; }
@@ -766,6 +745,8 @@ function syncMyFee(){
   const f = feeFor(TYPE, g, a);
   box.style.display = 'flex';
   $('myFeeV').textContent = (f === null) ? '별도 안내' : won(f);
+  const ev = $('myFeeEv');
+  if (ev) ev.style.display = (f > 0) ? 'inline-block' : 'none';
 }
 function showDoneFee(){
   const el = $('doneFeeV'); if (!el) return;
