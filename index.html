@@ -450,19 +450,6 @@
     </div>
     <div class="lead" style="text-align:center">문자로 이 화면 링크가 갑니다. 열면 상대 정보와 연락처가 나와요.</div>
 
-    <div class="gauge-c">
-      <div class="gc-top"><b>지금까지 신청한 사람</b><span class="cnt"><span id="stTotal">—</span>명</span></div>
-      <div class="gauge">
-        <i id="barS" style="background:linear-gradient(90deg,#3D63AE,#24457F);width:0"></i>
-        <i id="barK" style="background:linear-gradient(90deg,#F79038,#D02840);width:0"></i>
-        <i id="barY" style="background:linear-gradient(90deg,#4E78EE,#2E5BD8);width:0"></i>
-      </div>
-      <div class="leg">
-        <span><em style="background:var(--snu)"></em>관악 <span id="stS">—</span></span>
-        <span><em style="background:var(--kor)"></em>안암 <span id="stK">—</span></span>
-        <span><em style="background:var(--yon)"></em>신촌 <span id="stY">—</span></span>
-      </div>
-    </div>
   </div>
 
   <div class="sec" id="apply">
@@ -648,6 +635,7 @@ async function api(action, payload){
 
 /* ---- 현황 ---- */
 async function loadStats(){
+  if (!$('stTotal')) return;        // 신청자 수는 지금 화면에 안 띄웁니다
   let s; try { s = await api('skyStats'); } catch(e) {}
   if (!s || !s.ok) s = {total:0,y:0,k:0,s:0};
   const tot = s.total || 0, pct = n => (tot ? n/tot*100 : 0)+'%';
